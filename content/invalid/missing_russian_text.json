@@ -1,0 +1,106 @@
+{
+  "id": "math.count.apples.001",
+  "schemaVersion": 1,
+  "version": 1,
+  "minAppVersion": "0.1.0",
+  "area": "math",
+  "goalId": "math.count_to_3",
+  "skills": [
+    "counting"
+  ],
+  "ageRange": {
+    "minMonths": 36,
+    "maxMonths": 59
+  },
+  "difficulty": 1,
+  "withParent": false,
+  "exerciseType": "choice",
+  "instruction": {
+    "text": {
+      "uz": "Likopchada nechta olma bor?",
+      "en": "How many apples are on the plate?"
+    },
+    "audio": {
+      "ru": "audio_instr_ru"
+    }
+  },
+  "content": {
+    "prompt": {
+      "id": "plate",
+      "imageId": "img_plate_3_apples"
+    },
+    "options": [
+      {
+        "id": "n2",
+        "label": {
+          "ru": "2",
+          "uz": "2",
+          "en": "2"
+        }
+      },
+      {
+        "id": "n3",
+        "label": {
+          "ru": "3",
+          "uz": "3",
+          "en": "3"
+        }
+      },
+      {
+        "id": "n4",
+        "label": {
+          "ru": "4",
+          "uz": "4",
+          "en": "4"
+        }
+      }
+    ],
+    "correct": [
+      "n3"
+    ],
+    "shuffle": true
+  },
+  "hints": [
+    {
+      "ru": "Посчитай яблоки пальчиком.",
+      "uz": "Olmalarni barmog'ing bilan sana.",
+      "en": "Count the apples with your finger."
+    }
+  ],
+  "media": [
+    {
+      "id": "img_plate_3_apples",
+      "kind": "image",
+      "path": "images/math/plate_3_apples.webp",
+      "sha256": "cfe6176d00e86220d8aa2cd3c1c5fc5c88c4b96d964eec5b8700d1bfbbfc2c9a"
+    },
+    {
+      "id": "audio_instr_ru",
+      "kind": "audio",
+      "path": "audio/ru/math/count_apples.m4a",
+      "sha256": "a68721c750ada011c7c799b9e026d5e3d1f669ab090214b3e61c111bbec59711"
+    }
+  ],
+  "reward": {
+    "stars": 1
+  },
+  "review": {
+    "status": "approved",
+    "reviewedBy": "example-only",
+    "reviewedAt": "2026-10-17T00:00:00Z"
+  },
+  "rights": [
+    {
+      "mediaId": "img_plate_3_apples",
+      "source": "original",
+      "license": "LUMI Kids proprietary",
+      "author": "LUMI Kids"
+    },
+    {
+      "mediaId": "audio_instr_ru",
+      "source": "original",
+      "license": "LUMI Kids proprietary",
+      "author": "LUMI Kids"
+    }
+  ]
+}

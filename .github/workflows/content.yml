@@ -1,0 +1,29 @@
+name: Content
+
+on:
+  push:
+    branches: [main]
+    paths: ['content/**', '.github/workflows/content.yml']
+  pull_request:
+    paths: ['content/**', '.github/workflows/content.yml']
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: content
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: content/package-lock.json
+
+      - run: npm ci
+      - run: npm run validate
+      - run: npm test

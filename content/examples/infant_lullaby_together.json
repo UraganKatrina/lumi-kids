@@ -1,0 +1,51 @@
+{
+  "id": "music.lullaby.together.001",
+  "schemaVersion": 1,
+  "version": 1,
+  "minAppVersion": "0.1.0",
+  "area": "music",
+  "goalId": "music.calm_listening",
+  "skills": [
+    "listening",
+    "bonding"
+  ],
+  "ageRange": {
+    "minMonths": 0,
+    "maxMonths": 11
+  },
+  "difficulty": 1,
+  "withParent": true,
+  "exerciseType": "audio_instruction",
+  "instruction": {
+    "text": {
+      "ru": "Включите колыбельную, держите малыша на руках и мягко покачивайтесь в ритм.",
+      "uz": "Allani yoqing, chaqaloqni quchog'ingizda tuting va ritmga mos ohista tebraning.",
+      "en": "Play the lullaby, hold your baby and gently sway to the rhythm."
+    }
+  },
+  "content": {
+    "audioId": "lullaby_moon"
+  },
+  "media": [
+    {
+      "id": "lullaby_moon",
+      "kind": "audio",
+      "path": "audio/music/lullaby_moon.m4a",
+      "sha256": "9a8a5198c634b9d84c4e41f6c39a4a5e9391a1da68be1109b9575ff3c5c5d911"
+    }
+  ],
+  "reward": {
+    "stars": 0
+  },
+  "review": {
+    "status": "draft"
+  },
+  "rights": [
+    {
+      "mediaId": "lullaby_moon",
+      "source": "original",
+      "license": "LUMI Kids proprietary",
+      "author": "LUMI Kids"
+    }
+  ]
+}
