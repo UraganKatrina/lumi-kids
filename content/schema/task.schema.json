@@ -1,0 +1,528 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lumikids.app/schema/task/1.json",
+  "title": "LUMI Kids task",
+  "description": "Одно задание. Схема версии 1.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schemaVersion",
+    "version",
+    "minAppVersion",
+    "area",
+    "goalId",
+    "skills",
+    "ageRange",
+    "difficulty",
+    "withParent",
+    "exerciseType",
+    "instruction",
+    "content",
+    "media",
+    "reward",
+    "review",
+    "rights"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+(\\.[a-z0-9_]+)+$",
+      "maxLength": 120
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "minAppVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "area": {
+      "enum": [
+        "speech",
+        "logic",
+        "math",
+        "literacy",
+        "memory_attention",
+        "emotional_social",
+        "self_care",
+        "creativity",
+        "world",
+        "music",
+        "movement",
+        "languages"
+      ]
+    },
+    "goalId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "ageRange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minMonths",
+        "maxMonths"
+      ],
+      "properties": {
+        "minMonths": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 84
+        },
+        "maxMonths": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 84
+        }
+      }
+    },
+    "difficulty": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "withParent": {
+      "type": "boolean"
+    },
+    "exerciseType": {
+      "enum": [
+        "choice",
+        "match_pairs",
+        "drag_drop",
+        "sort",
+        "classify",
+        "sequence",
+        "spot_difference",
+        "memory",
+        "sound_recognition",
+        "audio_instruction",
+        "math_simple",
+        "tracing",
+        "story",
+        "creative"
+      ]
+    },
+    "instruction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "audio": {
+          "$ref": "#/$defs/localizedMediaRef"
+        }
+      }
+    },
+    "content": {
+      "type": "object"
+    },
+    "hints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/localizedText"
+      },
+      "maxItems": 3
+    },
+    "media": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/mediaFile"
+      },
+      "uniqueItems": true
+    },
+    "reward": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stars"
+      ],
+      "properties": {
+        "stars": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "collectibleId": {
+          "type": "string"
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "draft",
+            "in_review",
+            "approved",
+            "published",
+            "withdrawn"
+          ]
+        },
+        "reviewedBy": {
+          "type": "string"
+        },
+        "reviewedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "approved",
+                  "published"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "reviewedBy",
+              "reviewedAt"
+            ]
+          }
+        }
+      ]
+    },
+    "rights": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mediaId",
+          "source",
+          "license"
+        ],
+        "properties": {
+          "mediaId": {
+            "type": "string"
+          },
+          "source": {
+            "enum": [
+              "original",
+              "licensed",
+              "public_domain"
+            ]
+          },
+          "license": {
+            "type": "string",
+            "minLength": 1
+          },
+          "author": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "exerciseType": {
+            "const": "choice"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "content": {
+            "$ref": "#/$defs/choiceContent"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "exerciseType": {
+            "const": "match_pairs"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "content": {
+            "$ref": "#/$defs/matchPairsContent"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "exerciseType": {
+            "enum": [
+              "sort",
+              "classify"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "content": {
+            "$ref": "#/$defs/groupContent"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "exerciseType": {
+            "const": "sequence"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "content": {
+            "$ref": "#/$defs/sequenceContent"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "localizedText": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ru"
+      ],
+      "properties": {
+        "ru": {
+          "type": "string",
+          "minLength": 1
+        },
+        "uz": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "localizedMediaRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ru": {
+          "type": "string"
+        },
+        "uz": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
+      }
+    },
+    "mediaFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "image",
+            "audio",
+            "animation"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "imageId": {
+          "type": "string"
+        },
+        "audioId": {
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/$defs/localizedText"
+        }
+      }
+    },
+    "choiceContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "options",
+        "correct"
+      ],
+      "properties": {
+        "prompt": {
+          "$ref": "#/$defs/item"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/item"
+          },
+          "minItems": 2,
+          "maxItems": 6
+        },
+        "correct": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "shuffle": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "matchPairsContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pairs"
+      ],
+      "properties": {
+        "pairs": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "left",
+              "right"
+            ],
+            "properties": {
+              "left": {
+                "$ref": "#/$defs/item"
+              },
+              "right": {
+                "$ref": "#/$defs/item"
+              }
+            }
+          }
+        }
+      }
+    },
+    "groupContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "groups",
+        "items"
+      ],
+      "properties": {
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/item"
+          },
+          "minItems": 2,
+          "maxItems": 4
+        },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "item",
+              "groupId"
+            ],
+            "properties": {
+              "item": {
+                "$ref": "#/$defs/item"
+              },
+              "groupId": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "sequenceContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "steps"
+      ],
+      "properties": {
+        "steps": {
+          "description": "Шаги в правильном порядке; приложение их перемешивает.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/item"
+          },
+          "minItems": 2,
+          "maxItems": 6
+        }
+      }
+    }
+  }
+}

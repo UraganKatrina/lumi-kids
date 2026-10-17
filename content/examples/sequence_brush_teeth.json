@@ -1,0 +1,133 @@
+{
+  "id": "self_care.teeth.sequence.001",
+  "schemaVersion": 1,
+  "version": 1,
+  "minAppVersion": "0.1.0",
+  "area": "self_care",
+  "goalId": "self_care.morning_routine",
+  "skills": [
+    "sequencing",
+    "hygiene"
+  ],
+  "ageRange": {
+    "minMonths": 24,
+    "maxMonths": 47
+  },
+  "difficulty": 2,
+  "withParent": false,
+  "exerciseType": "sequence",
+  "instruction": {
+    "text": {
+      "ru": "Расставь картинки по порядку: как мы чистим зубы?",
+      "uz": "Rasmlarni tartib bilan joylashtir: tishlarni qanday tozalaymiz?",
+      "en": "Put the pictures in order: how do we brush our teeth?"
+    }
+  },
+  "content": {
+    "steps": [
+      {
+        "id": "wet",
+        "imageId": "img_teeth_wet",
+        "label": {
+          "ru": "Намочить щётку",
+          "uz": "Cho'tkani ho'llash",
+          "en": "Wet the brush"
+        }
+      },
+      {
+        "id": "paste",
+        "imageId": "img_teeth_paste",
+        "label": {
+          "ru": "Выдавить пасту",
+          "uz": "Pasta surtish",
+          "en": "Add toothpaste"
+        }
+      },
+      {
+        "id": "brush",
+        "imageId": "img_teeth_brush",
+        "label": {
+          "ru": "Почистить зубы",
+          "uz": "Tishlarni tozalash",
+          "en": "Brush your teeth"
+        }
+      },
+      {
+        "id": "rinse",
+        "imageId": "img_teeth_rinse",
+        "label": {
+          "ru": "Прополоскать рот",
+          "uz": "Og'izni chayish",
+          "en": "Rinse your mouth"
+        }
+      }
+    ]
+  },
+  "hints": [
+    {
+      "ru": "Что мы делаем самым первым?",
+      "uz": "Eng avval nima qilamiz?",
+      "en": "What do we do first?"
+    }
+  ],
+  "media": [
+    {
+      "id": "img_teeth_wet",
+      "kind": "image",
+      "path": "images/self_care/teeth_wet.webp",
+      "sha256": "678ddb4da39786a0ebe66f323b7cd40ca366c2f55b90415d9510400f0a01273d"
+    },
+    {
+      "id": "img_teeth_paste",
+      "kind": "image",
+      "path": "images/self_care/teeth_paste.webp",
+      "sha256": "2ce87d8403293f881f432052aba37df5f3398ea852e7fca4b08e96763ee327d6"
+    },
+    {
+      "id": "img_teeth_brush",
+      "kind": "image",
+      "path": "images/self_care/teeth_brush.webp",
+      "sha256": "6dc36fedc2a17b7a936070de79d2d299a0387d579c630dbde1ce77bb398564eb"
+    },
+    {
+      "id": "img_teeth_rinse",
+      "kind": "image",
+      "path": "images/self_care/teeth_rinse.webp",
+      "sha256": "ff4282407995e5eb07fe335fe9dc3b3ca389b82e2b3485f9a61671bc0f218570"
+    }
+  ],
+  "reward": {
+    "stars": 2
+  },
+  "review": {
+    "status": "approved",
+    "reviewedBy": "example-only",
+    "reviewedAt": "2026-10-17T00:00:00Z"
+  },
+  "rights": [
+    {
+      "mediaId": "img_teeth_wet",
+      "source": "original",
+      "license": "LUMI Kids proprietary",
+      "author": "LUMI Kids"
+    },
+    {
+      "mediaId": "img_teeth_paste",
+      "source": "original",
+      "license": "LUMI Kids proprietary",
+      "author": "LUMI Kids"
+    },
+    {
+      "mediaId": "img_teeth_brush",
+      "source": "original",
+      "license": "LUMI Kids proprietary",
+      "author": "LUMI Kids"
+    },
+    {
+      "mediaId": "img_teeth_rinse",
+      "source": "original",
+      "license": "LUMI Kids proprietary",
+      "author": "LUMI Kids"
+    }
+  ]
+}

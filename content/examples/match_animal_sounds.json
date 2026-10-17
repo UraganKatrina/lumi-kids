@@ -1,0 +1,160 @@
+{
+  "id": "world.animals.sounds.001",
+  "schemaVersion": 1,
+  "version": 1,
+  "minAppVersion": "0.1.0",
+  "area": "world",
+  "goalId": "world.animal_sounds",
+  "skills": [
+    "animal_recognition",
+    "auditory_matching"
+  ],
+  "ageRange": {
+    "minMonths": 12,
+    "maxMonths": 35
+  },
+  "difficulty": 1,
+  "withParent": false,
+  "exerciseType": "match_pairs",
+  "instruction": {
+    "text": {
+      "ru": "Кто так говорит? Соедини животное и звук.",
+      "uz": "Kim shunday deydi? Hayvonni ovozi bilan bog'la.",
+      "en": "Who makes this sound? Match the animal to its sound."
+    }
+  },
+  "content": {
+    "pairs": [
+      {
+        "left": {
+          "id": "cow_img",
+          "imageId": "img_cow",
+          "label": {
+            "ru": "Корова",
+            "uz": "Sigir",
+            "en": "Cow"
+          }
+        },
+        "right": {
+          "id": "cow_snd",
+          "audioId": "snd_cow"
+        }
+      },
+      {
+        "left": {
+          "id": "cat_img",
+          "imageId": "img_cat",
+          "label": {
+            "ru": "Кошка",
+            "uz": "Mushuk",
+            "en": "Cat"
+          }
+        },
+        "right": {
+          "id": "cat_snd",
+          "audioId": "snd_cat"
+        }
+      },
+      {
+        "left": {
+          "id": "dog_img",
+          "imageId": "img_dog",
+          "label": {
+            "ru": "Собака",
+            "uz": "It",
+            "en": "Dog"
+          }
+        },
+        "right": {
+          "id": "dog_snd",
+          "audioId": "snd_dog"
+        }
+      }
+    ]
+  },
+  "media": [
+    {
+      "id": "img_cow",
+      "kind": "image",
+      "path": "images/world/cow.webp",
+      "sha256": "9f5f0aa05146e89a2436ac1eefdba060725a7686a00eb8ba9dc79ead85236cc2"
+    },
+    {
+      "id": "snd_cow",
+      "kind": "audio",
+      "path": "audio/sfx/cow.m4a",
+      "sha256": "e2c207f0d72d1a9d0283b9b90a44f55967cd6d60423fe31ebd8b07eb5f44cd19"
+    },
+    {
+      "id": "img_cat",
+      "kind": "image",
+      "path": "images/world/cat.webp",
+      "sha256": "712a671769bfadc93119b42f0f5380f9811a47c42c93cad68bd791f019fa7a80"
+    },
+    {
+      "id": "snd_cat",
+      "kind": "audio",
+      "path": "audio/sfx/cat.m4a",
+      "sha256": "6db99a04cf2863036590c2c5f0997b894ea10357674a0472358102a4231a093a"
+    },
+    {
+      "id": "img_dog",
+      "kind": "image",
+      "path": "images/world/dog.webp",
+      "sha256": "03e3647ef699e840b9cb15280277a4b866738ec60776354a274435de680b2615"
+    },
+    {
+      "id": "snd_dog",
+      "kind": "audio",
+      "path": "audio/sfx/dog.m4a",
+      "sha256": "2b2e18769779d5c330fb3cf5d94067992d81ac148942118fb47b394bf16e5c98"
+    }
+  ],
+  "reward": {
+    "stars": 1,
+    "collectibleId": "sticker_farm"
+  },
+  "review": {
+    "status": "approved",
+    "reviewedBy": "example-only",
+    "reviewedAt": "2026-10-17T00:00:00Z"
+  },
+  "rights": [
+    {
+      "mediaId": "img_cow",
+      "source": "original",
+      "license": "LUMI Kids proprietary",
+      "author": "LUMI Kids"
+    },
+    {
+      "mediaId": "snd_cow",
+      "source": "original",
+      "license": "LUMI Kids proprietary",
+      "author": "LUMI Kids"
+    },
+    {
+      "mediaId": "img_cat",
+      "source": "original",
+      "license": "LUMI Kids proprietary",
+      "author": "LUMI Kids"
+    },
+    {
+      "mediaId": "snd_cat",
+      "source": "original",
+      "license": "LUMI Kids proprietary",
+      "author": "LUMI Kids"
+    },
+    {
+      "mediaId": "img_dog",
+      "source": "original",
+      "license": "LUMI Kids proprietary",
+      "author": "LUMI Kids"
+    },
+    {
+      "mediaId": "snd_dog",
+      "source": "original",
+      "license": "LUMI Kids proprietary",
+      "author": "LUMI Kids"
+    }
+  ]
+}
