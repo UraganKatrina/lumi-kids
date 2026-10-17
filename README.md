@@ -19,3 +19,10 @@ flutter test
 - `lib/app/`: корневой виджет и тема
 - `lib/features/<функция>/`: экраны и логика по функциям
 - `test/`: тесты, повторяющие структуру `lib/`
+
+## Автосборка
+
+При каждом изменении GitHub Actions проверяет форматирование, запускает
+`flutter analyze` и `flutter test` и собирает отладочный APK для Android.
+Скачать APK: вкладка **Actions** → последний зелёный запуск → раздел
+**Artifacts** → `lumi-kids-debug-apk`.
