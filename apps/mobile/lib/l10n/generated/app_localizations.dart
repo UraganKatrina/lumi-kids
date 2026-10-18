@@ -841,7 +841,7 @@ abstract class AppLocalizations {
   /// No description provided for @parentDeleteAllText.
   ///
   /// In ru, this message translates to:
-  /// **'С телефона будут удалены все профили детей, прогресс и настройки. Вернуть их не получится.'**
+  /// **'С телефона будут удалены все профили детей, прогресс и настройки. Вернуть их не получится. Оплаченную подписку можно будет вернуть кнопкой «Восстановить покупки».'**
   String get parentDeleteAllText;
 
   /// No description provided for @parentDeleteAllConfirm.
@@ -921,6 +921,168 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'дек'**
   String get month12;
+
+  /// No description provided for @parentSubscription.
+  ///
+  /// In ru, this message translates to:
+  /// **'Подписка'**
+  String get parentSubscription;
+
+  /// No description provided for @parentSubscriptionOpen.
+  ///
+  /// In ru, this message translates to:
+  /// **'Подробнее о подписке'**
+  String get parentSubscriptionOpen;
+
+  /// No description provided for @subTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Подписка LUMI Kids'**
+  String get subTitle;
+
+  /// No description provided for @subFreeTasks.
+  ///
+  /// In ru, this message translates to:
+  /// **'{count, plural, one{# задание} few{# задания} many{# заданий} other{# задания}}'**
+  String subFreeTasks(int count);
+
+  /// No description provided for @subStatusFree.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сейчас бесплатная версия: в каждом направлении для каждого возраста открыто {tasks}.'**
+  String subStatusFree(String tasks);
+
+  /// No description provided for @subStatusActive.
+  ///
+  /// In ru, this message translates to:
+  /// **'Подписка активна до {date}.'**
+  String subStatusActive(String date);
+
+  /// No description provided for @subBenefits.
+  ///
+  /// In ru, this message translates to:
+  /// **'С подпиской открыты все задания во всех направлениях и новые задания из обновлений. Рекламы нет ни в платной, ни в бесплатной версии.'**
+  String get subBenefits;
+
+  /// No description provided for @subMonthly.
+  ///
+  /// In ru, this message translates to:
+  /// **'Месяц: {price}'**
+  String subMonthly(String price);
+
+  /// No description provided for @subYearly.
+  ///
+  /// In ru, this message translates to:
+  /// **'Год: {price}'**
+  String subYearly(String price);
+
+  /// No description provided for @subRestore.
+  ///
+  /// In ru, this message translates to:
+  /// **'Восстановить покупки'**
+  String get subRestore;
+
+  /// No description provided for @subRestoreSent.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ищем ваши покупки в магазине…'**
+  String get subRestoreSent;
+
+  /// No description provided for @subTerms.
+  ///
+  /// In ru, this message translates to:
+  /// **'Подписка продлевается автоматически, пока вы её не отмените. Отменить можно в любой момент в настройках подписок Google Play или App Store, не позже чем за сутки до продления. Оплата проходит через аккаунт магазина.'**
+  String get subTerms;
+
+  /// No description provided for @subPrivacy.
+  ///
+  /// In ru, this message translates to:
+  /// **'Чтобы проверить покупку, приложение отправляет на наш сервер только её номер из магазина. Данные о детях не передаются.'**
+  String get subPrivacy;
+
+  /// No description provided for @subLoading.
+  ///
+  /// In ru, this message translates to:
+  /// **'Загружаем цены из магазина…'**
+  String get subLoading;
+
+  /// No description provided for @subUnavailable.
+  ///
+  /// In ru, this message translates to:
+  /// **'На этом устройстве покупки недоступны.'**
+  String get subUnavailable;
+
+  /// No description provided for @subNoProducts.
+  ///
+  /// In ru, this message translates to:
+  /// **'Подписка пока не появилась в магазине. Попробуйте позже.'**
+  String get subNoProducts;
+
+  /// No description provided for @subPending.
+  ///
+  /// In ru, this message translates to:
+  /// **'Покупка ждёт подтверждения магазина.'**
+  String get subPending;
+
+  /// No description provided for @subActivated.
+  ///
+  /// In ru, this message translates to:
+  /// **'Готово! Подписка активна.'**
+  String get subActivated;
+
+  /// No description provided for @subNotActive.
+  ///
+  /// In ru, this message translates to:
+  /// **'Покупка найдена, но срок подписки закончился.'**
+  String get subNotActive;
+
+  /// No description provided for @subCanceled.
+  ///
+  /// In ru, this message translates to:
+  /// **'Покупка отменена.'**
+  String get subCanceled;
+
+  /// No description provided for @subStoreError.
+  ///
+  /// In ru, this message translates to:
+  /// **'Магазин сообщил об ошибке. Попробуйте ещё раз.'**
+  String get subStoreError;
+
+  /// No description provided for @subVerifyNotConfigured.
+  ///
+  /// In ru, this message translates to:
+  /// **'В этой сборке проверка покупок ещё не подключена. Покупка останется в магазине и откроется, когда проверка заработает.'**
+  String get subVerifyNotConfigured;
+
+  /// No description provided for @subVerifyOffline.
+  ///
+  /// In ru, this message translates to:
+  /// **'Нет связи с сервером. Проверим покупку при следующем запуске с интернетом.'**
+  String get subVerifyOffline;
+
+  /// No description provided for @subVerifyFailed.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не получилось подтвердить покупку. Попробуйте «Восстановить покупки» позже.'**
+  String get subVerifyFailed;
+
+  /// No description provided for @lockedTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Это задание пока закрыто'**
+  String get lockedTitle;
+
+  /// No description provided for @lockedText.
+  ///
+  /// In ru, this message translates to:
+  /// **'Попроси взрослого, и вы откроете его вместе.'**
+  String get lockedText;
+
+  /// No description provided for @areaTaskLockedLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Задание {number}, закрыто'**
+  String areaTaskLockedLabel(int number);
 }
 
 class _AppLocalizationsDelegate

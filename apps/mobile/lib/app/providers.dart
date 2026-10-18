@@ -20,10 +20,17 @@ import '../features/progress/domain/progress.dart';
 import '../features/recommendations/domain/recommender.dart';
 import '../features/settings/data/drift_app_settings_repository.dart';
 import '../features/settings/domain/app_settings.dart';
+import '../features/subscription/data/drift_entitlement_repository.dart';
+import '../features/subscription/data/http_purchase_verifier.dart';
+import '../features/subscription/data/in_app_purchase_store.dart';
+import '../features/subscription/domain/entitlement.dart';
+import '../features/subscription/domain/free_tier.dart';
+import '../features/subscription/domain/subscription_service.dart';
+import '../features/subscription/domain/subscription_store.dart';
 import '../l10n/l10n.dart';
 
 /// Должна совпадать с `version` в pubspec.yaml (проверяется тестом).
-const appVersion = '0.3.0';
+const appVersion = '0.4.0';
 
 /// Текущее время; в тестах подменяется фиксированной датой.
 final clockProvider = Provider<DateTime Function()>((ref) => DateTime.now);
@@ -166,10 +173,61 @@ final ageTasksProvider = FutureProvider<List<LearningTask>>((ref) async {
   return tasks.where(program.fits).toList();
 });
 
+/// Ребёнку предлагаем только открытые задания.
 final recommendedTaskProvider = FutureProvider<LearningTask?>((ref) async {
   final tasks = await ref.watch(ageTasksProvider.future);
+  final locked = await ref.watch(lockedTaskIdsProvider.future);
   final stars = await ref.watch(bestStarsProvider.future);
-  return recommendNext(tasks, stars);
+  return recommendNext(
+    tasks.where((t) => !locked.contains(t.id)).toList(),
+    stars,
+  );
+});
+
+final subscriptionStoreProvider = Provider<SubscriptionStore>(
+  (ref) => InAppPurchaseStore(),
+);
+
+final purchaseVerifierProvider = Provider<PurchaseVerifier>(
+  (ref) => HttpPurchaseVerifier(
+    baseUrl: apiBaseUrl,
+    client: ref.watch(httpClientProvider),
+  ),
+);
+
+final entitlementRepositoryProvider = Provider<EntitlementRepository>(
+  (ref) => DriftEntitlementRepository(ref.watch(progressDatabaseProvider)),
+);
+
+final subscriptionServiceProvider = Provider<SubscriptionService>((ref) {
+  final service = SubscriptionService(
+    store: ref.watch(subscriptionStoreProvider),
+    verifier: ref.watch(purchaseVerifierProvider),
+    entitlements: ref.watch(entitlementRepositoryProvider),
+    clock: ref.watch(clockProvider),
+  );
+  ref.onDispose(service.dispose);
+  return service;
+});
+
+final entitlementProvider = FutureProvider<Entitlement?>(
+  (ref) => ref.watch(entitlementRepositoryProvider).load(),
+);
+
+final premiumActiveProvider = FutureProvider<bool>((ref) async {
+  final entitlement = await ref.watch(entitlementProvider.future);
+  return entitlement?.activeAt(ref.watch(clockProvider)()) ?? false;
+});
+
+/// Задания, закрытые без подписки.
+final lockedTaskIdsProvider = FutureProvider<Set<String>>((ref) async {
+  if (await ref.watch(premiumActiveProvider.future)) return const {};
+  final tasks = await ref.watch(tasksProvider.future);
+  final free = freeTaskIds(tasks);
+  return {
+    for (final t in tasks)
+      if (!free.contains(t.id)) t.id,
+  };
 });
 
 /// Сохраняет профиль; новый профиль сразу становится текущим.
@@ -200,8 +258,10 @@ Future<void> deleteChild(WidgetRef ref, String childId) async {
 Future<void> eraseAllData(WidgetRef ref) async {
   await ref.read(profileRepositoryProvider).deleteEverything();
   ref.invalidate(profilesProvider);
-  // Настройки тоже удалены: язык снова как в телефоне.
+  // Настройки тоже удалены: язык снова как в телефоне, подписку можно
+  // вернуть кнопкой «Восстановить покупки».
   ref.invalidate(languageProvider);
+  ref.invalidate(entitlementProvider);
   invalidateProgress(ref);
 }
 

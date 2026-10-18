@@ -15,6 +15,7 @@ import 'bodies/match_pairs_body.dart';
 import 'bodies/sequence_body.dart';
 import 'bodies/together_body.dart';
 import 'result_view.dart';
+import '../../subscription/presentation/locked_task_view.dart';
 import '../../../l10n/l10n.dart';
 
 class ExerciseScreen extends ConsumerWidget {
@@ -40,6 +41,12 @@ class ExerciseScreen extends ConsumerWidget {
           final task = tasks.where((t) => t.id == taskId).firstOrNull;
           if (task == null) {
             return Center(child: Text(context.l10n.exerciseNotFound));
+          }
+          // Пока неизвестно, открыто ли задание, ничего не показываем.
+          final locked = ref.watch(lockedTaskIdsProvider);
+          if (!locked.hasValue) return const SizedBox.shrink();
+          if (locked.requireValue.contains(task.id)) {
+            return const Center(child: LockedTaskView());
           }
           // Ключ пересоздаёт состояние при переходе к другому заданию.
           return _ExerciseHost(key: ValueKey(task.id), task: task);

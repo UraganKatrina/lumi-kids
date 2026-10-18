@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/providers.dart';
 import '../../../core/design_system/lumi_tokens.dart';
 import '../../../core/widgets/async_view.dart';
+import '../../subscription/presentation/locked_task_view.dart';
 import '../domain/development_area.dart';
 import '../../../l10n/l10n.dart';
 
@@ -19,6 +20,7 @@ class AreaScreen extends ConsumerWidget {
     final area = DevelopmentArea.fromCode(areaCode);
     final l10n = context.l10n;
     final stars = ref.watch(bestStarsProvider).value ?? const {};
+    final locked = ref.watch(lockedTaskIdsProvider).value ?? const {};
 
     return Scaffold(
       appBar: AppBar(
@@ -47,17 +49,24 @@ class AreaScreen extends ConsumerWidget {
             itemBuilder: (context, i) {
               final task = tasks[i];
               final earned = stars[task.id] ?? 0;
+              final isLocked = locked.contains(task.id);
               return Semantics(
                 button: true,
-                label: l10n.areaTaskLabel(i + 1, earned),
+                label: isLocked
+                    ? l10n.areaTaskLockedLabel(i + 1)
+                    : l10n.areaTaskLabel(i + 1, earned),
                 excludeSemantics: true,
                 child: Material(
-                  color: area!.color,
+                  color: isLocked
+                      ? area!.color.withValues(alpha: 0.45)
+                      : area!.color,
                   borderRadius: BorderRadius.circular(LumiSizes.radius),
                   child: InkWell(
                     key: Key('task.${task.id}'),
                     borderRadius: BorderRadius.circular(LumiSizes.radius),
-                    onTap: () => context.go('/task/${task.id}'),
+                    onTap: isLocked
+                        ? () => showLockedTaskDialog(context)
+                        : () => context.go('/task/${task.id}'),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -66,7 +75,14 @@ class AreaScreen extends ConsumerWidget {
                           style: Theme.of(context).textTheme.displaySmall
                               ?.copyWith(color: Colors.white),
                         ),
-                        _Stars(earned: earned, max: task.rewardStars),
+                        if (isLocked)
+                          const Icon(
+                            Icons.lock_rounded,
+                            color: Colors.white,
+                            size: 28,
+                          )
+                        else
+                          _Stars(earned: earned, max: task.rewardStars),
                       ],
                     ),
                   ),
