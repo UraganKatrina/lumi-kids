@@ -44,8 +44,7 @@
 ```
 lumi-kids/
 ├── apps/
-│   ├── mobile/          Flutter-приложение (сейчас лежит в корне, переедет
-│   │                    сюда первым шагом этапа 3)
+│   ├── mobile/          Flutter-приложение
 │   └── admin/           Next.js CMS (этап 6)
 ├── services/
 │   └── api/             NestJS API (этап 6)
