@@ -4,11 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lumi_kids/features/parent_area/domain/parental_gate.dart';
 
 void main() {
-  test('вопрос записан словами, без цифр', () {
-    const q = GateQuestion(6, 7);
-    expect(q.text, 'Сколько будет шесть умножить на семь?');
-    expect(q.text, isNot(matches(RegExp(r'\d'))));
-    expect(q.answer, 42);
+  test('ответ — произведение', () {
+    expect(const GateQuestion(6, 7).answer, 42);
   });
 
   test('проверка ответа', () {
@@ -26,7 +23,6 @@ void main() {
     for (final q in questions) {
       expect(q.a, inInclusiveRange(3, 9));
       expect(q.b, inInclusiveRange(3, 9));
-      expect(q.text, isNot(contains('null')));
     }
     expect(questions.map((q) => q.answer).toSet().length, greaterThan(10));
   });

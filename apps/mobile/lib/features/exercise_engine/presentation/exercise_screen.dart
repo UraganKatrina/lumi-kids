@@ -15,6 +15,7 @@ import 'bodies/match_pairs_body.dart';
 import 'bodies/sequence_body.dart';
 import 'bodies/together_body.dart';
 import 'result_view.dart';
+import '../../../l10n/l10n.dart';
 
 class ExerciseScreen extends ConsumerWidget {
   const ExerciseScreen({super.key, required this.taskId});
@@ -28,7 +29,7 @@ class ExerciseScreen extends ConsumerWidget {
         leading: IconButton(
           key: const Key('exercise.close'),
           iconSize: 36,
-          tooltip: 'Закрыть',
+          tooltip: context.l10n.commonClose,
           icon: const Icon(Icons.close_rounded),
           onPressed: () => context.go('/'),
         ),
@@ -38,7 +39,7 @@ class ExerciseScreen extends ConsumerWidget {
         builder: (tasks) {
           final task = tasks.where((t) => t.id == taskId).firstOrNull;
           if (task == null) {
-            return const Center(child: Text('Задание не найдено'));
+            return Center(child: Text(context.l10n.exerciseNotFound));
           }
           // Ключ пересоздаёт состояние при переходе к другому заданию.
           return _ExerciseHost(key: ValueKey(task.id), task: task);

@@ -8,6 +8,7 @@ import 'package:lumi_kids/features/content_library/domain/task.dart';
 import 'package:lumi_kids/features/content_library/domain/task_parser.dart';
 import 'package:lumi_kids/features/profiles/domain/child_profile.dart';
 import 'package:lumi_kids/features/progress/domain/progress.dart';
+import 'package:lumi_kids/features/settings/domain/app_settings.dart';
 
 Map<String, Object?> loadStarterPackJson() =>
     jsonDecode(File('assets/content/starter_pack.json').readAsStringSync())
@@ -18,8 +19,11 @@ List<LearningTask> loadStarterTasks() =>
 
 class FileContentRepository implements ContentRepository {
   @override
-  Future<LoadedContent> load() async => LoadedContent(
-    tasks: loadStarterTasks(),
+  Future<LoadedContent> load({String language = 'ru'}) async => LoadedContent(
+    tasks: TaskParser(
+      appVersion: appVersion,
+      language: language,
+    ).parsePack(loadStarterPackJson()),
     source: ContentSource(
       downloaded: false,
       version: loadStarterPackJson()['packVersion']! as int,
@@ -103,4 +107,16 @@ class InMemoryProfileRepository implements ProfileRepository {
 
   @override
   Future<void> setActiveChild(String childId) async => activeId = childId;
+}
+
+class InMemoryAppSettings implements AppSettingsRepository {
+  InMemoryAppSettings([this.chosen]);
+
+  String? chosen;
+
+  @override
+  Future<String?> language() async => chosen;
+
+  @override
+  Future<void> setLanguage(String language) async => chosen = language;
 }

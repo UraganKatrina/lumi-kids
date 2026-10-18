@@ -24,16 +24,19 @@ const _birthByProgram = {
 };
 
 class TestApp {
-  TestApp(this.progress, this.profiles);
+  TestApp(this.progress, this.profiles, this.settings);
 
   final InMemoryProgressRepository progress;
   final InMemoryProfileRepository profiles;
+  final InMemoryAppSettings settings;
 }
 
 /// [age] — возрастная программа ребёнка «Маша»; null — первый запуск без профилей.
 Future<TestApp> pumpApp(
   WidgetTester tester, {
   String? age = 'preschool',
+  String? language = 'ru',
+  String deviceLanguage = 'ru',
 }) async {
   // Как при системной настройке «уменьшить движение»: персонаж не парит,
   // и pumpAndSettle не ждёт бесконечную анимацию.
@@ -58,6 +61,7 @@ Future<TestApp> pumpApp(
           avatar: ChildAvatar.bee,
         ),
     ]),
+    InMemoryAppSettings(language),
   );
   await tester.pumpWidget(
     ProviderScope(
@@ -70,6 +74,8 @@ Future<TestApp> pumpApp(
         ),
         progressRepositoryProvider.overrideWithValue(app.progress),
         profileRepositoryProvider.overrideWithValue(app.profiles),
+        appSettingsRepositoryProvider.overrideWithValue(app.settings),
+        deviceLanguageProvider.overrideWithValue(deviceLanguage),
       ],
       child: const LumiApp(),
     ),
@@ -419,5 +425,40 @@ void main() {
 
     expect(app.profiles.profiles.single.birthYear, 2022);
     expect(find.byKey(const Key('map.parentLed')), findsNothing);
+  });
+
+  testWidgets('язык телефона подхватывается, родитель может его сменить', (
+    tester,
+  ) async {
+    final app = await pumpApp(tester, language: null, deviceLanguage: 'uz');
+    expect(find.text('Salom! Men Lumiman.'), findsOneWidget);
+    expect(find.text('Sonlar'), findsOneWidget);
+
+    await scrollToTop(tester);
+    await tapKey(tester, 'map.parent');
+    expect(
+      find.text("olti ni yetti ga ko'paytirsa, nechchi bo'ladi?"),
+      findsOneWidget,
+    );
+    await answerGate(tester, '42');
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('parent.language.en')),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tapKey(tester, 'parent.language.en');
+    expect(app.settings.chosen, 'en');
+    expect(find.text('Language'), findsOneWidget);
+
+    await tapKey(tester, 'parent.close');
+    await scrollToTop(tester);
+    expect(find.text("Hi! I'm Lumi."), findsOneWidget);
+    // Задания без перевода остаются на русском.
+    await openTask(tester, 'math.count.apples.001');
+  });
+
+  testWidgets('неподдерживаемый язык телефона — русский', (tester) async {
+    await pumpApp(tester, language: null, deviceLanguage: 'de');
+    expect(find.text('Привет! Я Люми.'), findsOneWidget);
   });
 }

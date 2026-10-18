@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/design_system/lumi_theme.dart';
+import '../l10n/l10n.dart';
 import 'providers.dart';
 import 'router.dart';
 
@@ -32,8 +34,17 @@ class _LumiAppState extends ConsumerState<LumiApp> {
 
   @override
   Widget build(BuildContext context) {
+    final language = ref.watch(languageProvider).value ?? 'ru';
     return MaterialApp.router(
       title: 'LUMI Kids',
+      locale: Locale(language),
+      supportedLocales: [for (final l in supportedLanguages) Locale(l)],
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       debugShowCheckedModeBanner: false,
       theme: LumiTheme.light(),
       routerConfig: _router,

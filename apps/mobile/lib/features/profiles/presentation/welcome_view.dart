@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/design_system/lumi_character.dart';
 import '../../../core/design_system/lumi_tokens.dart';
 import 'profile_form.dart';
+import '../../../l10n/l10n.dart';
 
 /// Первый запуск: взрослый создаёт профиль ребёнка.
 class WelcomeView extends StatelessWidget {
@@ -17,15 +18,14 @@ class WelcomeView extends StatelessWidget {
         const Center(child: LumiCharacter(size: 120)),
         const SizedBox(height: LumiSpacing.m),
         Text(
-          'Здравствуйте!',
+          context.l10n.welcomeTitle,
           key: const Key('welcome.title'),
           textAlign: TextAlign.center,
           style: text.headlineMedium,
         ),
         const SizedBox(height: LumiSpacing.s),
         Text(
-          'Расскажите немного о ребёнке, чтобы Люми подобрал занятия '
-          'по возрасту. Всё хранится только на этом телефоне.',
+          context.l10n.welcomeText,
           textAlign: TextAlign.center,
           style: text.bodyLarge,
         ),

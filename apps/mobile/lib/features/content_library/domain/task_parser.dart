@@ -7,11 +7,14 @@ import 'task.dart';
 /// неизвестный тип, слишком новая minAppVersion, сломанные ссылки), пропускается,
 /// а не ломает каталог. Причина пропуска попадает в [skipped].
 class TaskParser {
-  TaskParser({required this.appVersion});
+  TaskParser({required this.appVersion, this.language = 'ru'});
 
   static const supportedSchemaVersion = 1;
 
   final String appVersion;
+
+  /// Язык текстов: ru, uz или en.
+  final String language;
   final List<String> skipped = [];
 
   List<LearningTask> parsePack(Map<String, Object?> pack) {
@@ -92,7 +95,7 @@ class TaskParser {
       ageRange: ageRange,
       difficulty: json['difficulty'] as int,
       type: type,
-      instruction: _ru(instruction['text']),
+      instruction: _text(instruction['text']),
       content: switch (type) {
         ExerciseType.choice => _choice(content),
         ExerciseType.sequence => _sequence(content),
@@ -100,7 +103,9 @@ class TaskParser {
         ExerciseType.sort || ExerciseType.classify => _groups(content),
         ExerciseType.together => _together(content),
       },
-      hints: ((json['hints'] as List<Object?>?) ?? const []).map(_ru).toList(),
+      hints: ((json['hints'] as List<Object?>?) ?? const [])
+          .map(_text)
+          .toList(),
       rewardStars: reward['stars'] as int,
       withParent: json['withParent'] as bool? ?? false,
     );
@@ -175,7 +180,7 @@ class TaskParser {
   }
 
   TogetherContent _together(Map<String, Object?> content) {
-    final steps = (content['steps'] as List<Object?>).map(_ru).toList();
+    final steps = (content['steps'] as List<Object?>).map(_text).toList();
     if (steps.isEmpty) throw const FormatException('нет шагов занятия');
     return TogetherContent(steps: steps);
   }
@@ -187,7 +192,7 @@ class TaskParser {
     final label = json['label'];
     return TaskItem(
       id: json['id'] as String,
-      label: label == null ? null : _ru(label),
+      label: label == null ? null : _text(label),
     );
   }
 
@@ -197,8 +202,11 @@ class TaskParser {
     }
   }
 
-  String _ru(Object? localized) =>
-      (localized as Map<String, Object?>)['ru'] as String;
+  /// Текст на языке приложения; если перевода нет — русский (он обязателен).
+  String _text(Object? localized) {
+    final texts = localized as Map<String, Object?>;
+    return (texts[language] ?? texts['ru']) as String;
+  }
 }
 
 /// Сравнивает версии вида 1.2.3. Отрицательное число — [a] старше [b].

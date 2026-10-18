@@ -32,15 +32,15 @@ void main() {
   });
 
   test('проверка формы', () {
-    String? check(String name, int? y, int? m) =>
+    ProfileError? check(String name, int? y, int? m) =>
         validateProfile(name: name, birthYear: y, birthMonth: m, now: now);
 
     expect(check('Маша', 2022, 5), isNull);
-    expect(check('  ', 2022, 5), isNotNull);
-    expect(check('А' * 21, 2022, 5), isNotNull);
-    expect(check('Маша', null, 5), isNotNull);
+    expect(check('  ', 2022, 5), ProfileError.nameMissing);
+    expect(check('А' * 21, 2022, 5), ProfileError.nameTooLong);
+    expect(check('Маша', null, 5), ProfileError.birthMissing);
     expect(check('Маша', 2026, 10), isNull);
-    expect(check('Маша', 2026, 11), contains('будущем'));
+    expect(check('Маша', 2026, 11), ProfileError.birthInFuture);
   });
 
   test('неизвестный аватар не ломает профиль', () {

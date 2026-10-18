@@ -12,10 +12,6 @@ class ContentSource {
 
   final bool downloaded;
   final int version;
-
-  String get label => downloaded
-      ? 'пакет №$version с сервера'
-      : 'встроенный пакет (версия $version)';
 }
 
 class LoadedContent {
@@ -28,7 +24,8 @@ class LoadedContent {
 /// Источник заданий: скачанный пакет, а если его нет или он не читается —
 /// встроенный стартовый пакет. Приложение работает и без сети.
 abstract interface class ContentRepository {
-  Future<LoadedContent> load();
+  /// Тексты заданий — на [language], а где перевода нет, на русском.
+  Future<LoadedContent> load({String language = 'ru'});
 }
 
 class PackContentRepository implements ContentRepository {
@@ -45,11 +42,11 @@ class PackContentRepository implements ContentRepository {
   final AssetBundle _bundle;
 
   @override
-  Future<LoadedContent> load() async {
+  Future<LoadedContent> load({String language = 'ru'}) async {
     final stored = await store?.read();
     if (stored != null) {
       try {
-        final tasks = _parse(stored.json);
+        final tasks = _parse(stored.json, language);
         if (tasks.isNotEmpty) {
           return LoadedContent(
             tasks: tasks,
@@ -64,7 +61,7 @@ class PackContentRepository implements ContentRepository {
     }
     final raw = await _bundle.loadString(packPath);
     return LoadedContent(
-      tasks: _parse(raw),
+      tasks: _parse(raw, language),
       source: ContentSource(
         downloaded: false,
         version:
@@ -73,7 +70,8 @@ class PackContentRepository implements ContentRepository {
     );
   }
 
-  List<LearningTask> _parse(String raw) =>
-      TaskParser(appVersion: appVersion)
-          .parsePack(jsonDecode(raw) as Map<String, Object?>);
+  List<LearningTask> _parse(String raw, String language) => TaskParser(
+    appVersion: appVersion,
+    language: language,
+  ).parsePack(jsonDecode(raw) as Map<String, Object?>);
 }

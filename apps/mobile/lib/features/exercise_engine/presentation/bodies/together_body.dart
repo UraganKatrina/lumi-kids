@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/design_system/lumi_tokens.dart';
 import '../../../content_library/domain/task.dart';
 import '../../domain/exercise_session.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Идея занятия для взрослого. Экран здесь только подсказка, а играют вживую.
 class TogetherBody extends StatelessWidget {
@@ -36,7 +37,10 @@ class TogetherBody extends StatelessWidget {
                   const Icon(Icons.family_restroom_rounded, size: 32),
                   const SizedBox(width: LumiSpacing.s),
                   Expanded(
-                    child: Text('Вместе со взрослым', style: text.titleLarge),
+                    child: Text(
+                      context.l10n.togetherTitle,
+                      style: text.titleLarge,
+                    ),
                   ),
                 ],
               ),
@@ -47,11 +51,7 @@ class TogetherBody extends StatelessWidget {
                   child: Text('${i + 1}. ${steps[i]}', style: text.bodyLarge),
                 ),
               const SizedBox(height: LumiSpacing.s),
-              Text(
-                'Отложите телефон и играйте вживую. '
-                'Отметьте, когда закончите.',
-                style: text.bodyMedium,
-              ),
+              Text(context.l10n.togetherHint, style: text.bodyMedium),
             ],
           ),
         ),
@@ -64,7 +64,7 @@ class TogetherBody extends StatelessWidget {
               onChanged();
             },
             icon: const Icon(Icons.check_rounded),
-            label: const Text('Мы сделали!'),
+            label: Text(context.l10n.togetherDone),
           ),
         ),
       ],

@@ -3,22 +3,15 @@ import '../../content_library/domain/task.dart';
 /// Возрастные программы. Возраст задаёт стартовый набор заданий, а сложность
 /// дальше подстраивается по результатам ребёнка.
 enum AgeProgram {
-  infant('infant', '0–1 год', 'Занятия вместе со взрослым', AgeRange(0, 11)),
-  toddler(
-    'toddler',
-    '1–2 года',
-    'Предметы, животные, первые слова',
-    AgeRange(12, 23),
-  ),
-  early('early', '2–3 года', 'Цвета, формы, сортировка', AgeRange(24, 35)),
-  preschool('preschool', '3–5 лет', 'Речь, логика, счёт', AgeRange(36, 59)),
-  schoolPrep('school_prep', '5–7 лет', 'Подготовка к школе', AgeRange(60, 84));
+  infant('infant', AgeRange(0, 11)),
+  toddler('toddler', AgeRange(12, 23)),
+  early('early', AgeRange(24, 35)),
+  preschool('preschool', AgeRange(36, 59)),
+  schoolPrep('school_prep', AgeRange(60, 84));
 
-  const AgeProgram(this.code, this.title, this.subtitle, this.range);
+  const AgeProgram(this.code, this.range);
 
   final String code;
-  final String title;
-  final String subtitle;
   final AgeRange range;
 
   /// Для младенцев экран — только подсказка взрослому.

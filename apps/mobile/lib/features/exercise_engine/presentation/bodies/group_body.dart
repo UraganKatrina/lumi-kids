@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/design_system/item_card.dart';
 import '../../../../core/design_system/lumi_tokens.dart';
 import '../../domain/exercise_session.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Предмет в центре, внизу «корзинки»-группы: нажми нужную.
 class GroupBody extends StatelessWidget {
@@ -18,7 +19,7 @@ class GroupBody extends StatelessWidget {
     return Column(
       children: [
         Text(
-          '${session.placedCount} из $total',
+          context.l10n.groupProgress(session.placedCount, total),
           key: const Key('group.progress'),
           style: Theme.of(context).textTheme.titleLarge,
         ),

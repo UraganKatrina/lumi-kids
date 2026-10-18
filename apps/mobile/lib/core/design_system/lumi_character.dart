@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import 'lumi_tokens.dart';
+import '../../l10n/l10n.dart';
 
 enum LumiMood { calm, happy, encouraging }
 
@@ -46,7 +47,7 @@ class _LumiCharacterState extends State<LumiCharacter>
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: 'Люми',
+      label: context.l10n.lumiName,
       image: true,
       child: AnimatedBuilder(
         animation: _float,
