@@ -1,0 +1,595 @@
+{
+  "packId": "starter",
+  "packVersion": 1,
+  "schemaVersion": 1,
+  "languages": [
+    "ru"
+  ],
+  "tasks": [
+    {
+      "id": "math.count.apples.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "math",
+      "goalId": "math.count_to_3",
+      "skills": [
+        "counting"
+      ],
+      "ageRange": {
+        "minMonths": 36,
+        "maxMonths": 59
+      },
+      "difficulty": 1,
+      "withParent": false,
+      "exerciseType": "choice",
+      "instruction": {
+        "text": {
+          "ru": "Сколько яблок?"
+        }
+      },
+      "content": {
+        "options": [
+          {
+            "id": "n2",
+            "label": {
+              "ru": "2"
+            }
+          },
+          {
+            "id": "n3",
+            "label": {
+              "ru": "3"
+            }
+          },
+          {
+            "id": "n4",
+            "label": {
+              "ru": "4"
+            }
+          }
+        ],
+        "correct": [
+          "n3"
+        ],
+        "shuffle": true,
+        "prompt": {
+          "id": "prompt",
+          "label": {
+            "ru": "🍎 🍎 🍎"
+          }
+        }
+      },
+      "hints": [
+        {
+          "ru": "Посчитай пальчиком: раз, два…"
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип этапа 3, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "math.count.stars.002",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "math",
+      "goalId": "math.count_to_5",
+      "skills": [
+        "counting"
+      ],
+      "ageRange": {
+        "minMonths": 36,
+        "maxMonths": 59
+      },
+      "difficulty": 2,
+      "withParent": false,
+      "exerciseType": "choice",
+      "instruction": {
+        "text": {
+          "ru": "Сколько звёздочек?"
+        }
+      },
+      "content": {
+        "options": [
+          {
+            "id": "n4",
+            "label": {
+              "ru": "4"
+            }
+          },
+          {
+            "id": "n5",
+            "label": {
+              "ru": "5"
+            }
+          },
+          {
+            "id": "n6",
+            "label": {
+              "ru": "6"
+            }
+          }
+        ],
+        "correct": [
+          "n5"
+        ],
+        "shuffle": true,
+        "prompt": {
+          "id": "prompt",
+          "label": {
+            "ru": "⭐ ⭐ ⭐ ⭐ ⭐"
+          }
+        }
+      },
+      "hints": [
+        {
+          "ru": "Дотронься до каждой звёздочки и считай."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип этапа 3, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "math.more.003",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "math",
+      "goalId": "math.compare_quantities",
+      "skills": [
+        "comparison"
+      ],
+      "ageRange": {
+        "minMonths": 36,
+        "maxMonths": 59
+      },
+      "difficulty": 2,
+      "withParent": false,
+      "exerciseType": "choice",
+      "instruction": {
+        "text": {
+          "ru": "Где больше мячиков?"
+        }
+      },
+      "content": {
+        "options": [
+          {
+            "id": "few",
+            "label": {
+              "ru": "⚽ ⚽"
+            }
+          },
+          {
+            "id": "many",
+            "label": {
+              "ru": "⚽ ⚽ ⚽ ⚽"
+            }
+          }
+        ],
+        "correct": [
+          "many"
+        ],
+        "shuffle": true
+      },
+      "hints": [
+        {
+          "ru": "Посмотри, где мячиков целая куча."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип этапа 3, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "world.animal.moo.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "world",
+      "goalId": "world.animal_sounds",
+      "skills": [
+        "animal_recognition"
+      ],
+      "ageRange": {
+        "minMonths": 12,
+        "maxMonths": 47
+      },
+      "difficulty": 1,
+      "withParent": false,
+      "exerciseType": "choice",
+      "instruction": {
+        "text": {
+          "ru": "Кто говорит «Му-у»?"
+        }
+      },
+      "content": {
+        "options": [
+          {
+            "id": "cow",
+            "label": {
+              "ru": "🐄"
+            }
+          },
+          {
+            "id": "cat",
+            "label": {
+              "ru": "🐈"
+            }
+          },
+          {
+            "id": "dog",
+            "label": {
+              "ru": "🐕"
+            }
+          }
+        ],
+        "correct": [
+          "cow"
+        ],
+        "shuffle": true
+      },
+      "hints": [
+        {
+          "ru": "Она даёт молоко."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип этапа 3, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "world.animal.sea.002",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "world",
+      "goalId": "world.habitats",
+      "skills": [
+        "classification"
+      ],
+      "ageRange": {
+        "minMonths": 24,
+        "maxMonths": 59
+      },
+      "difficulty": 2,
+      "withParent": false,
+      "exerciseType": "choice",
+      "instruction": {
+        "text": {
+          "ru": "Кто живёт в море?"
+        }
+      },
+      "content": {
+        "options": [
+          {
+            "id": "fish",
+            "label": {
+              "ru": "🐟"
+            }
+          },
+          {
+            "id": "bear",
+            "label": {
+              "ru": "🐻"
+            }
+          },
+          {
+            "id": "bird",
+            "label": {
+              "ru": "🐦"
+            }
+          }
+        ],
+        "correct": [
+          "fish"
+        ],
+        "shuffle": true
+      },
+      "hints": [
+        {
+          "ru": "У него есть плавники."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип этапа 3, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "logic.odd.fruit.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "logic",
+      "goalId": "logic.odd_one_out",
+      "skills": [
+        "classification"
+      ],
+      "ageRange": {
+        "minMonths": 36,
+        "maxMonths": 71
+      },
+      "difficulty": 2,
+      "withParent": false,
+      "exerciseType": "choice",
+      "instruction": {
+        "text": {
+          "ru": "Что лишнее?"
+        }
+      },
+      "content": {
+        "options": [
+          {
+            "id": "apple",
+            "label": {
+              "ru": "🍎"
+            }
+          },
+          {
+            "id": "pear",
+            "label": {
+              "ru": "🍐"
+            }
+          },
+          {
+            "id": "banana",
+            "label": {
+              "ru": "🍌"
+            }
+          },
+          {
+            "id": "car",
+            "label": {
+              "ru": "🚗"
+            }
+          }
+        ],
+        "correct": [
+          "car"
+        ],
+        "shuffle": true
+      },
+      "hints": [
+        {
+          "ru": "Три из них можно съесть."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип этапа 3, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "logic.color.red.002",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "logic",
+      "goalId": "logic.colors",
+      "skills": [
+        "color_recognition"
+      ],
+      "ageRange": {
+        "minMonths": 24,
+        "maxMonths": 47
+      },
+      "difficulty": 1,
+      "withParent": false,
+      "exerciseType": "choice",
+      "instruction": {
+        "text": {
+          "ru": "Найди красный."
+        }
+      },
+      "content": {
+        "options": [
+          {
+            "id": "red",
+            "label": {
+              "ru": "🔴"
+            }
+          },
+          {
+            "id": "green",
+            "label": {
+              "ru": "🟢"
+            }
+          },
+          {
+            "id": "blue",
+            "label": {
+              "ru": "🔵"
+            }
+          }
+        ],
+        "correct": [
+          "red"
+        ],
+        "shuffle": true
+      },
+      "hints": [
+        {
+          "ru": "Красный, как помидор."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип этапа 3, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "literacy.first_letter.a.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "literacy",
+      "goalId": "literacy.first_sound",
+      "skills": [
+        "phonemic_awareness"
+      ],
+      "ageRange": {
+        "minMonths": 48,
+        "maxMonths": 84
+      },
+      "difficulty": 2,
+      "withParent": false,
+      "exerciseType": "choice",
+      "instruction": {
+        "text": {
+          "ru": "С какой буквы начинается слово «Арбуз»?"
+        }
+      },
+      "content": {
+        "options": [
+          {
+            "id": "a",
+            "label": {
+              "ru": "А"
+            }
+          },
+          {
+            "id": "o",
+            "label": {
+              "ru": "О"
+            }
+          },
+          {
+            "id": "u",
+            "label": {
+              "ru": "У"
+            }
+          }
+        ],
+        "correct": [
+          "a"
+        ],
+        "shuffle": true,
+        "prompt": {
+          "id": "prompt",
+          "label": {
+            "ru": "🍉"
+          }
+        }
+      },
+      "hints": [
+        {
+          "ru": "Скажи медленно: А-а-рбуз."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип этапа 3, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "emotional.happy_face.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "emotional_social",
+      "goalId": "emotional.recognize_emotions",
+      "skills": [
+        "emotion_recognition"
+      ],
+      "ageRange": {
+        "minMonths": 24,
+        "maxMonths": 59
+      },
+      "difficulty": 1,
+      "withParent": false,
+      "exerciseType": "choice",
+      "instruction": {
+        "text": {
+          "ru": "Кто радуется?"
+        }
+      },
+      "content": {
+        "options": [
+          {
+            "id": "happy",
+            "label": {
+              "ru": "😊"
+            }
+          },
+          {
+            "id": "sad",
+            "label": {
+              "ru": "😢"
+            }
+          },
+          {
+            "id": "angry",
+            "label": {
+              "ru": "😠"
+            }
+          }
+        ],
+        "correct": [
+          "happy"
+        ],
+        "shuffle": true
+      },
+      "hints": [
+        {
+          "ru": "Кто улыбается?"
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип этапа 3, нужна проверка методиста"
+      },
+      "rights": []
+    }
+  ]
+}

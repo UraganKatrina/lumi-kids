@@ -3,9 +3,9 @@ name: Content
 on:
   push:
     branches: [main]
-    paths: ['content/**', '.github/workflows/content.yml']
+    paths: ['content/**', 'apps/mobile/assets/content/**', '.github/workflows/content.yml']
   pull_request:
-    paths: ['content/**', '.github/workflows/content.yml']
+    paths: ['content/**', 'apps/mobile/assets/content/**', '.github/workflows/content.yml']
   workflow_dispatch:
 
 jobs:

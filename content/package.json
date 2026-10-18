@@ -4,7 +4,7 @@
   "type": "module",
   "description": "Схема заданий LUMI Kids и проверка контента",
   "scripts": {
-    "validate": "node src/cli.mjs examples",
+    "validate": "node src/cli.mjs examples ../apps/mobile/assets/content",
     "test": "node --test \"test/**/*.test.mjs\""
   },
   "engines": {
