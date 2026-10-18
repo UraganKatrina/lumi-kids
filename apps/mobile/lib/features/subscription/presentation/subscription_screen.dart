@@ -7,6 +7,8 @@ import 'package:intl/intl.dart';
 
 import '../../../app/providers.dart';
 import '../../../core/design_system/lumi_tokens.dart';
+import '../../../core/external_links.dart';
+import '../../../core/widgets/external_link_button.dart';
 import '../../../l10n/l10n.dart';
 import '../domain/entitlement.dart';
 import '../domain/free_tier.dart';
@@ -171,10 +173,24 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
             label: Text(l10n.subRestore),
             onPressed: _restore,
           ),
+          if (ref.watch(subscriptionStoreProvider).platform
+              case final platform?)
+            ExternalLinkButton(
+              key: const Key('sub.manage'),
+              label: l10n.subManage,
+              icon: Icons.manage_accounts_rounded,
+              uri: manageSubscriptionsUri(
+                platform,
+                productId: active ? entitlement?.productId : null,
+              ),
+            ),
           const SizedBox(height: LumiSpacing.l),
           Text(l10n.subTerms, style: text.bodyMedium),
           const SizedBox(height: LumiSpacing.s),
           Text(l10n.subPrivacy, style: text.bodyMedium),
+          const SizedBox(height: LumiSpacing.s),
+          // Apple требует ссылки на условия и политику рядом с покупкой.
+          const LegalLinksView(),
         ],
       ),
     );

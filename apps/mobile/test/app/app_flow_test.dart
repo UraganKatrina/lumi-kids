@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lumi_kids/app/lumi_app.dart';
 import 'package:lumi_kids/app/providers.dart';
 import 'package:lumi_kids/core/design_system/lumi_tokens.dart';
+import 'package:lumi_kids/core/external_links.dart';
 import 'package:lumi_kids/features/content_library/data/pack_updater.dart';
 import 'package:lumi_kids/features/catalog/domain/development_area.dart';
 import 'package:lumi_kids/features/content_library/domain/task.dart';
@@ -33,6 +34,7 @@ class TestApp {
   final store = FakeSubscriptionStore();
   final verifier = FakePurchaseVerifier();
   final entitlements = InMemoryEntitlementRepository();
+  final openedLinks = <Uri>[];
 }
 
 /// [age] — возрастная программа ребёнка «Маша»; null — первый запуск без профилей.
@@ -91,6 +93,16 @@ Future<TestApp> pumpApp(
         subscriptionStoreProvider.overrideWithValue(app.store),
         purchaseVerifierProvider.overrideWithValue(app.verifier),
         entitlementRepositoryProvider.overrideWithValue(app.entitlements),
+        legalLinksProvider.overrideWithValue(
+          const LegalLinks(
+            privacy: 'https://lumi.test/privacy',
+            terms: 'https://lumi.test/terms',
+          ),
+        ),
+        linkOpenerProvider.overrideWithValue((uri) async {
+          app.openedLinks.add(uri);
+          return true;
+        }),
       ],
       child: const LumiApp(),
     ),

@@ -1083,6 +1083,42 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Задание {number}, закрыто'**
   String areaTaskLockedLabel(int number);
+
+  /// No description provided for @gateErase.
+  ///
+  /// In ru, this message translates to:
+  /// **'Стереть'**
+  String get gateErase;
+
+  /// No description provided for @gateSubmit.
+  ///
+  /// In ru, this message translates to:
+  /// **'Проверить ответ'**
+  String get gateSubmit;
+
+  /// No description provided for @linkPrivacy.
+  ///
+  /// In ru, this message translates to:
+  /// **'Политика конфиденциальности'**
+  String get linkPrivacy;
+
+  /// No description provided for @linkTerms.
+  ///
+  /// In ru, this message translates to:
+  /// **'Условия использования'**
+  String get linkTerms;
+
+  /// No description provided for @linkOpenFailed.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не получилось открыть ссылку.'**
+  String get linkOpenFailed;
+
+  /// No description provided for @subManage.
+  ///
+  /// In ru, this message translates to:
+  /// **'Управлять подпиской в магазине'**
+  String get subManage;
 }
 
 class _AppLocalizationsDelegate

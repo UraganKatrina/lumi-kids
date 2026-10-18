@@ -127,4 +127,24 @@ void main() {
     );
     expect(app.store.completed, hasLength(1));
   });
+
+  testWidgets('ссылки на документы и управление подпиской', (tester) async {
+    final app = await pumpApp(tester, premium: true);
+    await openParentArea(tester);
+    await tapKey(tester, 'parent.openSubscription');
+    await tapKey(tester, 'link.terms');
+    expect(app.openedLinks.last, Uri.parse('https://lumi.test/terms'));
+    await tapKey(tester, 'sub.manage');
+    expect(
+      app.openedLinks.last,
+      Uri.parse(
+        'https://play.google.com/store/account/subscriptions'
+        '?package=com.lumikids.lumi_kids&sku=lumi_premium_yearly',
+      ),
+    );
+
+    await tapKey(tester, 'sub.back');
+    await tapKey(tester, 'link.privacy');
+    expect(app.openedLinks.last, Uri.parse('https://lumi.test/privacy'));
+  });
 }

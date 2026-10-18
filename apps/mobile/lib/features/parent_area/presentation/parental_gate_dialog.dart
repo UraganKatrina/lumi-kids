@@ -125,14 +125,20 @@ class _GateDialogState extends State<_GateDialog> {
                   '',
                   _erase,
                   'gate.erase',
-                  icon: const Icon(Icons.backspace_outlined),
+                  icon: Icon(
+                    Icons.backspace_outlined,
+                    semanticLabel: context.l10n.gateErase,
+                  ),
                 ),
                 key('0', () => _type('0'), 'gate.digit.0'),
                 key(
                   '',
                   _submit,
                   'gate.submit',
-                  icon: const Icon(Icons.check_rounded),
+                  icon: Icon(
+                    Icons.check_rounded,
+                    semanticLabel: context.l10n.gateSubmit,
+                  ),
                 ),
               ],
             ),

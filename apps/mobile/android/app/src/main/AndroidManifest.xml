@@ -1,6 +1,15 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!-- Скачивание заданий и проверка покупок. В debug-сборке Flutter
+         добавляет это разрешение сам, в release его нужно указать явно. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Детское приложение: рекламный идентификатор запрещён правилами
+         Google Play Families. Убираем его, даже если добавит библиотека. -->
+    <uses-permission
+        android:name="com.google.android.gms.permission.AD_ID"
+        tools:node="remove"/>
     <application
-        android:label="lumi_kids"
+        android:label="LUMI Kids"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -37,6 +46,11 @@
 
          In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
     <queries>
+        <!-- Ссылки на документы и управление подпиской в кабинете родителя. -->
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="https"/>
+        </intent>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>

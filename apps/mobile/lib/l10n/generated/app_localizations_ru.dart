@@ -574,4 +574,22 @@ class AppLocalizationsRu extends AppLocalizations {
   String areaTaskLockedLabel(int number) {
     return 'Задание $number, закрыто';
   }
+
+  @override
+  String get gateErase => 'Стереть';
+
+  @override
+  String get gateSubmit => 'Проверить ответ';
+
+  @override
+  String get linkPrivacy => 'Политика конфиденциальности';
+
+  @override
+  String get linkTerms => 'Условия использования';
+
+  @override
+  String get linkOpenFailed => 'Не получилось открыть ссылку.';
+
+  @override
+  String get subManage => 'Управлять подпиской в магазине';
 }

@@ -575,4 +575,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String areaTaskLockedLabel(int number) {
     return 'Activity $number, locked';
   }
+
+  @override
+  String get gateErase => 'Delete';
+
+  @override
+  String get gateSubmit => 'Check answer';
+
+  @override
+  String get linkPrivacy => 'Privacy policy';
+
+  @override
+  String get linkTerms => 'Terms of use';
+
+  @override
+  String get linkOpenFailed => 'Couldn\'t open the link.';
+
+  @override
+  String get subManage => 'Manage subscription in the store';
 }

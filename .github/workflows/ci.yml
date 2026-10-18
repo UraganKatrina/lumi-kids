@@ -46,6 +46,11 @@ jobs:
       - name: Build debug APK
         run: flutter build apk --debug
 
+      # Проверяем, что release собирается (R8, манифест). Без ключа загрузки
+      # Gradle подписывает его отладочным ключом, в магазин такой не годится.
+      - name: Build release app bundle
+        run: flutter build appbundle --release
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
