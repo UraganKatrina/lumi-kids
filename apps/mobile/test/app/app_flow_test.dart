@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lumi_kids/app/lumi_app.dart';
 import 'package:lumi_kids/app/providers.dart';
 import 'package:lumi_kids/core/design_system/lumi_tokens.dart';
+import 'package:lumi_kids/features/content_library/data/pack_updater.dart';
 import 'package:lumi_kids/features/catalog/domain/development_area.dart';
 import 'package:lumi_kids/features/content_library/domain/task.dart';
 import 'package:lumi_kids/features/parent_area/domain/parental_gate.dart';
@@ -64,6 +65,9 @@ Future<TestApp> pumpApp(
         clockProvider.overrideWithValue(() => testNow),
         gateQuestionProvider.overrideWithValue(() => const GateQuestion(6, 7)),
         contentRepositoryProvider.overrideWithValue(FileContentRepository()),
+        packUpdateProvider.overrideWith(
+          (ref) async => PackUpdateResult.notConfigured,
+        ),
         progressRepositoryProvider.overrideWithValue(app.progress),
         profileRepositoryProvider.overrideWithValue(app.profiles),
       ],
@@ -385,6 +389,21 @@ void main() {
     await tapKey(tester, 'confirm.yes');
     expect(app.profiles.profiles, isEmpty);
     expect(find.byKey(const Key('welcome.title')), findsOneWidget);
+  });
+
+  testWidgets('кабинет показывает источник заданий и проверяет обновления', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await openParentArea(tester);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('parent.checkUpdates')),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(find.textContaining('встроенный пакет'), findsOneWidget);
+    await tapKey(tester, 'parent.checkUpdates');
+    expect(find.textContaining('нет адреса сервера'), findsOneWidget);
   });
 
   testWidgets('правка профиля меняет возраст', (tester) async {

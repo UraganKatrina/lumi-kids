@@ -8,6 +8,7 @@
     "start": "node dist/src/main.js",
     "migrate": "node dist/src/db/migrate-cli.js",
     "create-staff": "node dist/src/staff/create-staff-cli.js",
+    "import-tasks": "node dist/src/content/import-cli.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "tsc -p tsconfig.json && node --test --test-concurrency=1 \"dist/test/**/*.test.js\""
   },
