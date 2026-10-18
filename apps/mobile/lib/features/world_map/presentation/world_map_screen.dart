@@ -6,6 +6,8 @@ import '../../../app/providers.dart';
 import '../../../core/design_system/lumi_character.dart';
 import '../../../core/design_system/lumi_tokens.dart';
 import '../../../core/widgets/async_view.dart';
+import '../../age_routes/domain/age_program.dart';
+import '../../age_routes/presentation/age_selection.dart';
 import '../../catalog/domain/development_area.dart';
 import '../../content_library/domain/task.dart';
 
@@ -15,8 +17,10 @@ class WorldMapScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tasks = ref.watch(tasksProvider);
+    final program = ref.watch(ageProgramProvider);
+    final tasks = ref.watch(ageTasksProvider);
     final stars = ref.watch(bestStarsProvider).value ?? const {};
+    final next = ref.watch(recommendedTaskProvider).value;
 
     return Scaffold(
       body: DecoratedBox(
@@ -29,8 +33,18 @@ class WorldMapScreen extends ConsumerWidget {
         ),
         child: SafeArea(
           child: AsyncView(
-            value: tasks,
-            builder: (tasks) => _MapBody(tasks: tasks, stars: stars),
+            value: program,
+            builder: (program) => program == null
+                ? const AgeSelectionView()
+                : AsyncView(
+                    value: tasks,
+                    builder: (tasks) => _MapBody(
+                      program: program,
+                      tasks: tasks,
+                      stars: stars,
+                      next: next,
+                    ),
+                  ),
           ),
         ),
       ),
@@ -39,10 +53,17 @@ class WorldMapScreen extends ConsumerWidget {
 }
 
 class _MapBody extends StatelessWidget {
-  const _MapBody({required this.tasks, required this.stars});
+  const _MapBody({
+    required this.program,
+    required this.tasks,
+    required this.stars,
+    required this.next,
+  });
 
+  final AgeProgram program;
   final List<LearningTask> tasks;
   final Map<String, int> stars;
+  final LearningTask? next;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +75,12 @@ class _MapBody extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(child: _Greeting(totalStars: totalStars)),
+        SliverToBoxAdapter(
+          child: _Greeting(totalStars: totalStars, program: program),
+        ),
+        SliverToBoxAdapter(
+          child: _NextActivity(task: next, program: program),
+        ),
         SliverPadding(
           padding: const EdgeInsets.all(LumiSpacing.m),
           sliver: SliverGrid(
@@ -83,9 +109,10 @@ class _MapBody extends StatelessWidget {
 }
 
 class _Greeting extends StatelessWidget {
-  const _Greeting({required this.totalStars});
+  const _Greeting({required this.totalStars, required this.program});
 
   final int totalStars;
+  final AgeProgram program;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +133,16 @@ class _Greeting extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Привет! Я Люми.', style: text.headlineMedium),
-                Text('Выбери остров.', style: text.bodyLarge),
+                TextButton.icon(
+                  key: const Key('map.age'),
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    minimumSize: const Size(0, LumiSizes.minTapTarget),
+                  ),
+                  onPressed: () => context.go('/age'),
+                  icon: const Icon(Icons.cake_rounded),
+                  label: Text(program.title, style: text.bodyLarge),
+                ),
               ],
             ),
           ),
@@ -214,6 +250,58 @@ class _Island extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Кнопка «Следующее занятие»: рекомендация по возрасту и успехам.
+class _NextActivity extends StatelessWidget {
+  const _NextActivity({required this.task, required this.program});
+
+  final LearningTask? task;
+  final AgeProgram program;
+
+  @override
+  Widget build(BuildContext context) {
+    final text = Theme.of(context).textTheme;
+    final next = task;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        LumiSpacing.m,
+        LumiSpacing.m,
+        LumiSpacing.m,
+        0,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (program.parentLed)
+            Padding(
+              padding: const EdgeInsets.only(bottom: LumiSpacing.s),
+              child: Text(
+                'Для малышей до года все занятия проходят вместе со взрослым, '
+                'экран только подсказывает идею.',
+                key: const Key('map.parentLed'),
+                textAlign: TextAlign.center,
+                style: text.bodyLarge,
+              ),
+            ),
+          if (next == null)
+            Text(
+              'Все занятия пройдены! Скоро появятся новые.',
+              key: const Key('map.allDone'),
+              textAlign: TextAlign.center,
+              style: text.titleLarge,
+            )
+          else
+            FilledButton.icon(
+              key: const Key('map.next'),
+              onPressed: () => context.go('/task/${next.id}'),
+              icon: Icon(next.area.icon),
+              label: Text('Следующее занятие: ${next.area.title}'),
+            ),
+        ],
       ),
     );
   }

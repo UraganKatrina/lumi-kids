@@ -18,13 +18,31 @@ class Attempts extends Table {
   Set<Column> get primaryKey => {id};
 }
 
-@DriftDatabase(tables: [Attempts])
+/// Настройки на устройстве: ключ — значение. Профили детей появятся на этапе 5.
+class Settings extends Table {
+  TextColumn get key => text()();
+  TextColumn get value => text()();
+
+  @override
+  Set<Column> get primaryKey => {key};
+}
+
+@DriftDatabase(tables: [Attempts, Settings])
 class ProgressDatabase extends _$ProgressDatabase {
   ProgressDatabase(super.executor);
 
-  /// База в памяти устройства (SQLite-файл в каталоге приложения).
+  /// SQLite-файл в каталоге приложения.
   ProgressDatabase.onDevice() : super(driftDatabase(name: 'lumi_progress'));
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onCreate: (m) => m.createAll(),
+    onUpgrade: (m, from, to) async {
+      // v1 → v2: добавлены настройки (выбранная возрастная программа).
+      if (from < 2) await m.createTable(settings);
+    },
+  );
 }

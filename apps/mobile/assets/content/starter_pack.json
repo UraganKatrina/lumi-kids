@@ -1,6 +1,6 @@
 {
   "packId": "starter",
-  "packVersion": 1,
+  "packVersion": 2,
   "schemaVersion": 1,
   "languages": [
     "ru"
@@ -588,6 +588,2073 @@
       "review": {
         "status": "draft",
         "notes": "Прототип этапа 3, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "memory_attention.contrast_cards.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "memory_attention",
+      "goalId": "memory_attention.visual_focus",
+      "skills": [
+        "visual_attention"
+      ],
+      "ageRange": {
+        "minMonths": 0,
+        "maxMonths": 5
+      },
+      "difficulty": 1,
+      "withParent": true,
+      "exerciseType": "audio_instruction",
+      "instruction": {
+        "text": {
+          "ru": "Посмотрим на чёрно-белые картинки вместе."
+        }
+      },
+      "content": {
+        "steps": [
+          {
+            "ru": "Покажите малышу чёрно-белую картинку на расстоянии 20–30 см от лица."
+          },
+          {
+            "ru": "Медленно ведите картинку немного влево и вправо, чтобы малыш следил глазками."
+          },
+          {
+            "ru": "Если малыш отворачивается, сделайте паузу: значит, ему нужен отдых."
+          }
+        ]
+      },
+      "media": [],
+      "reward": {
+        "stars": 1
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "music.lullaby.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "music",
+      "goalId": "music.listen_melody",
+      "skills": [
+        "listening"
+      ],
+      "ageRange": {
+        "minMonths": 0,
+        "maxMonths": 11
+      },
+      "difficulty": 1,
+      "withParent": true,
+      "exerciseType": "audio_instruction",
+      "instruction": {
+        "text": {
+          "ru": "Споём тихую песенку."
+        }
+      },
+      "content": {
+        "steps": [
+          {
+            "ru": "Возьмите малыша на руки или сядьте рядом."
+          },
+          {
+            "ru": "Спойте медленную колыбельную негромким голосом."
+          },
+          {
+            "ru": "Покачивайтесь в такт песенке и улыбайтесь малышу."
+          }
+        ]
+      },
+      "media": [],
+      "reward": {
+        "stars": 1
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "emotional_social.mirror.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "emotional_social",
+      "goalId": "emotional_social.self_awareness",
+      "skills": [
+        "face_recognition",
+        "social_contact"
+      ],
+      "ageRange": {
+        "minMonths": 4,
+        "maxMonths": 11
+      },
+      "difficulty": 1,
+      "withParent": true,
+      "exerciseType": "audio_instruction",
+      "instruction": {
+        "text": {
+          "ru": "Поиграем с зеркалом."
+        }
+      },
+      "content": {
+        "steps": [
+          {
+            "ru": "Сядьте с малышом перед безопасным зеркалом."
+          },
+          {
+            "ru": "Покажите на отражение: «Вот малыш! А вот мама (папа)!»"
+          },
+          {
+            "ru": "Улыбнитесь в зеркало и подождите, что сделает малыш."
+          }
+        ]
+      },
+      "media": [],
+      "reward": {
+        "stars": 1
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "world.textures.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "world",
+      "goalId": "world.sensory_textures",
+      "skills": [
+        "touch_exploration"
+      ],
+      "ageRange": {
+        "minMonths": 6,
+        "maxMonths": 11
+      },
+      "difficulty": 1,
+      "withParent": true,
+      "exerciseType": "audio_instruction",
+      "instruction": {
+        "text": {
+          "ru": "Потрогаем разные материалы."
+        }
+      },
+      "content": {
+        "steps": [
+          {
+            "ru": "Приготовьте 3–4 чистых безопасных предмета: мягкий платок, гладкую ложку, шершавую губку."
+          },
+          {
+            "ru": "Дайте малышу потрогать каждый предмет и назовите его: «мягкий», «гладкая»."
+          },
+          {
+            "ru": "Будьте рядом всё время и не давайте мелкие предметы."
+          }
+        ]
+      },
+      "media": [],
+      "reward": {
+        "stars": 1
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "emotional_social.peekaboo.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "emotional_social",
+      "goalId": "emotional_social.joint_play",
+      "skills": [
+        "object_permanence",
+        "social_contact"
+      ],
+      "ageRange": {
+        "minMonths": 6,
+        "maxMonths": 11
+      },
+      "difficulty": 1,
+      "withParent": true,
+      "exerciseType": "audio_instruction",
+      "instruction": {
+        "text": {
+          "ru": "Поиграем в «Ку-ку»."
+        }
+      },
+      "content": {
+        "steps": [
+          {
+            "ru": "Закройте лицо ладонями или лёгким платком."
+          },
+          {
+            "ru": "Скажите: «Где мама?» — и через пару секунд откройте лицо: «Ку-ку!»"
+          },
+          {
+            "ru": "Повторите несколько раз, пока малышу весело."
+          }
+        ]
+      },
+      "media": [],
+      "reward": {
+        "stars": 1
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "self_care.socks.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "self_care",
+      "goalId": "self_care.household_help",
+      "skills": [
+        "matching",
+        "helping"
+      ],
+      "ageRange": {
+        "minMonths": 18,
+        "maxMonths": 35
+      },
+      "difficulty": 1,
+      "withParent": true,
+      "exerciseType": "audio_instruction",
+      "instruction": {
+        "text": {
+          "ru": "Разложим носочки по парам."
+        }
+      },
+      "content": {
+        "steps": [
+          {
+            "ru": "Высыпьте на диван несколько пар чистых носков."
+          },
+          {
+            "ru": "Возьмите один носок и предложите ребёнку найти такой же."
+          },
+          {
+            "ru": "Похвалите за каждую найденную пару: «Ты нашёл пару!»"
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "Начните с двух-трёх пар разного цвета."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 1
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "movement.bear_walk.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "movement",
+      "goalId": "movement.gross_motor",
+      "skills": [
+        "imitation",
+        "coordination"
+      ],
+      "ageRange": {
+        "minMonths": 18,
+        "maxMonths": 35
+      },
+      "difficulty": 1,
+      "withParent": true,
+      "exerciseType": "audio_instruction",
+      "instruction": {
+        "text": {
+          "ru": "Как ходит мишка? Покажем вместе!"
+        }
+      },
+      "content": {
+        "steps": [
+          {
+            "ru": "Покажите, как мишка идёт вперевалочку: топ-топ."
+          },
+          {
+            "ru": "Попросите ребёнка повторить за вами."
+          },
+          {
+            "ru": "Потом попробуйте как зайчик: прыг-прыг."
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "Можно играть под весёлую музыку."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 1
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "speech.animal_sound.dog.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "speech",
+      "goalId": "speech.onomatopoeia",
+      "skills": [
+        "sound_imitation"
+      ],
+      "ageRange": {
+        "minMonths": 12,
+        "maxMonths": 29
+      },
+      "difficulty": 1,
+      "withParent": false,
+      "exerciseType": "choice",
+      "instruction": {
+        "text": {
+          "ru": "Кто говорит «Гав-гав»?"
+        }
+      },
+      "content": {
+        "options": [
+          {
+            "id": "dog",
+            "label": {
+              "ru": "🐕"
+            }
+          },
+          {
+            "id": "cat",
+            "label": {
+              "ru": "🐈"
+            }
+          },
+          {
+            "id": "duck",
+            "label": {
+              "ru": "🦆"
+            }
+          }
+        ],
+        "correct": [
+          "dog"
+        ],
+        "shuffle": true
+      },
+      "hints": [
+        {
+          "ru": "Это наш верный друг, он охраняет дом."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "world.body.nose.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "world",
+      "goalId": "world.body_parts",
+      "skills": [
+        "body_awareness"
+      ],
+      "ageRange": {
+        "minMonths": 18,
+        "maxMonths": 35
+      },
+      "difficulty": 1,
+      "withParent": false,
+      "exerciseType": "choice",
+      "instruction": {
+        "text": {
+          "ru": "Где носик?"
+        }
+      },
+      "content": {
+        "options": [
+          {
+            "id": "nose",
+            "label": {
+              "ru": "👃"
+            }
+          },
+          {
+            "id": "ear",
+            "label": {
+              "ru": "👂"
+            }
+          },
+          {
+            "id": "hand",
+            "label": {
+              "ru": "✋"
+            }
+          }
+        ],
+        "correct": [
+          "nose"
+        ],
+        "shuffle": true
+      },
+      "hints": [
+        {
+          "ru": "Носиком мы нюхаем цветочки."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "self_care.toothbrush.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "self_care",
+      "goalId": "self_care.hygiene",
+      "skills": [
+        "hygiene_objects"
+      ],
+      "ageRange": {
+        "minMonths": 18,
+        "maxMonths": 35
+      },
+      "difficulty": 1,
+      "withParent": false,
+      "exerciseType": "choice",
+      "instruction": {
+        "text": {
+          "ru": "Чем чистят зубки?"
+        }
+      },
+      "content": {
+        "options": [
+          {
+            "id": "brush",
+            "label": {
+              "ru": "🪥"
+            }
+          },
+          {
+            "id": "spoon",
+            "label": {
+              "ru": "🥄"
+            }
+          },
+          {
+            "id": "sock",
+            "label": {
+              "ru": "🧦"
+            }
+          }
+        ],
+        "correct": [
+          "brush"
+        ],
+        "shuffle": true
+      },
+      "hints": [
+        {
+          "ru": "Ею чистят зубки утром и вечером."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "memory_attention.same.chick.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "memory_attention",
+      "goalId": "memory_attention.visual_match",
+      "skills": [
+        "visual_discrimination"
+      ],
+      "ageRange": {
+        "minMonths": 24,
+        "maxMonths": 41
+      },
+      "difficulty": 1,
+      "withParent": false,
+      "exerciseType": "choice",
+      "instruction": {
+        "text": {
+          "ru": "Найди такую же картинку."
+        }
+      },
+      "content": {
+        "options": [
+          {
+            "id": "chick",
+            "label": {
+              "ru": "🐥"
+            }
+          },
+          {
+            "id": "penguin",
+            "label": {
+              "ru": "🐧"
+            }
+          },
+          {
+            "id": "duck",
+            "label": {
+              "ru": "🦆"
+            }
+          }
+        ],
+        "correct": [
+          "chick"
+        ],
+        "shuffle": true,
+        "prompt": {
+          "id": "prompt",
+          "label": {
+            "ru": "🐥"
+          }
+        }
+      },
+      "hints": [
+        {
+          "ru": "Посмотри внимательно на цвет и форму."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "logic.sort.colors.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "logic",
+      "goalId": "logic.colors",
+      "skills": [
+        "color_sorting"
+      ],
+      "ageRange": {
+        "minMonths": 24,
+        "maxMonths": 47
+      },
+      "difficulty": 1,
+      "withParent": false,
+      "exerciseType": "sort",
+      "instruction": {
+        "text": {
+          "ru": "Разложи по цвету."
+        }
+      },
+      "content": {
+        "groups": [
+          {
+            "id": "g_red",
+            "label": {
+              "ru": "🔴 Красное"
+            }
+          },
+          {
+            "id": "g_yellow",
+            "label": {
+              "ru": "🟡 Жёлтое"
+            }
+          }
+        ],
+        "items": [
+          {
+            "item": {
+              "id": "strawberry",
+              "label": {
+                "ru": "🍓"
+              }
+            },
+            "groupId": "g_red"
+          },
+          {
+            "item": {
+              "id": "apple",
+              "label": {
+                "ru": "🍎"
+              }
+            },
+            "groupId": "g_red"
+          },
+          {
+            "item": {
+              "id": "cherry",
+              "label": {
+                "ru": "🍒"
+              }
+            },
+            "groupId": "g_red"
+          },
+          {
+            "item": {
+              "id": "banana",
+              "label": {
+                "ru": "🍌"
+              }
+            },
+            "groupId": "g_yellow"
+          },
+          {
+            "item": {
+              "id": "lemon",
+              "label": {
+                "ru": "🍋"
+              }
+            },
+            "groupId": "g_yellow"
+          },
+          {
+            "item": {
+              "id": "sunflower",
+              "label": {
+                "ru": "🌻"
+              }
+            },
+            "groupId": "g_yellow"
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "Клубника красная, а банан жёлтый."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "self_care.wash_hands.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "self_care",
+      "goalId": "self_care.hygiene",
+      "skills": [
+        "routine_order"
+      ],
+      "ageRange": {
+        "minMonths": 30,
+        "maxMonths": 59
+      },
+      "difficulty": 2,
+      "withParent": false,
+      "exerciseType": "sequence",
+      "instruction": {
+        "text": {
+          "ru": "Как мыть ручки? Расставь по порядку."
+        }
+      },
+      "content": {
+        "steps": [
+          {
+            "id": "wet",
+            "label": {
+              "ru": "💧 Намочить"
+            }
+          },
+          {
+            "id": "soap",
+            "label": {
+              "ru": "🧼 Намылить"
+            }
+          },
+          {
+            "id": "rinse",
+            "label": {
+              "ru": "💦 Смыть"
+            }
+          },
+          {
+            "id": "dry",
+            "label": {
+              "ru": "✋ Вытереть"
+            }
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "Сначала ручки нужно намочить водичкой."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "world.day_parts.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "world",
+      "goalId": "world.time_of_day",
+      "skills": [
+        "time_concepts"
+      ],
+      "ageRange": {
+        "minMonths": 36,
+        "maxMonths": 71
+      },
+      "difficulty": 2,
+      "withParent": false,
+      "exerciseType": "sequence",
+      "instruction": {
+        "text": {
+          "ru": "Что бывает сначала, а что потом?"
+        }
+      },
+      "content": {
+        "steps": [
+          {
+            "id": "morning",
+            "label": {
+              "ru": "🌅 Утро"
+            }
+          },
+          {
+            "id": "day",
+            "label": {
+              "ru": "☀️ День"
+            }
+          },
+          {
+            "id": "evening",
+            "label": {
+              "ru": "🌇 Вечер"
+            }
+          },
+          {
+            "id": "night",
+            "label": {
+              "ru": "🌙 Ночь"
+            }
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "Утром мы просыпаемся, а ночью спим."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "world.animal_food.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "world",
+      "goalId": "world.animals",
+      "skills": [
+        "association"
+      ],
+      "ageRange": {
+        "minMonths": 36,
+        "maxMonths": 59
+      },
+      "difficulty": 2,
+      "withParent": false,
+      "exerciseType": "match_pairs",
+      "instruction": {
+        "text": {
+          "ru": "Кто что любит? Соедини."
+        }
+      },
+      "content": {
+        "pairs": [
+          {
+            "left": {
+              "id": "rabbit",
+              "label": {
+                "ru": "🐰"
+              }
+            },
+            "right": {
+              "id": "carrot",
+              "label": {
+                "ru": "🥕"
+              }
+            }
+          },
+          {
+            "left": {
+              "id": "monkey",
+              "label": {
+                "ru": "🐒"
+              }
+            },
+            "right": {
+              "id": "banana",
+              "label": {
+                "ru": "🍌"
+              }
+            }
+          },
+          {
+            "left": {
+              "id": "bear",
+              "label": {
+                "ru": "🐻"
+              }
+            },
+            "right": {
+              "id": "honey",
+              "label": {
+                "ru": "🍯"
+              }
+            }
+          },
+          {
+            "left": {
+              "id": "squirrel",
+              "label": {
+                "ru": "🐿️"
+              }
+            },
+            "right": {
+              "id": "nut",
+              "label": {
+                "ru": "🌰"
+              }
+            }
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "Зайчик хрустит морковкой."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "math.count_match.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "math",
+      "goalId": "math.count_to_3",
+      "skills": [
+        "counting",
+        "number_recognition"
+      ],
+      "ageRange": {
+        "minMonths": 36,
+        "maxMonths": 59
+      },
+      "difficulty": 2,
+      "withParent": false,
+      "exerciseType": "match_pairs",
+      "instruction": {
+        "text": {
+          "ru": "Соедини ягодки с цифрой."
+        }
+      },
+      "content": {
+        "pairs": [
+          {
+            "left": {
+              "id": "one",
+              "label": {
+                "ru": "🍓"
+              }
+            },
+            "right": {
+              "id": "n1",
+              "label": {
+                "ru": "1"
+              }
+            }
+          },
+          {
+            "left": {
+              "id": "two",
+              "label": {
+                "ru": "🍓 🍓"
+              }
+            },
+            "right": {
+              "id": "n2",
+              "label": {
+                "ru": "2"
+              }
+            }
+          },
+          {
+            "left": {
+              "id": "three",
+              "label": {
+                "ru": "🍓 🍓 🍓"
+              }
+            },
+            "right": {
+              "id": "n3",
+              "label": {
+                "ru": "3"
+              }
+            }
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "Посчитай ягодки пальчиком."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "math.shapes.sort.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "math",
+      "goalId": "math.shapes",
+      "skills": [
+        "shape_recognition"
+      ],
+      "ageRange": {
+        "minMonths": 36,
+        "maxMonths": 59
+      },
+      "difficulty": 2,
+      "withParent": false,
+      "exerciseType": "sort",
+      "instruction": {
+        "text": {
+          "ru": "Где круги, а где квадраты?"
+        }
+      },
+      "content": {
+        "groups": [
+          {
+            "id": "g_circle",
+            "label": {
+              "ru": "⚪ Круг"
+            }
+          },
+          {
+            "id": "g_square",
+            "label": {
+              "ru": "⬜ Квадрат"
+            }
+          }
+        ],
+        "items": [
+          {
+            "item": {
+              "id": "c_blue",
+              "label": {
+                "ru": "🔵"
+              }
+            },
+            "groupId": "g_circle"
+          },
+          {
+            "item": {
+              "id": "c_green",
+              "label": {
+                "ru": "🟢"
+              }
+            },
+            "groupId": "g_circle"
+          },
+          {
+            "item": {
+              "id": "c_yellow",
+              "label": {
+                "ru": "🟡"
+              }
+            },
+            "groupId": "g_circle"
+          },
+          {
+            "item": {
+              "id": "s_blue",
+              "label": {
+                "ru": "🟦"
+              }
+            },
+            "groupId": "g_square"
+          },
+          {
+            "item": {
+              "id": "s_green",
+              "label": {
+                "ru": "🟩"
+              }
+            },
+            "groupId": "g_square"
+          },
+          {
+            "item": {
+              "id": "s_yellow",
+              "label": {
+                "ru": "🟨"
+              }
+            },
+            "groupId": "g_square"
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "У круга нет уголков."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "world.transport.classify.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "world",
+      "goalId": "world.transport",
+      "skills": [
+        "classification"
+      ],
+      "ageRange": {
+        "minMonths": 36,
+        "maxMonths": 59
+      },
+      "difficulty": 2,
+      "withParent": false,
+      "exerciseType": "classify",
+      "instruction": {
+        "text": {
+          "ru": "Кто где едет, плывёт или летит?"
+        }
+      },
+      "content": {
+        "groups": [
+          {
+            "id": "g_water",
+            "label": {
+              "ru": "🌊 Вода"
+            }
+          },
+          {
+            "id": "g_sky",
+            "label": {
+              "ru": "☁️ Небо"
+            }
+          },
+          {
+            "id": "g_road",
+            "label": {
+              "ru": "🛣️ Дорога"
+            }
+          }
+        ],
+        "items": [
+          {
+            "item": {
+              "id": "ship",
+              "label": {
+                "ru": "🚢"
+              }
+            },
+            "groupId": "g_water"
+          },
+          {
+            "item": {
+              "id": "sailboat",
+              "label": {
+                "ru": "⛵"
+              }
+            },
+            "groupId": "g_water"
+          },
+          {
+            "item": {
+              "id": "plane",
+              "label": {
+                "ru": "✈️"
+              }
+            },
+            "groupId": "g_sky"
+          },
+          {
+            "item": {
+              "id": "helicopter",
+              "label": {
+                "ru": "🚁"
+              }
+            },
+            "groupId": "g_sky"
+          },
+          {
+            "item": {
+              "id": "car",
+              "label": {
+                "ru": "🚗"
+              }
+            },
+            "groupId": "g_road"
+          },
+          {
+            "item": {
+              "id": "bus",
+              "label": {
+                "ru": "🚌"
+              }
+            },
+            "groupId": "g_road"
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "Самолёт летит высоко в небе."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "world.butterfly.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "world",
+      "goalId": "world.life_cycles",
+      "skills": [
+        "sequencing",
+        "nature"
+      ],
+      "ageRange": {
+        "minMonths": 48,
+        "maxMonths": 84
+      },
+      "difficulty": 3,
+      "withParent": false,
+      "exerciseType": "sequence",
+      "instruction": {
+        "text": {
+          "ru": "Как появляется бабочка? Расставь по порядку."
+        }
+      },
+      "content": {
+        "steps": [
+          {
+            "id": "egg",
+            "label": {
+              "ru": "🥚 Яичко"
+            }
+          },
+          {
+            "id": "caterpillar",
+            "label": {
+              "ru": "🐛 Гусеница"
+            }
+          },
+          {
+            "id": "butterfly",
+            "label": {
+              "ru": "🦋 Бабочка"
+            }
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "Сначала было маленькое яичко на листике."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "math.number_order.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "math",
+      "goalId": "math.number_order",
+      "skills": [
+        "number_sequence"
+      ],
+      "ageRange": {
+        "minMonths": 48,
+        "maxMonths": 71
+      },
+      "difficulty": 3,
+      "withParent": false,
+      "exerciseType": "sequence",
+      "instruction": {
+        "text": {
+          "ru": "Поставь числа по порядку."
+        }
+      },
+      "content": {
+        "steps": [
+          {
+            "id": "n1",
+            "label": {
+              "ru": "1"
+            }
+          },
+          {
+            "id": "n2",
+            "label": {
+              "ru": "2"
+            }
+          },
+          {
+            "id": "n3",
+            "label": {
+              "ru": "3"
+            }
+          },
+          {
+            "id": "n4",
+            "label": {
+              "ru": "4"
+            }
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "Начни с самого маленького числа."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "logic.pattern.colors.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "logic",
+      "goalId": "logic.patterns",
+      "skills": [
+        "pattern_recognition"
+      ],
+      "ageRange": {
+        "minMonths": 48,
+        "maxMonths": 71
+      },
+      "difficulty": 3,
+      "withParent": false,
+      "exerciseType": "choice",
+      "instruction": {
+        "text": {
+          "ru": "Что будет дальше?"
+        }
+      },
+      "content": {
+        "options": [
+          {
+            "id": "blue",
+            "label": {
+              "ru": "🔵"
+            }
+          },
+          {
+            "id": "red",
+            "label": {
+              "ru": "🔴"
+            }
+          },
+          {
+            "id": "green",
+            "label": {
+              "ru": "🟢"
+            }
+          }
+        ],
+        "correct": [
+          "blue"
+        ],
+        "shuffle": true,
+        "prompt": {
+          "id": "prompt",
+          "label": {
+            "ru": "🔴 🔵 🔴 🔵 🔴"
+          }
+        }
+      },
+      "hints": [
+        {
+          "ru": "Красный, синий, красный, синий… Что идёт за красным?"
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "languages.animals_en.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "languages",
+      "goalId": "languages.english_animals",
+      "skills": [
+        "vocabulary_en"
+      ],
+      "ageRange": {
+        "minMonths": 48,
+        "maxMonths": 84
+      },
+      "difficulty": 3,
+      "withParent": false,
+      "exerciseType": "match_pairs",
+      "instruction": {
+        "text": {
+          "ru": "Соедини зверька со словом по-английски."
+        }
+      },
+      "content": {
+        "pairs": [
+          {
+            "left": {
+              "id": "cat",
+              "label": {
+                "ru": "🐱"
+              }
+            },
+            "right": {
+              "id": "w_cat",
+              "label": {
+                "ru": "cat"
+              }
+            }
+          },
+          {
+            "left": {
+              "id": "dog",
+              "label": {
+                "ru": "🐶"
+              }
+            },
+            "right": {
+              "id": "w_dog",
+              "label": {
+                "ru": "dog"
+              }
+            }
+          },
+          {
+            "left": {
+              "id": "fish",
+              "label": {
+                "ru": "🐟"
+              }
+            },
+            "right": {
+              "id": "w_fish",
+              "label": {
+                "ru": "fish"
+              }
+            }
+          },
+          {
+            "left": {
+              "id": "bird",
+              "label": {
+                "ru": "🐦"
+              }
+            },
+            "right": {
+              "id": "w_bird",
+              "label": {
+                "ru": "bird"
+              }
+            }
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "«Cat» — это кошка, «dog» — это собака."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "emotional_social.feelings.classify.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "emotional_social",
+      "goalId": "emotional_social.recognize_emotions",
+      "skills": [
+        "emotion_understanding"
+      ],
+      "ageRange": {
+        "minMonths": 48,
+        "maxMonths": 84
+      },
+      "difficulty": 3,
+      "withParent": false,
+      "exerciseType": "classify",
+      "instruction": {
+        "text": {
+          "ru": "Что радует, а что огорчает?"
+        }
+      },
+      "content": {
+        "groups": [
+          {
+            "id": "g_happy",
+            "label": {
+              "ru": "😊 Радостно"
+            }
+          },
+          {
+            "id": "g_sad",
+            "label": {
+              "ru": "😢 Грустно"
+            }
+          }
+        ],
+        "items": [
+          {
+            "item": {
+              "id": "gift",
+              "label": {
+                "ru": "🎁 Подарок"
+              }
+            },
+            "groupId": "g_happy"
+          },
+          {
+            "item": {
+              "id": "hug",
+              "label": {
+                "ru": "🤗 Обнимашки"
+              }
+            },
+            "groupId": "g_happy"
+          },
+          {
+            "item": {
+              "id": "party",
+              "label": {
+                "ru": "🎂 Праздник"
+              }
+            },
+            "groupId": "g_happy"
+          },
+          {
+            "item": {
+              "id": "balloon",
+              "label": {
+                "ru": "🎈 Шарик улетел"
+              }
+            },
+            "groupId": "g_sad"
+          },
+          {
+            "item": {
+              "id": "toy",
+              "label": {
+                "ru": "🧸 Игрушка сломалась"
+              }
+            },
+            "groupId": "g_sad"
+          },
+          {
+            "item": {
+              "id": "rain",
+              "label": {
+                "ru": "🌧️ Прогулку отменили"
+              }
+            },
+            "groupId": "g_sad"
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "Подумай, что бы ты почувствовал."
+        },
+        {
+          "ru": "Грустить — это нормально, грусть проходит."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "world.seasons.classify.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "world",
+      "goalId": "world.seasons",
+      "skills": [
+        "seasons",
+        "classification"
+      ],
+      "ageRange": {
+        "minMonths": 48,
+        "maxMonths": 84
+      },
+      "difficulty": 3,
+      "withParent": false,
+      "exerciseType": "classify",
+      "instruction": {
+        "text": {
+          "ru": "Что бывает зимой, а что летом?"
+        }
+      },
+      "content": {
+        "groups": [
+          {
+            "id": "g_winter",
+            "label": {
+              "ru": "❄️ Зима"
+            }
+          },
+          {
+            "id": "g_summer",
+            "label": {
+              "ru": "☀️ Лето"
+            }
+          }
+        ],
+        "items": [
+          {
+            "item": {
+              "id": "snowman",
+              "label": {
+                "ru": "⛄ Снеговик"
+              }
+            },
+            "groupId": "g_winter"
+          },
+          {
+            "item": {
+              "id": "sled",
+              "label": {
+                "ru": "🛷 Санки"
+              }
+            },
+            "groupId": "g_winter"
+          },
+          {
+            "item": {
+              "id": "mittens",
+              "label": {
+                "ru": "🧤 Варежки"
+              }
+            },
+            "groupId": "g_winter"
+          },
+          {
+            "item": {
+              "id": "shorts",
+              "label": {
+                "ru": "🩳 Шорты"
+              }
+            },
+            "groupId": "g_summer"
+          },
+          {
+            "item": {
+              "id": "watermelon",
+              "label": {
+                "ru": "🍉 Арбуз"
+              }
+            },
+            "groupId": "g_summer"
+          },
+          {
+            "item": {
+              "id": "swim",
+              "label": {
+                "ru": "🏊 Купание"
+              }
+            },
+            "groupId": "g_summer"
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "Зимой холодно и идёт снег."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "literacy.first_letter.match.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "literacy",
+      "goalId": "literacy.first_sound",
+      "skills": [
+        "phonemic_awareness"
+      ],
+      "ageRange": {
+        "minMonths": 60,
+        "maxMonths": 84
+      },
+      "difficulty": 4,
+      "withParent": false,
+      "exerciseType": "match_pairs",
+      "instruction": {
+        "text": {
+          "ru": "Соедини букву с картинкой, которая на неё начинается."
+        }
+      },
+      "content": {
+        "pairs": [
+          {
+            "left": {
+              "id": "m",
+              "label": {
+                "ru": "М"
+              }
+            },
+            "right": {
+              "id": "mouse",
+              "label": {
+                "ru": "🐭 Мышь"
+              }
+            }
+          },
+          {
+            "left": {
+              "id": "l",
+              "label": {
+                "ru": "Л"
+              }
+            },
+            "right": {
+              "id": "lion",
+              "label": {
+                "ru": "🦁 Лев"
+              }
+            }
+          },
+          {
+            "left": {
+              "id": "zh",
+              "label": {
+                "ru": "Ж"
+              }
+            },
+            "right": {
+              "id": "giraffe",
+              "label": {
+                "ru": "🦒 Жираф"
+              }
+            }
+          },
+          {
+            "left": {
+              "id": "r",
+              "label": {
+                "ru": "Р"
+              }
+            },
+            "right": {
+              "id": "fish",
+              "label": {
+                "ru": "🐟 Рыба"
+              }
+            }
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "Скажи слово медленно и послушай первый звук."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "languages.colors_en.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "languages",
+      "goalId": "languages.english_colors",
+      "skills": [
+        "vocabulary_en"
+      ],
+      "ageRange": {
+        "minMonths": 60,
+        "maxMonths": 84
+      },
+      "difficulty": 4,
+      "withParent": false,
+      "exerciseType": "match_pairs",
+      "instruction": {
+        "text": {
+          "ru": "Соедини цвет со словом по-английски."
+        }
+      },
+      "content": {
+        "pairs": [
+          {
+            "left": {
+              "id": "red",
+              "label": {
+                "ru": "🔴"
+              }
+            },
+            "right": {
+              "id": "w_red",
+              "label": {
+                "ru": "red"
+              }
+            }
+          },
+          {
+            "left": {
+              "id": "blue",
+              "label": {
+                "ru": "🔵"
+              }
+            },
+            "right": {
+              "id": "w_blue",
+              "label": {
+                "ru": "blue"
+              }
+            }
+          },
+          {
+            "left": {
+              "id": "green",
+              "label": {
+                "ru": "🟢"
+              }
+            },
+            "right": {
+              "id": "w_green",
+              "label": {
+                "ru": "green"
+              }
+            }
+          },
+          {
+            "left": {
+              "id": "yellow",
+              "label": {
+                "ru": "🟡"
+              }
+            },
+            "right": {
+              "id": "w_yellow",
+              "label": {
+                "ru": "yellow"
+              }
+            }
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "«Red» — это красный."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "literacy.word.kot.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "literacy",
+      "goalId": "literacy.build_words",
+      "skills": [
+        "letter_order",
+        "reading_readiness"
+      ],
+      "ageRange": {
+        "minMonths": 60,
+        "maxMonths": 84
+      },
+      "difficulty": 4,
+      "withParent": false,
+      "exerciseType": "sequence",
+      "instruction": {
+        "text": {
+          "ru": "Собери слово «КОТ» 🐱."
+        }
+      },
+      "content": {
+        "steps": [
+          {
+            "id": "k",
+            "label": {
+              "ru": "К"
+            }
+          },
+          {
+            "id": "o",
+            "label": {
+              "ru": "О"
+            }
+          },
+          {
+            "id": "t",
+            "label": {
+              "ru": "Т"
+            }
+          }
+        ]
+      },
+      "hints": [
+        {
+          "ru": "Скажи медленно: к-о-т. Какой звук первый?"
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
+      },
+      "rights": []
+    },
+    {
+      "id": "math.add.apples.001",
+      "schemaVersion": 1,
+      "version": 1,
+      "minAppVersion": "0.1.0",
+      "area": "math",
+      "goalId": "math.addition_to_5",
+      "skills": [
+        "addition"
+      ],
+      "ageRange": {
+        "minMonths": 60,
+        "maxMonths": 84
+      },
+      "difficulty": 4,
+      "withParent": false,
+      "exerciseType": "choice",
+      "instruction": {
+        "text": {
+          "ru": "Сколько яблок стало?"
+        }
+      },
+      "content": {
+        "options": [
+          {
+            "id": "n2",
+            "label": {
+              "ru": "2"
+            }
+          },
+          {
+            "id": "n3",
+            "label": {
+              "ru": "3"
+            }
+          },
+          {
+            "id": "n4",
+            "label": {
+              "ru": "4"
+            }
+          }
+        ],
+        "correct": [
+          "n3"
+        ],
+        "shuffle": true,
+        "prompt": {
+          "id": "prompt",
+          "label": {
+            "ru": "🍎 🍎 ➕ 🍎"
+          }
+        }
+      },
+      "hints": [
+        {
+          "ru": "Было два яблока, добавили ещё одно. Посчитай все."
+        }
+      ],
+      "media": [],
+      "reward": {
+        "stars": 3
+      },
+      "review": {
+        "status": "draft",
+        "notes": "Прототип, нужна проверка методиста"
       },
       "rights": []
     }

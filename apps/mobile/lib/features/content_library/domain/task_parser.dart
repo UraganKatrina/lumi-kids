@@ -4,8 +4,8 @@ import 'task.dart';
 /// Превращает JSON задания в [LearningTask].
 ///
 /// Задание, которое эта версия приложения показать не может (новая схема,
-/// неизвестный тип, слишком новая minAppVersion), пропускается, а не ломает
-/// каталог. Причина пропуска попадает в [skipped].
+/// неизвестный тип, слишком новая minAppVersion, сломанные ссылки), пропускается,
+/// а не ломает каталог. Причина пропуска попадает в [skipped].
 class TaskParser {
   TaskParser({required this.appVersion});
 
@@ -20,13 +20,19 @@ class TaskParser {
       throw const FormatException('В пакете нет списка tasks');
     }
     final result = <LearningTask>[];
+    final seen = <String>{};
     for (final raw in tasks) {
       if (raw is! Map<String, Object?>) {
         skipped.add('элемент пакета не является объектом');
         continue;
       }
       final task = parseTask(raw);
-      if (task != null) result.add(task);
+      if (task == null) continue;
+      if (!seen.add(task.id)) {
+        skipped.add('${task.id}: повторяющийся id');
+        continue;
+      }
+      result.add(task);
     }
     return result;
   }
@@ -59,7 +65,7 @@ class TaskParser {
     if (minApp is String && compareVersions(minApp, appVersion) > 0) {
       return 'нужна версия приложения $minApp';
     }
-    if (json['exerciseType'] != 'choice') {
+    if (ExerciseType.fromCode(json['exerciseType']) == null) {
       return 'тип ${json['exerciseType']} пока не поддерживается';
     }
     if (DevelopmentArea.fromCode(json['area'] as String) == null) {
@@ -69,11 +75,39 @@ class TaskParser {
   }
 
   LearningTask _build(String id, Map<String, Object?> json) {
+    final type = ExerciseType.fromCode(json['exerciseType'])!;
     final content = json['content'] as Map<String, Object?>;
-    final options = (content['options'] as List<Object?>)
-        .cast<Map<String, Object?>>()
-        .map(_item)
-        .toList();
+    final age = json['ageRange'] as Map<String, Object?>;
+    final ageRange = AgeRange(age['minMonths'] as int, age['maxMonths'] as int);
+    if (ageRange.minMonths > ageRange.maxMonths) {
+      throw const FormatException('возраст указан наоборот');
+    }
+    final instruction = json['instruction'] as Map<String, Object?>;
+    final reward = json['reward'] as Map<String, Object?>;
+
+    return LearningTask(
+      id: id,
+      version: json['version'] as int,
+      area: DevelopmentArea.fromCode(json['area'] as String)!,
+      ageRange: ageRange,
+      difficulty: json['difficulty'] as int,
+      type: type,
+      instruction: _ru(instruction['text']),
+      content: switch (type) {
+        ExerciseType.choice => _choice(content),
+        ExerciseType.sequence => _sequence(content),
+        ExerciseType.matchPairs => _pairs(content),
+        ExerciseType.sort || ExerciseType.classify => _groups(content),
+        ExerciseType.together => _together(content),
+      },
+      hints: ((json['hints'] as List<Object?>?) ?? const []).map(_ru).toList(),
+      rewardStars: reward['stars'] as int,
+      withParent: json['withParent'] as bool? ?? false,
+    );
+  }
+
+  ChoiceContent _choice(Map<String, Object?> content) {
+    final options = _items(content['options']);
     final correct = (content['correct'] as List<Object?>)
         .cast<String>()
         .toSet();
@@ -86,26 +120,68 @@ class TaskParser {
       );
     }
     final prompt = content['prompt'];
-    final instruction = json['instruction'] as Map<String, Object?>;
-    final reward = json['reward'] as Map<String, Object?>;
-
-    return LearningTask(
-      id: id,
-      version: json['version'] as int,
-      area: DevelopmentArea.fromCode(json['area'] as String)!,
-      difficulty: json['difficulty'] as int,
-      type: ExerciseType.choice,
-      instruction: _ru(instruction['text']),
-      content: ChoiceContent(
-        prompt: prompt is Map<String, Object?> ? _item(prompt) : null,
-        options: options,
-        correct: correct,
-        shuffle: content['shuffle'] as bool? ?? true,
-      ),
-      hints: ((json['hints'] as List<Object?>?) ?? const []).map(_ru).toList(),
-      rewardStars: reward['stars'] as int,
+    return ChoiceContent(
+      prompt: prompt is Map<String, Object?> ? _item(prompt) : null,
+      options: options,
+      correct: correct,
+      shuffle: content['shuffle'] as bool? ?? true,
     );
   }
+
+  SequenceContent _sequence(Map<String, Object?> content) {
+    final steps = _items(content['steps']);
+    if (steps.length < 2) throw const FormatException('нужно минимум 2 шага');
+    _requireUniqueIds(steps);
+    return SequenceContent(steps: steps);
+  }
+
+  MatchPairsContent _pairs(Map<String, Object?> content) {
+    final pairs = (content['pairs'] as List<Object?>)
+        .cast<Map<String, Object?>>()
+        .map(
+          (p) => MatchPair(
+            _item(p['left'] as Map<String, Object?>),
+            _item(p['right'] as Map<String, Object?>),
+          ),
+        )
+        .toList();
+    if (pairs.length < 2) throw const FormatException('нужно минимум 2 пары');
+    _requireUniqueIds([
+      for (final p in pairs) ...[p.left, p.right],
+    ]);
+    return MatchPairsContent(pairs: pairs);
+  }
+
+  GroupContent _groups(Map<String, Object?> content) {
+    final groups = _items(content['groups']);
+    final groupIds = groups.map((g) => g.id).toSet();
+    final items = (content['items'] as List<Object?>)
+        .cast<Map<String, Object?>>()
+        .map(
+          (e) => GroupedItem(
+            _item(e['item'] as Map<String, Object?>),
+            e['groupId'] as String,
+          ),
+        )
+        .toList();
+    if (groups.length < 2 || items.isEmpty) {
+      throw const FormatException('нужны минимум 2 группы и предметы');
+    }
+    if (!items.every((i) => groupIds.contains(i.groupId))) {
+      throw const FormatException('предмет ссылается на неизвестную группу');
+    }
+    _requireUniqueIds([...groups, ...items.map((i) => i.item)]);
+    return GroupContent(groups: groups, items: items);
+  }
+
+  TogetherContent _together(Map<String, Object?> content) {
+    final steps = (content['steps'] as List<Object?>).map(_ru).toList();
+    if (steps.isEmpty) throw const FormatException('нет шагов занятия');
+    return TogetherContent(steps: steps);
+  }
+
+  List<TaskItem> _items(Object? list) =>
+      (list as List<Object?>).cast<Map<String, Object?>>().map(_item).toList();
 
   TaskItem _item(Map<String, Object?> json) {
     final label = json['label'];
@@ -113,6 +189,12 @@ class TaskParser {
       id: json['id'] as String,
       label: label == null ? null : _ru(label),
     );
+  }
+
+  void _requireUniqueIds(List<TaskItem> items) {
+    if (items.map((i) => i.id).toSet().length != items.length) {
+      throw const FormatException('повторяющийся id элемента');
+    }
   }
 
   String _ru(Object? localized) =>

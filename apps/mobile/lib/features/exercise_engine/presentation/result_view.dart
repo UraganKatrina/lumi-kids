@@ -11,12 +11,16 @@ class ResultView extends StatelessWidget {
     required this.maxStars,
     required this.onMap,
     this.onNext,
+    this.together = false,
   });
 
   final int stars;
   final int maxStars;
   final VoidCallback onMap;
   final VoidCallback? onNext;
+
+  /// Занятие со взрослым: хвалим обоих.
+  final bool together;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,7 @@ class ResultView extends StatelessWidget {
               const LumiCharacter(size: 160, mood: LumiMood.happy),
               const SizedBox(height: LumiSpacing.m),
               Text(
-                'Молодец!',
+                together ? 'Здорово поиграли!' : 'Молодец!',
                 key: const Key('result.title'),
                 style: text.displaySmall,
               ),

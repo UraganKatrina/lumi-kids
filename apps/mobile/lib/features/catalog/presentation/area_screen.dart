@@ -30,7 +30,7 @@ class AreaScreen extends ConsumerWidget {
         ),
       ),
       body: AsyncView(
-        value: ref.watch(tasksProvider),
+        value: ref.watch(ageTasksProvider),
         builder: (all) {
           final tasks = all.where((t) => t.area == area).toList()
             ..sort((a, b) => a.difficulty.compareTo(b.difficulty));

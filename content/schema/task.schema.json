@@ -315,6 +315,22 @@
           }
         }
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "exerciseType": {
+            "const": "audio_instruction"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "content": {
+            "$ref": "#/$defs/togetherContent"
+          }
+        }
+      }
     }
   ],
   "$defs": {
@@ -521,6 +537,27 @@
           },
           "minItems": 2,
           "maxItems": 6
+        }
+      }
+    },
+    "togetherContent": {
+      "description": "Занятие вместе со взрослым вне экрана.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "steps"
+      ],
+      "properties": {
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/localizedText"
+          },
+          "minItems": 1,
+          "maxItems": 5
+        },
+        "audioId": {
+          "type": "string"
         }
       }
     }
