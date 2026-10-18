@@ -26,6 +26,14 @@ enum AgeProgram {
 
   bool fits(LearningTask task) => task.ageRange.overlaps(range);
 
+  /// Программа по возрасту в месяцах; старше 7 лет — подготовка к школе.
+  static AgeProgram forMonths(int months) {
+    for (final p in values) {
+      if (months <= p.range.maxMonths) return p;
+    }
+    return schoolPrep;
+  }
+
   static AgeProgram? fromCode(String? code) {
     for (final p in values) {
       if (p.code == code) return p;

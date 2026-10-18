@@ -7,9 +7,13 @@ import '../../../core/design_system/lumi_character.dart';
 import '../../../core/design_system/lumi_tokens.dart';
 import '../../../core/widgets/async_view.dart';
 import '../../age_routes/domain/age_program.dart';
-import '../../age_routes/presentation/age_selection.dart';
 import '../../catalog/domain/development_area.dart';
 import '../../content_library/domain/task.dart';
+import '../../parent_area/presentation/parental_gate_dialog.dart';
+import '../../profiles/domain/child_profile.dart';
+import '../../profiles/presentation/child_avatar_view.dart';
+import '../../profiles/presentation/child_switcher.dart';
+import '../../profiles/presentation/welcome_view.dart';
 
 /// Главная карта: острова — это 12 направлений развития.
 class WorldMapScreen extends ConsumerWidget {
@@ -17,7 +21,8 @@ class WorldMapScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final program = ref.watch(ageProgramProvider);
+    final child = ref.watch(activeChildProvider);
+    final now = ref.watch(clockProvider)();
     final tasks = ref.watch(ageTasksProvider);
     final stars = ref.watch(bestStarsProvider).value ?? const {};
     final next = ref.watch(recommendedTaskProvider).value;
@@ -33,13 +38,14 @@ class WorldMapScreen extends ConsumerWidget {
         ),
         child: SafeArea(
           child: AsyncView(
-            value: program,
-            builder: (program) => program == null
-                ? const AgeSelectionView()
+            value: child,
+            builder: (child) => child == null
+                ? const WelcomeView()
                 : AsyncView(
                     value: tasks,
                     builder: (tasks) => _MapBody(
-                      program: program,
+                      child: child,
+                      program: child.programAt(now),
                       tasks: tasks,
                       stars: stars,
                       next: next,
@@ -54,12 +60,14 @@ class WorldMapScreen extends ConsumerWidget {
 
 class _MapBody extends StatelessWidget {
   const _MapBody({
+    required this.child,
     required this.program,
     required this.tasks,
     required this.stars,
     required this.next,
   });
 
+  final ChildProfile child;
   final AgeProgram program;
   final List<LearningTask> tasks;
   final Map<String, int> stars;
@@ -76,7 +84,7 @@ class _MapBody extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
-          child: _Greeting(totalStars: totalStars, program: program),
+          child: _Greeting(totalStars: totalStars, child: child),
         ),
         SliverToBoxAdapter(
           child: _NextActivity(task: next, program: program),
@@ -108,45 +116,84 @@ class _MapBody extends StatelessWidget {
   }
 }
 
-class _Greeting extends StatelessWidget {
-  const _Greeting({required this.totalStars, required this.program});
+class _Greeting extends ConsumerWidget {
+  const _Greeting({required this.totalStars, required this.child});
 
   final int totalStars;
-  final AgeProgram program;
+  final ChildProfile child;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final text = Theme.of(context).textTheme;
     return Padding(
       padding: const EdgeInsets.fromLTRB(
         LumiSpacing.l,
-        LumiSpacing.l,
+        LumiSpacing.s,
         LumiSpacing.l,
         0,
       ),
-      child: Row(
+      child: Column(
         children: [
-          const LumiCharacter(size: 96),
-          const SizedBox(width: LumiSpacing.m),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Привет! Я Люми.', style: text.headlineMedium),
-                TextButton.icon(
-                  key: const Key('map.age'),
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                    minimumSize: const Size(0, LumiSizes.minTapTarget),
-                  ),
-                  onPressed: () => context.go('/age'),
-                  icon: const Icon(Icons.cake_rounded),
-                  label: Text(program.title, style: text.bodyLarge),
-                ),
-              ],
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton.icon(
+              key: const Key('map.parent'),
+              style: TextButton.styleFrom(
+                minimumSize: const Size(0, LumiSizes.minTapTarget),
+              ),
+              onPressed: () async {
+                if (await showParentalGate(context, ref) && context.mounted) {
+                  context.go('/parent');
+                }
+              },
+              icon: const Icon(Icons.lock_rounded),
+              label: const Text('Для взрослых'),
             ),
           ),
-          _StarCounter(stars: totalStars),
+          Row(
+            children: [
+              const LumiCharacter(size: 96),
+              const SizedBox(width: LumiSpacing.m),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Привет! Я Люми.', style: text.headlineMedium),
+                    Semantics(
+                      button: true,
+                      label: 'Играет ${child.name}. Сменить ребёнка',
+                      excludeSemantics: true,
+                      child: InkWell(
+                        key: const Key('map.child'),
+                        borderRadius: BorderRadius.circular(LumiSizes.radius),
+                        onTap: () => showChildSwitcher(context, ref),
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            minHeight: LumiSizes.minTapTarget,
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ChildAvatarView(avatar: child.avatar, size: 40),
+                              const SizedBox(width: LumiSpacing.s),
+                              Flexible(
+                                child: Text(
+                                  child.name,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: text.titleLarge,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              _StarCounter(stars: totalStars),
+            ],
+          ),
         ],
       ),
     );

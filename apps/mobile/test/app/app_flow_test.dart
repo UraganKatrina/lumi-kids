@@ -6,17 +6,30 @@ import 'package:lumi_kids/app/providers.dart';
 import 'package:lumi_kids/core/design_system/lumi_tokens.dart';
 import 'package:lumi_kids/features/catalog/domain/development_area.dart';
 import 'package:lumi_kids/features/content_library/domain/task.dart';
-import 'package:lumi_kids/features/progress/data/settings_repository.dart';
+import 'package:lumi_kids/features/parent_area/domain/parental_gate.dart';
+import 'package:lumi_kids/features/profiles/domain/child_profile.dart';
 
 import '../support/fakes.dart';
 
+final testNow = DateTime(2026, 10, 18, 12);
+
+/// Год и месяц рождения, при которых на [testNow] ребёнок попадает в программу.
+const _birthByProgram = {
+  'infant': (2026, 4),
+  'toddler': (2025, 4),
+  'early': (2024, 4),
+  'preschool': (2022, 10),
+  'school_prep': (2020, 4),
+};
+
 class TestApp {
-  TestApp(this.progress, this.settings);
+  TestApp(this.progress, this.profiles);
 
   final InMemoryProgressRepository progress;
-  final InMemorySettingsRepository settings;
+  final InMemoryProfileRepository profiles;
 }
 
+/// [age] — возрастная программа ребёнка «Маша»; null — первый запуск без профилей.
 Future<TestApp> pumpApp(
   WidgetTester tester, {
   String? age = 'preschool',
@@ -30,16 +43,29 @@ Future<TestApp> pumpApp(
   tester.view.devicePixelRatio = 2.75;
   addTearDown(tester.view.reset);
 
+  final progress = InMemoryProgressRepository();
+  final birth = _birthByProgram[age];
   final app = TestApp(
-    InMemoryProgressRepository(),
-    InMemorySettingsRepository({SettingsRepository.ageProgramKey: ?age}),
+    progress,
+    InMemoryProfileRepository(progress, [
+      if (birth != null)
+        ChildProfile(
+          id: 'kid',
+          name: 'Маша',
+          birthYear: birth.$1,
+          birthMonth: birth.$2,
+          avatar: ChildAvatar.bee,
+        ),
+    ]),
   );
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
+        clockProvider.overrideWithValue(() => testNow),
+        gateQuestionProvider.overrideWithValue(() => const GateQuestion(6, 7)),
         contentRepositoryProvider.overrideWithValue(FileContentRepository()),
         progressRepositoryProvider.overrideWithValue(app.progress),
-        settingsRepositoryProvider.overrideWithValue(app.settings),
+        profileRepositoryProvider.overrideWithValue(app.profiles),
       ],
       child: const LumiApp(),
     ),
@@ -75,15 +101,56 @@ Future<LearningTask> openTask(WidgetTester tester, String id) async {
   return task;
 }
 
+Future<void> answerGate(WidgetTester tester, String answer) async {
+  for (final digit in answer.split('')) {
+    await tester.tap(find.byKey(Key('gate.digit.$digit')));
+  }
+  await tester.tap(find.byKey(const Key('gate.submit')));
+  await tester.pumpAndSettle();
+}
+
+Future<void> openParentArea(WidgetTester tester) async {
+  await scrollToTop(tester);
+  await tapKey(tester, 'map.parent');
+  await answerGate(tester, '42');
+  expect(find.byKey(const Key('parent.close')), findsOneWidget);
+}
+
+Future<void> scrollToTop(WidgetTester tester) async {
+  final top = find.byKey(const Key('map.parent'));
+  if (top.evaluate().isEmpty) {
+    await tester.scrollUntilVisible(
+      top,
+      -200,
+      scrollable: find.byType(Scrollable).first,
+    );
+  }
+}
+
 void main() {
-  testWidgets('при первом запуске взрослый выбирает возраст', (tester) async {
+  testWidgets('при первом запуске взрослый создаёт профиль ребёнка', (
+    tester,
+  ) async {
     final app = await pumpApp(tester, age: null);
 
-    expect(find.text('Сколько лет малышу?'), findsOneWidget);
-    await tapKey(tester, 'age.preschool');
+    expect(find.byKey(const Key('welcome.title')), findsOneWidget);
+    await tapKey(tester, 'profile.save');
+    expect(find.byKey(const Key('profile.error')), findsOneWidget);
+    expect(app.profiles.profiles, isEmpty);
 
-    expect(app.settings.values[SettingsRepository.ageProgramKey], 'preschool');
+    await tester.enterText(find.byKey(const Key('profile.name')), '  Маша ');
+    await tapKey(tester, 'profile.avatar.star');
+    await tapKey(tester, 'profile.year.2022');
+    await tapKey(tester, 'profile.month.10');
+    await tapKey(tester, 'profile.save');
+
+    final saved = app.profiles.profiles.single;
+    expect(saved.name, 'Маша');
+    expect(saved.avatar, ChildAvatar.star);
+    expect((saved.birthYear, saved.birthMonth), (2022, 10));
+    expect(app.profiles.activeId, saved.id);
     expect(find.byKey(const Key('map.next')), findsOneWidget);
+    expect(find.text('Маша'), findsOneWidget);
     for (final area in DevelopmentArea.values) {
       await tester.scrollUntilVisible(
         find.byKey(Key('island.${area.code}')),
@@ -105,6 +172,7 @@ void main() {
       await tapKey(tester, 'option.n3');
       expect(find.text('Молодец!'), findsOneWidget);
       final saved = app.progress.attempts.single;
+      expect(saved.childId, 'kid');
       expect(saved.taskId, 'math.count.apples.001');
       expect(saved.mistakes, 1);
       expect(saved.stars, 2);
@@ -184,7 +252,7 @@ void main() {
     expect(app.progress.attempts.single.stars, 1);
   });
 
-  testWidgets('смена возраста меняет набор заданий', (tester) async {
+  testWidgets('возраст ребёнка задаёт набор заданий', (tester) async {
     await pumpApp(tester, age: 'school_prep');
     // Счёт яблок до трёх — для 3–5 лет, в 5–7 его нет.
     await tapKey(tester, 'island.math');
@@ -203,5 +271,134 @@ void main() {
       expect(size.shortestSide, greaterThanOrEqualTo(LumiSizes.minTapTarget));
     }
     await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
+  });
+
+  testWidgets('кабинет родителя закрыт барьером', (tester) async {
+    await pumpApp(tester);
+
+    await tapKey(tester, 'map.parent');
+    expect(find.text('Сколько будет шесть умножить на семь?'), findsOneWidget);
+    await answerGate(tester, '41');
+    expect(find.byKey(const Key('gate.error')), findsOneWidget);
+    expect(find.byKey(const Key('parent.close')), findsNothing);
+
+    await tapKey(tester, 'gate.cancel');
+    expect(find.byKey(const Key('gate.question')), findsNothing);
+    expect(find.byKey(const Key('parent.close')), findsNothing);
+
+    await openParentArea(tester);
+    expect(find.byKey(const Key('parent.historyEmpty')), findsOneWidget);
+  });
+
+  testWidgets('кабинет показывает историю и наблюдения по направлениям', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await openTask(tester, 'math.count.apples.001');
+    await tapKey(tester, 'option.n2');
+    await tapKey(tester, 'option.n3');
+    await tapKey(tester, 'result.map');
+    await tapKey(tester, 'area.back');
+
+    await openParentArea(tester);
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('parent.completed')),
+        matching: find.text('1'),
+      ),
+      findsOneWidget,
+    );
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('parent.history.0')),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('parent.history.0')),
+        matching: find.text('Сколько яблок?'),
+      ),
+      findsOneWidget,
+    );
+    expect(find.textContaining('с подсказками'), findsOneWidget);
+  });
+
+  testWidgets('второй ребёнок: свой профиль, свой возраст, свой прогресс', (
+    tester,
+  ) async {
+    final app = await pumpApp(tester);
+    await openTask(tester, 'math.count.apples.001');
+    await tapKey(tester, 'option.n3');
+    await tapKey(tester, 'result.map');
+    await tapKey(tester, 'area.back');
+
+    await openParentArea(tester);
+    await tapKey(tester, 'parent.addChild');
+    await tester.enterText(find.byKey(const Key('profile.name')), 'Петя');
+    await tapKey(tester, 'profile.year.2020');
+    await tapKey(tester, 'profile.month.4');
+    await tapKey(tester, 'profile.save');
+
+    expect(app.profiles.profiles.map((p) => p.name), ['Маша', 'Петя']);
+    final petya = app.profiles.profiles.last;
+    expect(app.profiles.activeId, petya.id);
+
+    await tapKey(tester, 'parent.close');
+    expect(find.text('Петя'), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('map.stars')),
+        matching: find.text('0'),
+      ),
+      findsOneWidget,
+    );
+    await tapKey(tester, 'island.math');
+    expect(find.byKey(const Key('task.math.add.apples.001')), findsOneWidget);
+    await tapKey(tester, 'area.back');
+
+    await scrollToTop(tester);
+    await tapKey(tester, 'map.child');
+    await tapKey(tester, 'switch.kid');
+    expect(find.text('Маша'), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('map.stars')),
+        matching: find.text('3'),
+      ),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('удаление профиля и всех данных — с подтверждением', (
+    tester,
+  ) async {
+    final app = await pumpApp(tester);
+    await openParentArea(tester);
+
+    await tapKey(tester, 'parent.edit.kid');
+    await tapKey(tester, 'profile.delete');
+    await tapKey(tester, 'confirm.no');
+    expect(app.profiles.profiles, hasLength(1));
+
+    await tapKey(tester, 'profile.back');
+    await tapKey(tester, 'parent.deleteAll');
+    await tapKey(tester, 'confirm.yes');
+    expect(app.profiles.profiles, isEmpty);
+    expect(find.byKey(const Key('welcome.title')), findsOneWidget);
+  });
+
+  testWidgets('правка профиля меняет возраст', (tester) async {
+    final app = await pumpApp(tester, age: 'infant');
+    expect(find.byKey(const Key('map.parentLed')), findsOneWidget);
+
+    await openParentArea(tester);
+    await tapKey(tester, 'parent.edit.kid');
+    await tapKey(tester, 'profile.year.2022');
+    await tapKey(tester, 'profile.month.10');
+    await tapKey(tester, 'profile.save');
+    await tapKey(tester, 'parent.close');
+
+    expect(app.profiles.profiles.single.birthYear, 2022);
+    expect(find.byKey(const Key('map.parentLed')), findsNothing);
   });
 }

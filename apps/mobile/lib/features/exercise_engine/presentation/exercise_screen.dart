@@ -70,10 +70,13 @@ class _ExerciseHostState extends ConsumerState<_ExerciseHost> {
 
   Future<void> _saveProgress() async {
     try {
+      final child = await ref.read(activeChildProvider.future);
+      if (child == null) return;
       await ref
           .read(progressRepositoryProvider)
           .saveAttempt(
             AttemptRecord(
+              childId: child.id,
               taskId: widget.task.id,
               taskVersion: widget.task.version,
               startedAt: _session.startedAt,
@@ -82,7 +85,7 @@ class _ExerciseHostState extends ConsumerState<_ExerciseHost> {
               stars: _session.stars,
             ),
           );
-      ref.invalidate(bestStarsProvider);
+      if (mounted) invalidateProgress(ref);
     } catch (error) {
       // Ребёнок всё равно видит результат; прогресс просто не сохранится.
       debugPrint('Не удалось сохранить прогресс: ${error.runtimeType}');
