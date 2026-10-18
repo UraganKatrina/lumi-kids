@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +8,12 @@ import '../../../core/design_system/lumi_tokens.dart';
 import '../../../core/widgets/async_view.dart';
 import '../../content_library/domain/task.dart';
 import '../../progress/domain/progress.dart';
-import '../domain/choice_session.dart';
+import '../domain/exercise_session.dart';
+import 'bodies/choice_body.dart';
+import 'bodies/group_body.dart';
+import 'bodies/match_pairs_body.dart';
+import 'bodies/sequence_body.dart';
+import 'bodies/together_body.dart';
 import 'result_view.dart';
 
 class ExerciseScreen extends ConsumerWidget {
@@ -38,45 +41,31 @@ class ExerciseScreen extends ConsumerWidget {
             return const Center(child: Text('Задание не найдено'));
           }
           // Ключ пересоздаёт состояние при переходе к другому заданию.
-          return _ChoiceExercise(
-            key: ValueKey(task.id),
-            task: task,
-            allTasks: tasks,
-          );
+          return _ExerciseHost(key: ValueKey(task.id), task: task);
         },
       ),
     );
   }
 }
 
-class _ChoiceExercise extends ConsumerStatefulWidget {
-  const _ChoiceExercise({
-    super.key,
-    required this.task,
-    required this.allTasks,
-  });
+/// Общая рамка любого упражнения: инструкция, подсказка, тело по типу,
+/// сохранение результата и экран похвалы.
+class _ExerciseHost extends ConsumerStatefulWidget {
+  const _ExerciseHost({super.key, required this.task});
 
   final LearningTask task;
-  final List<LearningTask> allTasks;
 
   @override
-  ConsumerState<_ChoiceExercise> createState() => _ChoiceExerciseState();
+  ConsumerState<_ExerciseHost> createState() => _ExerciseHostState();
 }
 
-class _ChoiceExerciseState extends ConsumerState<_ChoiceExercise> {
-  late final ChoiceSession _session = ChoiceSession(widget.task);
-  late final List<TaskItem> _options = [...widget.task.content.options];
+class _ExerciseHostState extends ConsumerState<_ExerciseHost> {
+  late final ExerciseSession _session = createSession(widget.task);
+  Future<void>? _saving;
 
-  @override
-  void initState() {
-    super.initState();
-    if (widget.task.content.shuffle) _options.shuffle(Random());
-  }
-
-  Future<void> _onAnswer(String optionId) async {
-    final outcome = _session.answer(optionId);
+  void _onChanged() {
     setState(() {});
-    if (outcome == AnswerOutcome.correct) await _saveProgress();
+    if (_session.isSolved) _saving ??= _saveProgress();
   }
 
   Future<void> _saveProgress() async {
@@ -100,31 +89,28 @@ class _ChoiceExerciseState extends ConsumerState<_ChoiceExercise> {
     }
   }
 
-  LearningTask? get _nextTask {
-    final sameArea =
-        widget.allTasks.where((t) => t.area == widget.task.area).toList()
-          ..sort((a, b) => a.difficulty.compareTo(b.difficulty));
-    final index = sameArea.indexWhere((t) => t.id == widget.task.id);
-    return index >= 0 && index + 1 < sameArea.length
-        ? sameArea[index + 1]
-        : null;
+  Future<void> _goNext() async {
+    // Рекомендация должна учитывать только что сохранённый результат.
+    await _saving;
+    final next = await ref.read(recommendedTaskProvider.future);
+    if (!mounted) return;
+    context.go(next == null ? '/' : '/task/${next.id}');
   }
 
   @override
   Widget build(BuildContext context) {
     if (_session.isSolved) {
-      final next = _nextTask;
       return ResultView(
         stars: _session.stars,
         maxStars: widget.task.rewardStars,
-        onNext: next == null ? null : () => context.go('/task/${next.id}'),
+        together: widget.task.type == ExerciseType.together,
+        onNext: _goNext,
         onMap: () => context.go('/area/${widget.task.area.code}'),
       );
     }
 
     final text = Theme.of(context).textTheme;
     final hint = _session.currentHint;
-    final prompt = widget.task.content.prompt;
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -147,16 +133,7 @@ class _ChoiceExerciseState extends ConsumerState<_ChoiceExercise> {
                 ),
               ],
             ),
-            if (prompt?.label != null) ...[
-              const SizedBox(height: LumiSpacing.l),
-              Text(
-                prompt!.label!,
-                key: const Key('exercise.prompt'),
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 56),
-              ),
-            ],
-            const SizedBox(height: LumiSpacing.l),
+            const SizedBox(height: LumiSpacing.m),
             AnimatedSwitcher(
               duration: LumiDurations.normal,
               child: hint == null
@@ -171,70 +148,22 @@ class _ChoiceExerciseState extends ConsumerState<_ChoiceExercise> {
                     ),
             ),
             const SizedBox(height: LumiSpacing.m),
-            Wrap(
-              alignment: WrapAlignment.center,
-              spacing: LumiSpacing.m,
-              runSpacing: LumiSpacing.m,
-              children: [
-                for (final option in _options)
-                  _AnswerCard(
-                    option: option,
-                    rejected: _session.rejected.contains(option.id),
-                    onTap: () => _onAnswer(option.id),
-                  ),
-              ],
-            ),
+            _body(),
           ],
         ),
       ),
     );
   }
-}
 
-class _AnswerCard extends StatelessWidget {
-  const _AnswerCard({
-    required this.option,
-    required this.rejected,
-    required this.onTap,
-  });
-
-  final TaskItem option;
-  final bool rejected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final label = option.label ?? option.id;
-    return Semantics(
-      button: true,
-      enabled: !rejected,
-      label: label,
-      excludeSemantics: true,
-      child: AnimatedOpacity(
-        duration: LumiDurations.normal,
-        opacity: rejected ? 0.3 : 1,
-        child: Material(
-          color: Colors.white,
-          elevation: rejected ? 0 : 3,
-          borderRadius: BorderRadius.circular(LumiSizes.radius),
-          child: InkWell(
-            key: Key('option.${option.id}'),
-            borderRadius: BorderRadius.circular(LumiSizes.radius),
-            onTap: rejected ? null : onTap,
-            child: SizedBox.square(
-              dimension: LumiSizes.answerCard,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(LumiSpacing.s),
-                  child: FittedBox(
-                    child: Text(label, style: const TextStyle(fontSize: 44)),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  Widget _body() => switch (_session) {
+    final ChoiceSession s => ChoiceBody(session: s, onChanged: _onChanged),
+    final SequenceSession s => SequenceBody(session: s, onChanged: _onChanged),
+    final MatchPairsSession s => MatchPairsBody(
+      session: s,
+      onChanged: _onChanged,
+    ),
+    final GroupSession s => GroupBody(session: s, onChanged: _onChanged),
+    final TogetherSession s => TogetherBody(session: s, onChanged: _onChanged),
+    _ => const SizedBox.shrink(),
+  };
 }

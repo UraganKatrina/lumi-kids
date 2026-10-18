@@ -77,10 +77,10 @@ function collectMediaRefs(task) {
 
 function collectItemIds(task) {
   const ids = [];
-  const { content } = task;
+  const { content, exerciseType } = task;
   const items = [
     ...(content.options ?? []),
-    ...(content.steps ?? []),
+    ...(exerciseType === 'sequence' ? content.steps : []),
     ...(content.groups ?? []),
     ...(content.items ?? []).map((x) => x.item),
     ...(content.pairs ?? []).flatMap((p) => [p.left, p.right]),

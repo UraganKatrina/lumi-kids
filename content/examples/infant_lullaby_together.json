@@ -24,6 +24,18 @@
     }
   },
   "content": {
+    "steps": [
+      {
+        "ru": "Возьмите малыша на руки.",
+        "uz": "Chaqaloqni quchog'ingizga oling.",
+        "en": "Hold your baby."
+      },
+      {
+        "ru": "Включите колыбельную и мягко покачивайтесь в ритм.",
+        "uz": "Allani yoqing va ritmga mos ohista tebraning.",
+        "en": "Play the lullaby and gently sway to the rhythm."
+      }
+    ],
     "audioId": "lullaby_moon"
   },
   "media": [
