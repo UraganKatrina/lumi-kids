@@ -51,6 +51,13 @@ STAFF_PASSWORD='длинный-пароль' npm run create-staff -- --email you
 npm start                               # http://localhost:3000/v1/health
 ```
 
+Загрузить стартовые задания приложения в черновики (повторный запуск
+ничего не дублирует):
+
+```bash
+npm run import-tasks -- --file ../../apps/mobile/assets/content/starter_pack.json --as you@example.com
+```
+
 Тесты используют отдельную базу и каждый раз пересоздают её схему:
 
 ```bash

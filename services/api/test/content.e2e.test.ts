@@ -2,6 +2,12 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { after, before, test } from 'node:test';
 
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+import { importTasks } from '../src/content/import-tasks';
+import { TasksService } from '../src/content/tasks.service';
+import type { StaffUser } from '../src/staff/staff';
 import { bearer, example, startApp, type TestContext } from './helpers';
 
 let ctx: TestContext;
@@ -153,4 +159,25 @@ test('каждое действие редакции попадает в жур�
   for (const a of ['staff.login', 'task.create', 'task.update', 'task.submit', 'task.approve', 'task.reject', 'task.withdraw', 'pack.publish']) {
     assert.ok(actions.includes(a), a);
   }
+});
+
+test('стартовый пакет приложения импортируется в черновики, повторный импорт ничего не дублирует', async () => {
+  const file = join(__dirname, '..', '..', '..', '..', 'apps', 'mobile', 'assets', 'content', 'starter_pack.json');
+  const pack = JSON.parse(readFileSync(file, 'utf8')) as { tasks: { id: string }[] };
+  const service = ctx.app.get(TasksService);
+  const [staff] = await ctx.db.query<StaffUser>(
+    "SELECT id, email, name, role FROM staff_users WHERE email = 'editor@lumi.test'",
+  );
+
+  const first = await importTasks(service, staff!, pack.tasks);
+  assert.deepEqual(first.failed, []);
+  // Одно задание стартового пакета уже создано в тестах выше.
+  assert.equal(first.created.length + first.skipped.length, pack.tasks.length);
+
+  const again = await importTasks(service, staff!, pack.tasks);
+  assert.equal(again.created.length, 0);
+  assert.equal(again.skipped.length, pack.tasks.length);
+
+  const drafts = await ctx.http().get('/v1/admin/tasks?status=draft').set(as('editor')).expect(200);
+  assert.ok(drafts.body.length >= first.created.length);
 });

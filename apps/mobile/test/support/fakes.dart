@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:lumi_kids/app/providers.dart';
 import 'package:lumi_kids/features/content_library/data/content_repository.dart';
+import 'package:lumi_kids/features/content_library/data/pack_store.dart';
 import 'package:lumi_kids/features/content_library/domain/task.dart';
 import 'package:lumi_kids/features/content_library/domain/task_parser.dart';
 import 'package:lumi_kids/features/profiles/domain/child_profile.dart';
@@ -17,7 +18,24 @@ List<LearningTask> loadStarterTasks() =>
 
 class FileContentRepository implements ContentRepository {
   @override
-  Future<List<LearningTask>> loadTasks() async => loadStarterTasks();
+  Future<LoadedContent> load() async => LoadedContent(
+    tasks: loadStarterTasks(),
+    source: ContentSource(
+      downloaded: false,
+      version: loadStarterPackJson()['packVersion']! as int,
+    ),
+  );
+}
+
+/// Хранилище пакета в памяти.
+class InMemoryPackStore implements PackStore {
+  StoredPack? pack;
+
+  @override
+  Future<StoredPack?> read() async => pack;
+
+  @override
+  Future<void> write(StoredPack pack) async => this.pack = pack;
 }
 
 class InMemoryProgressRepository implements ProgressRepository {

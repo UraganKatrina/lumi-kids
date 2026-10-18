@@ -1,9 +1,14 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
 import '../features/age_routes/domain/age_program.dart';
 import '../features/content_library/data/content_repository.dart';
+import '../features/content_library/data/pack_store.dart';
+import '../features/content_library/data/pack_updater.dart';
 import '../features/content_library/domain/task.dart';
 import '../features/parent_area/domain/parental_gate.dart';
 import '../features/profiles/data/drift_profile_repository.dart';
@@ -25,12 +30,51 @@ final gateQuestionProvider = Provider<GateQuestion Function()>((ref) {
   return () => GateQuestion.random(random);
 });
 
+/// Адрес API задаётся при сборке: `--dart-define=LUMI_API_URL=https://...`.
+/// Пусто — приложение работает только на встроенном пакете.
+const apiBaseUrl = String.fromEnvironment('LUMI_API_URL');
+
+final packStoreProvider = Provider<PackStore>(
+  (ref) => FilePackStore(
+    () async =>
+        Directory('${(await getApplicationSupportDirectory()).path}/content'),
+  ),
+);
+
 final contentRepositoryProvider = Provider<ContentRepository>(
-  (ref) => AssetContentRepository(appVersion: appVersion),
+  (ref) => PackContentRepository(
+    appVersion: appVersion,
+    store: ref.watch(packStoreProvider),
+  ),
+);
+
+final contentProvider = FutureProvider<LoadedContent>(
+  (ref) => ref.watch(contentRepositoryProvider).load(),
 );
 
 final tasksProvider = FutureProvider<List<LearningTask>>(
-  (ref) => ref.watch(contentRepositoryProvider).loadTasks(),
+  (ref) async => (await ref.watch(contentProvider.future)).tasks,
+);
+
+final httpClientProvider = Provider<http.Client>((ref) {
+  final client = http.Client();
+  ref.onDispose(client.close);
+  return client;
+});
+
+final packUpdaterProvider = Provider<PackUpdater>(
+  (ref) => PackUpdater(
+    baseUrl: apiBaseUrl,
+    client: ref.watch(httpClientProvider),
+    store: ref.watch(packStoreProvider),
+    appVersion: appVersion,
+  ),
+);
+
+/// Проверка обновления заданий. Новый пакет начинает работать со следующего
+/// запуска, чтобы задания не менялись у ребёнка посреди игры.
+final packUpdateProvider = FutureProvider<PackUpdateResult>(
+  (ref) => ref.watch(packUpdaterProvider).check(),
 );
 
 final progressDatabaseProvider = Provider<ProgressDatabase>((ref) {
