@@ -8,6 +8,7 @@ import '../../../core/widgets/async_view.dart';
 import '../../../core/widgets/confirm_dialog.dart';
 import '../../content_library/data/pack_updater.dart';
 import '../../content_library/domain/task.dart';
+import '../../subscription/presentation/subscription_screen.dart';
 import '../../profiles/domain/child_profile.dart';
 import '../../profiles/presentation/child_avatar_view.dart';
 import '../../progress/domain/progress.dart';
@@ -88,6 +89,20 @@ class _ParentScreenState extends ConsumerState<ParentScreen> {
                 const SizedBox(height: LumiSpacing.l),
                 _ChildProgress(key: ValueKey(selected.id), child: selected),
               ],
+              const SizedBox(height: LumiSpacing.l),
+              Text(l10n.parentSubscription, style: text.headlineMedium),
+              const SizedBox(height: LumiSpacing.s),
+              const SubscriptionStatusText(key: Key('parent.subscription')),
+              const SizedBox(height: LumiSpacing.s),
+              OutlinedButton.icon(
+                key: const Key('parent.openSubscription'),
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size(0, LumiSizes.minTapTarget),
+                ),
+                icon: const Icon(Icons.workspace_premium_rounded),
+                label: Text(l10n.parentSubscriptionOpen),
+                onPressed: () => context.go('/parent/subscription'),
+              ),
               const SizedBox(height: LumiSpacing.l),
               const _LanguageSection(),
               const SizedBox(height: LumiSpacing.l),

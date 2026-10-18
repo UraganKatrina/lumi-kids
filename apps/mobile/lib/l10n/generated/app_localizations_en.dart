@@ -427,7 +427,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get parentDeleteAllText =>
-      'All child profiles, progress and settings will be deleted from the phone. This can\'t be undone.';
+      'All child profiles, progress and settings will be deleted from the phone. This can\'t be undone. A paid subscription can be brought back with “Restore purchases”.';
 
   @override
   String get parentDeleteAllConfirm => 'Delete everything';
@@ -467,4 +467,112 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get month12 => 'Dec';
+
+  @override
+  String get parentSubscription => 'Subscription';
+
+  @override
+  String get parentSubscriptionOpen => 'About the subscription';
+
+  @override
+  String get subTitle => 'LUMI Kids subscription';
+
+  @override
+  String subFreeTasks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# activities',
+      one: '# activity',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String subStatusFree(String tasks) {
+    return 'This is the free version: in every area, $tasks are open for each age.';
+  }
+
+  @override
+  String subStatusActive(String date) {
+    return 'Subscription active until $date.';
+  }
+
+  @override
+  String get subBenefits =>
+      'The subscription opens every activity in every area, plus new activities from updates. There are no ads in either the paid or the free version.';
+
+  @override
+  String subMonthly(String price) {
+    return 'Monthly: $price';
+  }
+
+  @override
+  String subYearly(String price) {
+    return 'Yearly: $price';
+  }
+
+  @override
+  String get subRestore => 'Restore purchases';
+
+  @override
+  String get subRestoreSent => 'Looking for your purchases in the store…';
+
+  @override
+  String get subTerms =>
+      'The subscription renews automatically until you cancel it. You can cancel any time in your Google Play or App Store subscription settings, at least a day before renewal. Payment goes through your store account.';
+
+  @override
+  String get subPrivacy =>
+      'To check a purchase, the app sends only its store purchase number to our server. Nothing about your children is sent.';
+
+  @override
+  String get subLoading => 'Loading prices from the store…';
+
+  @override
+  String get subUnavailable => 'Purchases aren\'t available on this device.';
+
+  @override
+  String get subNoProducts =>
+      'The subscription isn\'t in the store yet. Please try later.';
+
+  @override
+  String get subPending =>
+      'The purchase is waiting for the store to confirm it.';
+
+  @override
+  String get subActivated => 'Done! The subscription is active.';
+
+  @override
+  String get subNotActive =>
+      'We found the purchase, but the subscription has ended.';
+
+  @override
+  String get subCanceled => 'The purchase was cancelled.';
+
+  @override
+  String get subStoreError => 'The store reported an error. Please try again.';
+
+  @override
+  String get subVerifyNotConfigured =>
+      'Purchase checking isn\'t connected in this build yet. The purchase stays in the store and will unlock once checking works.';
+
+  @override
+  String get subVerifyOffline =>
+      'Can\'t reach the server. We\'ll check the purchase next time the app opens with internet.';
+
+  @override
+  String get subVerifyFailed =>
+      'We couldn\'t confirm the purchase. Try “Restore purchases” later.';
+
+  @override
+  String get lockedTitle => 'This activity is locked for now';
+
+  @override
+  String get lockedText => 'Ask a grown-up, and you can open it together.';
+
+  @override
+  String areaTaskLockedLabel(int number) {
+    return 'Activity $number, locked';
+  }
 }

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -9,6 +10,8 @@ import 'package:lumi_kids/features/content_library/domain/task_parser.dart';
 import 'package:lumi_kids/features/profiles/domain/child_profile.dart';
 import 'package:lumi_kids/features/progress/domain/progress.dart';
 import 'package:lumi_kids/features/settings/domain/app_settings.dart';
+import 'package:lumi_kids/features/subscription/domain/entitlement.dart';
+import 'package:lumi_kids/features/subscription/domain/subscription_store.dart';
 
 Map<String, Object?> loadStarterPackJson() =>
     jsonDecode(File('assets/content/starter_pack.json').readAsStringSync())
@@ -119,4 +122,84 @@ class InMemoryAppSettings implements AppSettingsRepository {
 
   @override
   Future<void> setLanguage(String language) async => chosen = language;
+}
+
+/// Магазин без сети: цены заданы, покупки досылаются через [emit].
+class FakeSubscriptionStore implements SubscriptionStore {
+  FakeSubscriptionStore({this.available = true});
+
+  final bool available;
+  final List<StoreProduct> offered = [
+    const StoreProduct(id: 'lumi_premium_monthly', price: '49 000 UZS'),
+    const StoreProduct(id: 'lumi_premium_yearly', price: '399 000 UZS'),
+  ];
+  final _purchases = StreamController<List<StorePurchase>>.broadcast();
+  final List<String> bought = [];
+  final List<StorePurchase> completed = [];
+  int restores = 0;
+
+  /// Что магазин пришлёт после [buy]; null — ничего (окно закрыли).
+  StorePurchase Function(String productId)? onBuy;
+
+  void emit(List<StorePurchase> batch) => _purchases.add(batch);
+
+  @override
+  StorePlatform? get platform => StorePlatform.android;
+
+  @override
+  Future<bool> isAvailable() async => available;
+
+  @override
+  Future<List<StoreProduct>> products(Set<String> ids) async =>
+      offered.where((p) => ids.contains(p.id)).toList();
+
+  @override
+  Stream<List<StorePurchase>> get purchases => _purchases.stream;
+
+  @override
+  Future<void> buy(String productId) async {
+    bought.add(productId);
+    final purchase = onBuy?.call(productId);
+    if (purchase != null) emit([purchase]);
+  }
+
+  @override
+  Future<void> restore() async => restores++;
+
+  @override
+  Future<void> complete(StorePurchase purchase) async =>
+      completed.add(purchase);
+}
+
+class FakePurchaseVerifier implements PurchaseVerifier {
+  FakePurchaseVerifier([this.result]);
+
+  VerificationResult? result;
+  final List<(StorePlatform, String, String)> calls = [];
+
+  @override
+  Future<VerificationResult> verify({
+    required StorePlatform platform,
+    required String productId,
+    required String token,
+  }) async {
+    calls.add((platform, productId, token));
+    return result ?? const VerificationResult(VerificationStatus.notConfigured);
+  }
+}
+
+class InMemoryEntitlementRepository implements EntitlementRepository {
+  InMemoryEntitlementRepository([this.entitlement]);
+
+  Entitlement? entitlement;
+
+  @override
+  Future<Entitlement?> load() async => entitlement;
+
+  @override
+  Future<void> save(Entitlement entitlement) async =>
+      this.entitlement = entitlement;
+
+  @override
+  Future<void> clear() async => entitlement = null;
 }

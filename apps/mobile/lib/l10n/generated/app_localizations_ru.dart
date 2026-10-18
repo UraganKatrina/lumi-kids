@@ -426,7 +426,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get parentDeleteAllText =>
-      'С телефона будут удалены все профили детей, прогресс и настройки. Вернуть их не получится.';
+      'С телефона будут удалены все профили детей, прогресс и настройки. Вернуть их не получится. Оплаченную подписку можно будет вернуть кнопкой «Восстановить покупки».';
 
   @override
   String get parentDeleteAllConfirm => 'Удалить всё';
@@ -466,4 +466,112 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get month12 => 'дек';
+
+  @override
+  String get parentSubscription => 'Подписка';
+
+  @override
+  String get parentSubscriptionOpen => 'Подробнее о подписке';
+
+  @override
+  String get subTitle => 'Подписка LUMI Kids';
+
+  @override
+  String subFreeTasks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# задания',
+      many: '# заданий',
+      few: '# задания',
+      one: '# задание',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String subStatusFree(String tasks) {
+    return 'Сейчас бесплатная версия: в каждом направлении для каждого возраста открыто $tasks.';
+  }
+
+  @override
+  String subStatusActive(String date) {
+    return 'Подписка активна до $date.';
+  }
+
+  @override
+  String get subBenefits =>
+      'С подпиской открыты все задания во всех направлениях и новые задания из обновлений. Рекламы нет ни в платной, ни в бесплатной версии.';
+
+  @override
+  String subMonthly(String price) {
+    return 'Месяц: $price';
+  }
+
+  @override
+  String subYearly(String price) {
+    return 'Год: $price';
+  }
+
+  @override
+  String get subRestore => 'Восстановить покупки';
+
+  @override
+  String get subRestoreSent => 'Ищем ваши покупки в магазине…';
+
+  @override
+  String get subTerms =>
+      'Подписка продлевается автоматически, пока вы её не отмените. Отменить можно в любой момент в настройках подписок Google Play или App Store, не позже чем за сутки до продления. Оплата проходит через аккаунт магазина.';
+
+  @override
+  String get subPrivacy =>
+      'Чтобы проверить покупку, приложение отправляет на наш сервер только её номер из магазина. Данные о детях не передаются.';
+
+  @override
+  String get subLoading => 'Загружаем цены из магазина…';
+
+  @override
+  String get subUnavailable => 'На этом устройстве покупки недоступны.';
+
+  @override
+  String get subNoProducts =>
+      'Подписка пока не появилась в магазине. Попробуйте позже.';
+
+  @override
+  String get subPending => 'Покупка ждёт подтверждения магазина.';
+
+  @override
+  String get subActivated => 'Готово! Подписка активна.';
+
+  @override
+  String get subNotActive => 'Покупка найдена, но срок подписки закончился.';
+
+  @override
+  String get subCanceled => 'Покупка отменена.';
+
+  @override
+  String get subStoreError => 'Магазин сообщил об ошибке. Попробуйте ещё раз.';
+
+  @override
+  String get subVerifyNotConfigured =>
+      'В этой сборке проверка покупок ещё не подключена. Покупка останется в магазине и откроется, когда проверка заработает.';
+
+  @override
+  String get subVerifyOffline =>
+      'Нет связи с сервером. Проверим покупку при следующем запуске с интернетом.';
+
+  @override
+  String get subVerifyFailed =>
+      'Не получилось подтвердить покупку. Попробуйте «Восстановить покупки» позже.';
+
+  @override
+  String get lockedTitle => 'Это задание пока закрыто';
+
+  @override
+  String get lockedText => 'Попроси взрослого, и вы откроете его вместе.';
+
+  @override
+  String areaTaskLockedLabel(int number) {
+    return 'Задание $number, закрыто';
+  }
 }

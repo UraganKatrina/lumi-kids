@@ -9,6 +9,7 @@ import 'package:lumi_kids/features/catalog/domain/development_area.dart';
 import 'package:lumi_kids/features/content_library/domain/task.dart';
 import 'package:lumi_kids/features/parent_area/domain/parental_gate.dart';
 import 'package:lumi_kids/features/profiles/domain/child_profile.dart';
+import 'package:lumi_kids/features/subscription/domain/entitlement.dart';
 
 import '../support/fakes.dart';
 
@@ -29,6 +30,9 @@ class TestApp {
   final InMemoryProgressRepository progress;
   final InMemoryProfileRepository profiles;
   final InMemoryAppSettings settings;
+  final store = FakeSubscriptionStore();
+  final verifier = FakePurchaseVerifier();
+  final entitlements = InMemoryEntitlementRepository();
 }
 
 /// [age] — возрастная программа ребёнка «Маша»; null — первый запуск без профилей.
@@ -37,6 +41,7 @@ Future<TestApp> pumpApp(
   String? age = 'preschool',
   String? language = 'ru',
   String deviceLanguage = 'ru',
+  bool premium = false,
 }) async {
   // Как при системной настройке «уменьшить движение»: персонаж не парит,
   // и pumpAndSettle не ждёт бесконечную анимацию.
@@ -63,6 +68,13 @@ Future<TestApp> pumpApp(
     ]),
     InMemoryAppSettings(language),
   );
+  if (premium) {
+    app.entitlements.entitlement = Entitlement(
+      productId: 'lumi_premium_yearly',
+      expiresAt: testNow.add(const Duration(days: 300)),
+      verifiedAt: testNow,
+    );
+  }
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
@@ -76,6 +88,9 @@ Future<TestApp> pumpApp(
         profileRepositoryProvider.overrideWithValue(app.profiles),
         appSettingsRepositoryProvider.overrideWithValue(app.settings),
         deviceLanguageProvider.overrideWithValue(deviceLanguage),
+        subscriptionStoreProvider.overrideWithValue(app.store),
+        purchaseVerifierProvider.overrideWithValue(app.verifier),
+        entitlementRepositoryProvider.overrideWithValue(app.entitlements),
       ],
       child: const LumiApp(),
     ),
@@ -236,7 +251,7 @@ void main() {
   });
 
   testWidgets('предметы раскладываются по группам', (tester) async {
-    final app = await pumpApp(tester);
+    final app = await pumpApp(tester, premium: true);
     final task = await openTask(tester, 'math.shapes.sort.001');
     final content = task.content as GroupContent;
 

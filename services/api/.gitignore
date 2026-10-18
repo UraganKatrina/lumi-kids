@@ -1,0 +1,4 @@
+# Ключи магазинов не коммитим
+*.p8
+*service-account*.json
+secrets/

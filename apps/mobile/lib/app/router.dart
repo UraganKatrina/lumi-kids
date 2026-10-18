@@ -4,6 +4,7 @@ import '../features/catalog/presentation/area_screen.dart';
 import '../features/exercise_engine/presentation/exercise_screen.dart';
 import '../features/parent_area/presentation/parent_screen.dart';
 import '../features/profiles/presentation/profile_edit_screen.dart';
+import '../features/subscription/presentation/subscription_screen.dart';
 import '../features/world_map/presentation/world_map_screen.dart';
 
 /// Разделы для взрослых открываются только кнопкой с родительским барьером;
@@ -28,6 +29,10 @@ GoRouter createRouter() => GoRouter(
           path: 'parent',
           builder: (context, state) => const ParentScreen(),
           routes: [
+            GoRoute(
+              path: 'subscription',
+              builder: (context, state) => const SubscriptionScreen(),
+            ),
             GoRoute(
               path: 'child/new',
               builder: (context, state) => const ProfileEditScreen(),

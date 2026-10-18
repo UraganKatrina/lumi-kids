@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/design_system/lumi_theme.dart';
+import '../features/subscription/domain/subscription_service.dart';
 import '../l10n/l10n.dart';
 import 'providers.dart';
 import 'router.dart';
@@ -18,16 +21,26 @@ class LumiApp extends ConsumerStatefulWidget {
 
 class _LumiAppState extends ConsumerState<LumiApp> {
   final GoRouter _router = createRouter();
+  StreamSubscription<SubscriptionEvent>? _events;
 
   @override
   void initState() {
     super.initState();
     // Тихо проверяем новые задания в фоне; без сети ничего не случится.
     ref.read(packUpdateProvider.future).ignore();
+    // Магазин досылает незавершённые покупки при каждом запуске.
+    final subscriptions = ref.read(subscriptionServiceProvider);
+    _events = subscriptions.events.listen((event) {
+      if (event == SubscriptionEvent.activated) {
+        ref.invalidate(entitlementProvider);
+      }
+    });
+    subscriptions.start();
   }
 
   @override
   void dispose() {
+    _events?.cancel();
     _router.dispose();
     super.dispose();
   }

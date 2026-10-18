@@ -16,6 +16,35 @@
 | `POST /v1/admin/tasks/:id/review` | см. ниже | `submit`, `approve`, `reject`, `withdraw` |
 | `GET /v1/admin/packs`, `POST /v1/admin/packs` | методист, админ | список и выпуск пакета |
 | `GET /v1/content/packs/latest`, `GET /v1/content/packs/:version` | приложение | пакет заданий, `ETag` и `X-Pack-Sha256` |
+| `POST /v1/purchases/verify` | приложение | проверка подписки в Google Play или App Store |
+
+## Проверка подписок
+
+Приложение присылает `{ "platform": "android" | "ios", "productId": "...", "token": "..." }`:
+для Android `token` — purchaseToken из Google Play, для iOS — transactionId из StoreKit
+(исходный или текущий). Сервер спрашивает магазин сам и отвечает
+
+```json
+{ "active": true, "productId": "lumi_premium_monthly", "expiresAt": "2026-11-18T10:00:00.000Z",
+  "platform": "android", "environment": "production", "acknowledged": true }
+```
+
+- Android: Google Play Developer API `purchases.subscriptionsv2.get`, вход по JWT
+  сервисного аккаунта (токен доступа живёт в памяти до минуты перед истечением).
+  Активна при `SUBSCRIPTION_STATE_ACTIVE` или `SUBSCRIPTION_STATE_IN_GRACE_PERIOD`
+  и сроке строки с этим `productId` в будущем. `acknowledged` только сообщает
+  состояние: подтверждает покупку приложение через SDK магазина, не сервер.
+  `environment: "sandbox"` — тестовая покупка из лицензионного списка.
+- iOS: App Store Server API `Get All Subscription Statuses`, вход по JWT ES256.
+  Активна при статусе 1 (активна) или 4 (льготный период), совпадении `productId`
+  и `bundleId` и сроке в будущем. Песочница (`APPLE_ALLOW_SANDBOX=1`) проверяется,
+  только если боевой App Store не знает транзакцию.
+- Токен, который магазин не знает, — ответ 200 с `active: false`.
+  Неверный запрос или продукт не из `PURCHASE_PRODUCT_IDS` — 400, магазин не
+  настроен — 503, магазин не ответил или ответил ошибкой — 502 (без подробностей).
+- Ничего не хранится: ни токены, ни покупки, ни адреса. Токены не пишутся в журнал.
+- Не больше 30 запросов с одного адреса за 10 минут (в памяти процесса), токен —
+  не длиннее 4096 символов. За прокси задайте `TRUST_PROXY`.
 
 ## Правила проверки контента
 
@@ -34,7 +63,8 @@
 - Пароли хранятся как scrypt-хэш с солью, токены сессий — как sha256.
 - 5 неудачных входов подряд блокируют почту на 15 минут.
 - Секретов в репозитории нет: всё берётся из переменных окружения
-  (см. `.env.example`).
+  (см. `.env.example`). Ключи магазинов (JSON сервисного аккаунта Google и `.p8`
+  от Apple) лежат файлами вне репозитория и читаются один раз при запуске.
 
 ## Как запустить
 

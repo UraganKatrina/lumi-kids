@@ -429,7 +429,7 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get parentDeleteAllText =>
-      'Telefondan barcha bolalar profillari, natijalar va sozlamalar o\'chiriladi. Ularni qaytarib bo\'lmaydi.';
+      'Telefondan barcha bolalar profillari, natijalar va sozlamalar o\'chiriladi. Ularni qaytarib bo\'lmaydi. To\'langan obunani «Xaridlarni tiklash» tugmasi bilan qaytarish mumkin.';
 
   @override
   String get parentDeleteAllConfirm => 'Hammasini o\'chirish';
@@ -469,4 +469,105 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get month12 => 'dek';
+
+  @override
+  String get parentSubscription => 'Obuna';
+
+  @override
+  String get parentSubscriptionOpen => 'Obuna haqida batafsil';
+
+  @override
+  String get subTitle => 'LUMI Kids obunasi';
+
+  @override
+  String subFreeTasks(int count) {
+    return '$count ta topshiriq';
+  }
+
+  @override
+  String subStatusFree(String tasks) {
+    return 'Hozir bepul versiya: har bir yo\'nalishda har bir yosh uchun $tasks ochiq.';
+  }
+
+  @override
+  String subStatusActive(String date) {
+    return 'Obuna $date gacha faol.';
+  }
+
+  @override
+  String get subBenefits =>
+      'Obuna bilan barcha yo\'nalishlardagi barcha topshiriqlar va yangilanishlardagi yangi topshiriqlar ochiladi. Pullik va bepul versiyada ham reklama yo\'q.';
+
+  @override
+  String subMonthly(String price) {
+    return 'Bir oy: $price';
+  }
+
+  @override
+  String subYearly(String price) {
+    return 'Bir yil: $price';
+  }
+
+  @override
+  String get subRestore => 'Xaridlarni tiklash';
+
+  @override
+  String get subRestoreSent => 'Do\'kondan xaridlaringizni qidiryapmiz…';
+
+  @override
+  String get subTerms =>
+      'Obuna siz bekor qilmaguningizcha avtomatik uzaytiriladi. Uni istalgan vaqtda Google Play yoki App Store obuna sozlamalarida, uzaytirishdan kamida bir kun oldin bekor qilish mumkin. To\'lov do\'kon akkaunti orqali o\'tadi.';
+
+  @override
+  String get subPrivacy =>
+      'Xaridni tekshirish uchun ilova serverimizga faqat do\'kondagi xarid raqamini yuboradi. Bolalar haqidagi ma\'lumotlar yuborilmaydi.';
+
+  @override
+  String get subLoading => 'Do\'kondan narxlar yuklanmoqda…';
+
+  @override
+  String get subUnavailable => 'Bu qurilmada xaridlar mavjud emas.';
+
+  @override
+  String get subNoProducts =>
+      'Obuna hali do\'konda paydo bo\'lmadi. Keyinroq urinib ko\'ring.';
+
+  @override
+  String get subPending => 'Xarid do\'kon tasdig\'ini kutmoqda.';
+
+  @override
+  String get subActivated => 'Tayyor! Obuna faol.';
+
+  @override
+  String get subNotActive => 'Xarid topildi, lekin obuna muddati tugagan.';
+
+  @override
+  String get subCanceled => 'Xarid bekor qilindi.';
+
+  @override
+  String get subStoreError =>
+      'Do\'kon xatolik haqida xabar berdi. Yana urinib ko\'ring.';
+
+  @override
+  String get subVerifyNotConfigured =>
+      'Bu yig\'mada xaridlarni tekshirish hali ulanmagan. Xarid do\'konda qoladi va tekshirish ishlaganda ochiladi.';
+
+  @override
+  String get subVerifyOffline =>
+      'Server bilan aloqa yo\'q. Xaridni keyingi safar internet bilan ochilganda tekshiramiz.';
+
+  @override
+  String get subVerifyFailed =>
+      'Xaridni tasdiqlab bo\'lmadi. Keyinroq «Xaridlarni tiklash»ni bosing.';
+
+  @override
+  String get lockedTitle => 'Bu topshiriq hozircha yopiq';
+
+  @override
+  String get lockedText => 'Kattalardan so\'ra, birga ochasizlar.';
+
+  @override
+  String areaTaskLockedLabel(int number) {
+    return '$number-topshiriq, yopiq';
+  }
 }
