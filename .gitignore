@@ -49,3 +49,13 @@ app.*.map.json
 
 # Node
 node_modules/
+
+# Next.js и TypeScript
+.next/
+*.tsbuildinfo
+services/api/dist/
+
+# Локальные переменные окружения: секреты не коммитим
+.env
+.env.*
+!.env.example

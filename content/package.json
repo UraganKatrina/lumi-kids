@@ -3,6 +3,13 @@
   "private": true,
   "type": "module",
   "description": "Схема заданий LUMI Kids и проверка контента",
+  "exports": {
+    "./validate": {
+      "types": "./src/validate.d.mts",
+      "default": "./src/validate.mjs"
+    },
+    "./schema/task.schema.json": "./schema/task.schema.json"
+  },
   "scripts": {
     "validate": "node src/cli.mjs examples ../apps/mobile/assets/content",
     "test": "node --test \"test/**/*.test.mjs\""
