@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
@@ -17,6 +18,9 @@ import '../features/progress/data/drift_progress_repository.dart';
 import '../features/progress/data/progress_database.dart';
 import '../features/progress/domain/progress.dart';
 import '../features/recommendations/domain/recommender.dart';
+import '../features/settings/data/drift_app_settings_repository.dart';
+import '../features/settings/domain/app_settings.dart';
+import '../l10n/l10n.dart';
 
 /// Должна совпадать с `version` в pubspec.yaml (проверяется тестом).
 const appVersion = '0.3.0';
@@ -48,9 +52,34 @@ final contentRepositoryProvider = Provider<ContentRepository>(
   ),
 );
 
-final contentProvider = FutureProvider<LoadedContent>(
-  (ref) => ref.watch(contentRepositoryProvider).load(),
+final appSettingsRepositoryProvider = Provider<AppSettingsRepository>(
+  (ref) => DriftAppSettingsRepository(ref.watch(progressDatabaseProvider)),
 );
+
+/// Язык телефона; в тестах подменяется.
+final deviceLanguageProvider = Provider<String>(
+  (ref) => WidgetsBinding.instance.platformDispatcher.locale.languageCode,
+);
+
+/// Язык интерфейса и заданий.
+final languageProvider = FutureProvider<String>((ref) async {
+  final chosen = await ref.watch(appSettingsRepositoryProvider).language();
+  return effectiveLanguage(
+    chosen: chosen,
+    deviceLanguage: ref.watch(deviceLanguageProvider),
+    supported: supportedLanguages,
+  );
+});
+
+Future<void> chooseLanguage(WidgetRef ref, String language) async {
+  await ref.read(appSettingsRepositoryProvider).setLanguage(language);
+  ref.invalidate(languageProvider);
+}
+
+final contentProvider = FutureProvider<LoadedContent>((ref) async {
+  final language = await ref.watch(languageProvider.future);
+  return ref.watch(contentRepositoryProvider).load(language: language);
+});
 
 final tasksProvider = FutureProvider<List<LearningTask>>(
   (ref) async => (await ref.watch(contentProvider.future)).tasks,
@@ -171,6 +200,8 @@ Future<void> deleteChild(WidgetRef ref, String childId) async {
 Future<void> eraseAllData(WidgetRef ref) async {
   await ref.read(profileRepositoryProvider).deleteEverything();
   ref.invalidate(profilesProvider);
+  // Настройки тоже удалены: язык снова как в телефоне.
+  ref.invalidate(languageProvider);
   invalidateProgress(ref);
 }
 

@@ -7,6 +7,7 @@ import '../../../core/design_system/lumi_tokens.dart';
 import '../../../core/widgets/async_view.dart';
 import '../../../core/widgets/confirm_dialog.dart';
 import 'profile_form.dart';
+import '../../../l10n/l10n.dart';
 
 /// Добавление и правка профиля из кабинета родителя.
 class ProfileEditScreen extends ConsumerWidget {
@@ -18,13 +19,14 @@ class ProfileEditScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     void back() => context.go('/parent');
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
-        title: Text(childId == null ? 'Новый ребёнок' : 'Профиль'),
+        title: Text(childId == null ? l10n.profileNew : l10n.profileTitle),
         leading: IconButton(
           key: const Key('profile.back'),
           iconSize: 36,
-          tooltip: 'Назад',
+          tooltip: l10n.commonBack,
           icon: const Icon(Icons.arrow_back_rounded),
           onPressed: back,
         ),
@@ -34,7 +36,7 @@ class ProfileEditScreen extends ConsumerWidget {
         builder: (profiles) {
           final initial = profiles.where((p) => p.id == childId).firstOrNull;
           if (childId != null && initial == null) {
-            return const Center(child: Text('Профиль не найден'));
+            return Center(child: Text(l10n.profileNotFound));
           }
           return ListView(
             padding: const EdgeInsets.all(LumiSpacing.l),
@@ -49,15 +51,13 @@ class ProfileEditScreen extends ConsumerWidget {
                     minimumSize: const Size(0, LumiSizes.minTapTarget),
                   ),
                   icon: const Icon(Icons.delete_outline_rounded),
-                  label: const Text('Удалить профиль'),
+                  label: Text(l10n.profileDelete),
                   onPressed: () async {
                     final ok = await confirmAction(
                       context,
-                      title: 'Удалить профиль «${initial.name}»?',
-                      message:
-                          'Профиль и весь прогресс этого ребёнка будут '
-                          'удалены с телефона. Вернуть их не получится.',
-                      confirmLabel: 'Удалить',
+                      title: l10n.profileDeleteTitle(initial.name),
+                      message: l10n.profileDeleteText,
+                      confirmLabel: l10n.commonDelete,
                     );
                     if (!ok) return;
                     await deleteChild(ref, initial.id);

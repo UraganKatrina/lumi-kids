@@ -3,15 +3,7 @@ import '../../content_library/domain/task.dart';
 import '../../progress/domain/progress.dart';
 
 /// Наблюдение, а не оценка: без «отстаёт» и сравнений с другими детьми.
-enum AreaStatus {
-  notTried('Ещё не пробовали'),
-  trying('Пока пробует, помогайте подсказкой'),
-  confident('Чаще справляется сам');
-
-  const AreaStatus(this.label);
-
-  final String label;
-}
+enum AreaStatus { notTried, trying, confident }
 
 class AreaSummary {
   const AreaSummary({

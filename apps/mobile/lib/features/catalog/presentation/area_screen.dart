@@ -6,6 +6,7 @@ import '../../../app/providers.dart';
 import '../../../core/design_system/lumi_tokens.dart';
 import '../../../core/widgets/async_view.dart';
 import '../domain/development_area.dart';
+import '../../../l10n/l10n.dart';
 
 /// Остров направления: список заданий с заработанными звёздами.
 class AreaScreen extends ConsumerWidget {
@@ -16,15 +17,16 @@ class AreaScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final area = DevelopmentArea.fromCode(areaCode);
+    final l10n = context.l10n;
     final stars = ref.watch(bestStarsProvider).value ?? const {};
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(area?.title ?? ''),
+        title: Text(area == null ? '' : l10n.area(area)),
         leading: IconButton(
           key: const Key('area.back'),
           iconSize: 36,
-          tooltip: 'На карту',
+          tooltip: l10n.areaToMap,
           icon: const Icon(Icons.map_rounded),
           onPressed: () => context.go('/'),
         ),
@@ -47,7 +49,7 @@ class AreaScreen extends ConsumerWidget {
               final earned = stars[task.id] ?? 0;
               return Semantics(
                 button: true,
-                label: 'Задание ${i + 1}, звёзд $earned',
+                label: l10n.areaTaskLabel(i + 1, earned),
                 excludeSemantics: true,
                 child: Material(
                   color: area!.color,

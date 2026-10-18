@@ -40,9 +40,6 @@ void main() {
     expect(area(summary, DevelopmentArea.speech).status, AreaStatus.notTried);
     // Направлений без заданий для этого возраста нет в списке.
     expect(summary.areas, hasLength(3));
-    for (final s in AreaStatus.values) {
-      expect(s.label.toLowerCase(), isNot(contains('отста')));
-    }
   });
 
   test('считает занятия за неделю', () {

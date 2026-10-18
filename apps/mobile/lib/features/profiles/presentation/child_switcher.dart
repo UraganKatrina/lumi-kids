@@ -5,6 +5,7 @@ import '../../../app/providers.dart';
 import '../../../core/design_system/lumi_tokens.dart';
 import '../domain/child_profile.dart';
 import 'child_avatar_view.dart';
+import '../../../l10n/l10n.dart';
 
 /// «Кто играет?» — переключение без барьера: это безопасное действие.
 Future<void> showChildSwitcher(BuildContext context, WidgetRef ref) async {
@@ -19,7 +20,7 @@ Future<void> showChildSwitcher(BuildContext context, WidgetRef ref) async {
         padding: const EdgeInsets.all(LumiSpacing.m),
         children: [
           Text(
-            'Кто играет?',
+            sheetContext.l10n.switcherTitle,
             textAlign: TextAlign.center,
             style: Theme.of(sheetContext).textTheme.headlineMedium,
           ),
@@ -35,7 +36,7 @@ Future<void> showChildSwitcher(BuildContext context, WidgetRef ref) async {
             ),
           const SizedBox(height: LumiSpacing.s),
           Text(
-            'Добавить ребёнка можно в разделе «Для взрослых».',
+            sheetContext.l10n.switcherAddHint,
             textAlign: TextAlign.center,
             style: Theme.of(sheetContext).textTheme.bodyMedium,
           ),

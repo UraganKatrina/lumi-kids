@@ -14,6 +14,7 @@ import '../../profiles/domain/child_profile.dart';
 import '../../profiles/presentation/child_avatar_view.dart';
 import '../../profiles/presentation/child_switcher.dart';
 import '../../profiles/presentation/welcome_view.dart';
+import '../../../l10n/l10n.dart';
 
 /// Главная карта: острова — это 12 направлений развития.
 class WorldMapScreen extends ConsumerWidget {
@@ -147,7 +148,7 @@ class _Greeting extends ConsumerWidget {
                 }
               },
               icon: const Icon(Icons.lock_rounded),
-              label: const Text('Для взрослых'),
+              label: Text(context.l10n.mapForAdults),
             ),
           ),
           Row(
@@ -158,10 +159,10 @@ class _Greeting extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Привет! Я Люми.', style: text.headlineMedium),
+                    Text(context.l10n.mapGreeting, style: text.headlineMedium),
                     Semantics(
                       button: true,
-                      label: 'Играет ${child.name}. Сменить ребёнка',
+                      label: context.l10n.mapPlayingChild(child.name),
                       excludeSemantics: true,
                       child: InkWell(
                         key: const Key('map.child'),
@@ -208,7 +209,7 @@ class _StarCounter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: 'Звёзд: $stars',
+      label: context.l10n.mapStarsLabel(stars),
       excludeSemantics: true,
       child: Container(
         key: const Key('map.stars'),
@@ -251,7 +252,9 @@ class _Island extends StatelessWidget {
     final text = Theme.of(context).textTheme;
     return Semantics(
       button: _isOpen,
-      label: _isOpen ? 'Остров ${area.title}' : 'Остров ${area.title}, скоро',
+      label: _isOpen
+          ? context.l10n.mapIsland(context.l10n.area(area))
+          : context.l10n.mapIslandSoon(context.l10n.area(area)),
       excludeSemantics: true,
       child: Opacity(
         opacity: _isOpen ? 1 : 0.45,
@@ -289,11 +292,14 @@ class _Island extends StatelessWidget {
               ),
               const SizedBox(height: LumiSpacing.xs),
               Text(
-                area.title,
+                context.l10n.area(area),
                 style: text.titleLarge,
                 textAlign: TextAlign.center,
               ),
-              Text(_isOpen ? '★ $stars' : 'скоро', style: text.bodyLarge),
+              Text(
+                _isOpen ? '★ $stars' : context.l10n.mapSoon,
+                style: text.bodyLarge,
+              ),
             ],
           ),
         ),
@@ -327,8 +333,7 @@ class _NextActivity extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: LumiSpacing.s),
               child: Text(
-                'Для малышей до года все занятия проходят вместе со взрослым, '
-                'экран только подсказывает идею.',
+                context.l10n.mapParentLed,
                 key: const Key('map.parentLed'),
                 textAlign: TextAlign.center,
                 style: text.bodyLarge,
@@ -336,7 +341,7 @@ class _NextActivity extends StatelessWidget {
             ),
           if (next == null)
             Text(
-              'Все занятия пройдены! Скоро появятся новые.',
+              context.l10n.mapAllDone,
               key: const Key('map.allDone'),
               textAlign: TextAlign.center,
               style: text.titleLarge,
@@ -346,7 +351,7 @@ class _NextActivity extends StatelessWidget {
               key: const Key('map.next'),
               onPressed: () => context.go('/task/${next.id}'),
               icon: Icon(next.area.icon),
-              label: Text('Следующее занятие: ${next.area.title}'),
+              label: Text(context.l10n.mapNext(context.l10n.area(next.area))),
             ),
         ],
       ),

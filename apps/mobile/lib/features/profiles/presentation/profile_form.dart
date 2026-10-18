@@ -6,21 +6,7 @@ import '../../../app/providers.dart';
 import '../../../core/design_system/lumi_tokens.dart';
 import '../domain/child_profile.dart';
 import 'child_avatar_view.dart';
-
-const _months = [
-  'янв',
-  'фев',
-  'мар',
-  'апр',
-  'май',
-  'июн',
-  'июл',
-  'авг',
-  'сен',
-  'окт',
-  'ноя',
-  'дек',
-];
+import '../../../l10n/l10n.dart';
 
 /// Форма профиля для взрослого: прозвище, аватар, год и месяц рождения.
 class ProfileForm extends ConsumerStatefulWidget {
@@ -41,7 +27,7 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
   late ChildAvatar _avatar = widget.initial?.avatar ?? ChildAvatar.bunny;
   late int? _year = widget.initial?.birthYear;
   late int? _month = widget.initial?.birthMonth;
-  String? _error;
+  ProfileError? _error;
   bool _saving = false;
 
   @override
@@ -80,11 +66,12 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
   @override
   Widget build(BuildContext context) {
     final text = Theme.of(context).textTheme;
+    final l10n = context.l10n;
     final now = ref.watch(clockProvider)();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text('Как зовут ребёнка?', style: text.titleLarge),
+        Text(l10n.profileNameQuestion, style: text.titleLarge),
         const SizedBox(height: LumiSpacing.s),
         TextField(
           key: const Key('profile.name'),
@@ -92,15 +79,15 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
           maxLength: ChildProfile.maxNameLength,
           textCapitalization: TextCapitalization.words,
           style: text.bodyLarge,
-          decoration: const InputDecoration(
-            hintText: 'Имя или прозвище',
-            helperText: 'Фамилия не нужна',
+          decoration: InputDecoration(
+            hintText: l10n.profileNameHint,
+            helperText: l10n.profileNameHelper,
             filled: true,
             fillColor: Colors.white,
           ),
         ),
         const SizedBox(height: LumiSpacing.m),
-        Text('Значок', style: text.titleLarge),
+        Text(l10n.profileAvatar, style: text.titleLarge),
         const SizedBox(height: LumiSpacing.s),
         Wrap(
           spacing: LumiSpacing.s,
@@ -110,7 +97,7 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
               Semantics(
                 button: true,
                 selected: avatar == _avatar,
-                label: avatar.title,
+                label: l10n.avatar(avatar),
                 excludeSemantics: true,
                 child: InkWell(
                   key: Key('profile.avatar.${avatar.code}'),
@@ -134,7 +121,7 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
           ],
         ),
         const SizedBox(height: LumiSpacing.m),
-        Text('Год рождения', style: text.titleLarge),
+        Text(l10n.profileBirthYear, style: text.titleLarge),
         const SizedBox(height: LumiSpacing.s),
         Wrap(
           spacing: LumiSpacing.s,
@@ -150,7 +137,7 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
           ],
         ),
         const SizedBox(height: LumiSpacing.m),
-        Text('Месяц рождения', style: text.titleLarge),
+        Text(l10n.profileBirthMonth, style: text.titleLarge),
         const SizedBox(height: LumiSpacing.s),
         Wrap(
           spacing: LumiSpacing.s,
@@ -159,22 +146,19 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
             for (var m = 1; m <= 12; m++)
               ChoiceChip(
                 key: Key('profile.month.$m'),
-                label: Text(_months[m - 1], style: text.bodyLarge),
+                label: Text(l10n.month(m), style: text.bodyLarge),
                 selected: _month == m,
                 onSelected: (_) => setState(() => _month = m),
               ),
           ],
         ),
         const SizedBox(height: LumiSpacing.s),
-        Text(
-          'Точная дата не нужна: месяца хватает, чтобы подобрать занятия.',
-          style: text.bodyMedium,
-        ),
+        Text(l10n.profileMonthNote, style: text.bodyMedium),
         if (_error case final error?)
           Padding(
             padding: const EdgeInsets.only(top: LumiSpacing.m),
             child: Text(
-              error,
+              l10n.profileError(error),
               key: const Key('profile.error'),
               style: text.bodyLarge?.copyWith(color: LumiColors.gentleError),
             ),
@@ -183,7 +167,7 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
         FilledButton(
           key: const Key('profile.save'),
           onPressed: _save,
-          child: const Text('Сохранить'),
+          child: Text(l10n.commonSave),
         ),
       ],
     );

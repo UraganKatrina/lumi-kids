@@ -1,0 +1,264 @@
+{
+  "@@locale": "ru",
+  "appTitle": "LUMI Kids",
+  "lumiName": "Люми",
+  "commonClose": "Закрыть",
+  "commonBack": "Назад",
+  "commonCancel": "Отмена",
+  "commonSave": "Сохранить",
+  "commonDelete": "Удалить",
+  "commonError": "Что-то пошло не так. Попробуй ещё раз чуть позже.",
+  "areaSpeech": "Речь",
+  "areaLogic": "Логика",
+  "areaMath": "Числа",
+  "areaLiteracy": "Буквы",
+  "areaMemory": "Память",
+  "areaEmotions": "Эмоции",
+  "areaSelfCare": "Сам себе",
+  "areaCreativity": "Творчество",
+  "areaWorld": "Мир вокруг",
+  "areaMusic": "Музыка",
+  "areaMovement": "Движение",
+  "areaLanguages": "Языки",
+  "programInfant": "0–1 год",
+  "programInfantHint": "Занятия вместе со взрослым",
+  "programToddler": "1–2 года",
+  "programToddlerHint": "Предметы, животные, первые слова",
+  "programEarly": "2–3 года",
+  "programEarlyHint": "Цвета, формы, сортировка",
+  "programPreschool": "3–5 лет",
+  "programPreschoolHint": "Речь, логика, счёт",
+  "programSchoolPrep": "5–7 лет",
+  "programSchoolPrepHint": "Подготовка к школе",
+  "avatarBunny": "Зайчик",
+  "avatarBird": "Птичка",
+  "avatarBee": "Пчёлка",
+  "avatarPaw": "Котёнок",
+  "avatarFlower": "Цветок",
+  "avatarStar": "Звёздочка",
+  "mapForAdults": "Для взрослых",
+  "mapGreeting": "Привет! Я Люми.",
+  "mapPlayingChild": "Играет {name}. Сменить ребёнка",
+  "@mapPlayingChild": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "mapStarsLabel": "Звёзд: {count}",
+  "@mapStarsLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mapIsland": "Остров {area}",
+  "@mapIsland": {
+    "placeholders": {
+      "area": {
+        "type": "String"
+      }
+    }
+  },
+  "mapIslandSoon": "Остров {area}, скоро",
+  "@mapIslandSoon": {
+    "placeholders": {
+      "area": {
+        "type": "String"
+      }
+    }
+  },
+  "mapSoon": "скоро",
+  "mapParentLed": "Для малышей до года все занятия проходят вместе со взрослым, экран только подсказывает идею.",
+  "mapAllDone": "Все занятия пройдены! Скоро появятся новые.",
+  "mapNext": "Следующее занятие: {area}",
+  "@mapNext": {
+    "placeholders": {
+      "area": {
+        "type": "String"
+      }
+    }
+  },
+  "areaToMap": "На карту",
+  "areaTaskLabel": "Задание {number}, звёзд {stars}",
+  "@areaTaskLabel": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      },
+      "stars": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseNotFound": "Задание не найдено",
+  "resultGreat": "Молодец!",
+  "resultPlayedTogether": "Здорово поиграли!",
+  "resultNext": "Дальше",
+  "resultToIsland": "К острову",
+  "togetherTitle": "Вместе со взрослым",
+  "togetherHint": "Отложите телефон и играйте вживую. Отметьте, когда закончите.",
+  "togetherDone": "Мы сделали!",
+  "groupProgress": "{placed} из {total}",
+  "@groupProgress": {
+    "placeholders": {
+      "placed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "welcomeTitle": "Здравствуйте!",
+  "welcomeText": "Расскажите немного о ребёнке, чтобы Люми подобрал занятия по возрасту. Всё хранится только на этом телефоне.",
+  "profileNameQuestion": "Как зовут ребёнка?",
+  "profileNameHint": "Имя или прозвище",
+  "profileNameHelper": "Фамилия не нужна",
+  "profileAvatar": "Значок",
+  "profileBirthYear": "Год рождения",
+  "profileBirthMonth": "Месяц рождения",
+  "profileMonthNote": "Точная дата не нужна: месяца хватает, чтобы подобрать занятия.",
+  "profileErrorName": "Введите имя или прозвище",
+  "profileErrorNameTooLong": "Имя слишком длинное, до {max} букв",
+  "@profileErrorNameTooLong": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "profileErrorBirth": "Выберите год и месяц рождения",
+  "profileErrorFuture": "Дата рождения не может быть в будущем",
+  "profileNew": "Новый ребёнок",
+  "profileTitle": "Профиль",
+  "profileNotFound": "Профиль не найден",
+  "profileDelete": "Удалить профиль",
+  "profileDeleteTitle": "Удалить профиль «{name}»?",
+  "@profileDeleteTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "profileDeleteText": "Профиль и весь прогресс этого ребёнка будут удалены с телефона. Вернуть их не получится.",
+  "switcherTitle": "Кто играет?",
+  "switcherAddHint": "Добавить ребёнка можно в разделе «Для взрослых».",
+  "gateTitle": "Для взрослых",
+  "gateQuestion": "Сколько будет {a} умножить на {b}?",
+  "@gateQuestion": {
+    "placeholders": {
+      "a": {
+        "type": "String"
+      },
+      "b": {
+        "type": "String"
+      }
+    }
+  },
+  "gateWrong": "Неверно. Вот новый вопрос.",
+  "number3": "три",
+  "number4": "четыре",
+  "number5": "пять",
+  "number6": "шесть",
+  "number7": "семь",
+  "number8": "восемь",
+  "number9": "девять",
+  "parentTitle": "Для взрослых",
+  "parentChildren": "Дети",
+  "parentAddChild": "Добавить ребёнка",
+  "parentEditProfile": "Изменить профиль",
+  "parentProgressTitle": "Прогресс: {name}",
+  "@parentProgressTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "parentProgram": "Программа: {program}",
+  "@parentProgram": {
+    "placeholders": {
+      "program": {
+        "type": "String"
+      }
+    }
+  },
+  "parentCompleted": "занятий всего",
+  "parentLastWeek": "за 7 дней",
+  "parentByArea": "По направлениям",
+  "parentByAreaNote": "Это наблюдения по занятиям в приложении, а не оценка развития.",
+  "parentTriedOf": "{tried} из {total}",
+  "@parentTriedOf": {
+    "placeholders": {
+      "tried": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "statusNotTried": "Ещё не пробовали",
+  "statusTrying": "Пока пробует, помогайте подсказкой",
+  "statusConfident": "Чаще справляется сам",
+  "parentTryTogether": "Попробуйте вместе",
+  "parentRecent": "Недавние занятия",
+  "parentHistoryEmpty": "Пока пусто. Здесь появятся занятия, которые ребёнок прошёл.",
+  "parentTaskGone": "Занятие больше недоступно",
+  "parentWithHints": ", с подсказками",
+  "parentContent": "Задания",
+  "parentContentNow": "Сейчас: {source}",
+  "@parentContentNow": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "contentDownloaded": "пакет №{version} с сервера",
+  "@contentDownloaded": {
+    "placeholders": {
+      "version": {
+        "type": "int"
+      }
+    }
+  },
+  "contentBundled": "встроенный пакет (версия {version})",
+  "@contentBundled": {
+    "placeholders": {
+      "version": {
+        "type": "int"
+      }
+    }
+  },
+  "parentCheckUpdates": "Проверить новые задания",
+  "updateUpdated": "Скачаны новые задания. Они появятся при следующем запуске приложения.",
+  "updateUpToDate": "Новых заданий пока нет.",
+  "updateNotConfigured": "В этой сборке нет адреса сервера: работают встроенные задания.",
+  "updateOffline": "Не получилось связаться с сервером. Задания работают и без интернета.",
+  "updateRejected": "Пакет с сервера пришёл повреждённым и не сохранён. Попробуйте позже.",
+  "parentLanguage": "Язык",
+  "parentLanguageNote": "Задания пока на русском: переводы появятся после проверки носителями языка.",
+  "parentData": "Данные",
+  "parentPrivacy": "Профили и прогресс хранятся только на этом телефоне и никуда не отправляются. Мы не просим фото, голос, фамилию и точную дату рождения. В приложении нет рекламы и чатов. При проверке новых заданий приложение скачивает только сам пакет и ничего не отправляет о ребёнке.",
+  "parentDeleteAll": "Удалить все данные",
+  "parentDeleteAllTitle": "Удалить все данные?",
+  "parentDeleteAllText": "С телефона будут удалены все профили детей, прогресс и настройки. Вернуть их не получится.",
+  "parentDeleteAllConfirm": "Удалить всё",
+  "month1": "янв",
+  "month2": "фев",
+  "month3": "мар",
+  "month4": "апр",
+  "month5": "май",
+  "month6": "июн",
+  "month7": "июл",
+  "month8": "авг",
+  "month9": "сен",
+  "month10": "окт",
+  "month11": "ноя",
+  "month12": "дек"
+}

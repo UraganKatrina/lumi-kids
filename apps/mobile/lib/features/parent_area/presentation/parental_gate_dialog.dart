@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../app/providers.dart';
 import '../../../core/design_system/lumi_tokens.dart';
 import '../domain/parental_gate.dart';
+import '../../../l10n/l10n.dart';
 
 /// Родительский барьер перед кабинетом, настройками, покупками и внешними
 /// ссылками. true — ответ верный.
@@ -75,13 +76,13 @@ class _GateDialogState extends State<_GateDialog> {
         );
 
     return AlertDialog(
-      title: const Text('Для взрослых'),
+      title: Text(context.l10n.gateTitle),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              _question.text,
+              context.l10n.gate(_question),
               key: const Key('gate.question'),
               textAlign: TextAlign.center,
               style: text.titleLarge,
@@ -105,7 +106,7 @@ class _GateDialogState extends State<_GateDialog> {
               Padding(
                 padding: const EdgeInsets.only(top: LumiSpacing.s),
                 child: Text(
-                  'Неверно. Вот новый вопрос.',
+                  context.l10n.gateWrong,
                   key: const Key('gate.error'),
                   style: text.bodyLarge?.copyWith(
                     color: LumiColors.gentleError,
@@ -142,7 +143,7 @@ class _GateDialogState extends State<_GateDialog> {
         TextButton(
           key: const Key('gate.cancel'),
           onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('Отмена'),
+          child: Text(context.l10n.commonCancel),
         ),
       ],
     );

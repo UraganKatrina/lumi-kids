@@ -158,7 +158,7 @@ void main() {
       store.pack = StoredPack(version: 3, sha256: 'x', json: body);
       final content = await repo().load();
       expect(content.source.downloaded, isTrue);
-      expect(content.source.label, 'пакет №3 с сервера');
+      expect(content.source.version, 3);
       expect(content.tasks, hasLength(2));
     });
 

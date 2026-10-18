@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/l10n.dart';
+
 /// Подтверждение необратимого действия. true — взрослый согласился.
 Future<bool> confirmAction(
   BuildContext context, {
@@ -16,7 +18,7 @@ Future<bool> confirmAction(
         TextButton(
           key: const Key('confirm.no'),
           onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('Отмена'),
+          child: Text(context.l10n.commonCancel),
         ),
         FilledButton(
           key: const Key('confirm.yes'),

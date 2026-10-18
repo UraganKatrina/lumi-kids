@@ -4,17 +4,16 @@ import '../../age_routes/domain/age_program.dart';
 
 /// Встроенные аватары: ребёнок не загружает фото.
 enum ChildAvatar {
-  bunny('bunny', 'Зайчик', Icons.cruelty_free_rounded, Color(0xFFE5793B)),
-  bird('bird', 'Птичка', Icons.flutter_dash_rounded, Color(0xFF3A86C8)),
-  bee('bee', 'Пчёлка', Icons.emoji_nature_rounded, Color(0xFFC79A00)),
-  paw('paw', 'Котёнок', Icons.pets_rounded, Color(0xFF8E5BC9)),
-  flower('flower', 'Цветок', Icons.local_florist_rounded, Color(0xFFD9488F)),
-  star('star', 'Звёздочка', Icons.star_rounded, Color(0xFF2E9E5B));
+  bunny('bunny', Icons.cruelty_free_rounded, Color(0xFFE5793B)),
+  bird('bird', Icons.flutter_dash_rounded, Color(0xFF3A86C8)),
+  bee('bee', Icons.emoji_nature_rounded, Color(0xFFC79A00)),
+  paw('paw', Icons.pets_rounded, Color(0xFF8E5BC9)),
+  flower('flower', Icons.local_florist_rounded, Color(0xFFD9488F)),
+  star('star', Icons.star_rounded, Color(0xFF2E9E5B));
 
-  const ChildAvatar(this.code, this.title, this.icon, this.color);
+  const ChildAvatar(this.code, this.icon, this.color);
 
   final String code;
-  final String title;
   final IconData icon;
   final Color color;
 
@@ -63,23 +62,23 @@ class ChildProfile {
   );
 }
 
-/// Текст ошибки для формы профиля или null, если всё верно.
-String? validateProfile({
+enum ProfileError { nameMissing, nameTooLong, birthMissing, birthInFuture }
+
+/// Ошибка формы профиля или null, если всё верно.
+ProfileError? validateProfile({
   required String name,
   required int? birthYear,
   required int? birthMonth,
   required DateTime now,
 }) {
   final trimmed = name.trim();
-  if (trimmed.isEmpty) return 'Введите имя или прозвище';
+  if (trimmed.isEmpty) return ProfileError.nameMissing;
   if (trimmed.length > ChildProfile.maxNameLength) {
-    return 'Имя слишком длинное, до ${ChildProfile.maxNameLength} букв';
+    return ProfileError.nameTooLong;
   }
-  if (birthYear == null || birthMonth == null) {
-    return 'Выберите год и месяц рождения';
-  }
+  if (birthYear == null || birthMonth == null) return ProfileError.birthMissing;
   if (birthYear * 12 + birthMonth > now.year * 12 + now.month) {
-    return 'Дата рождения не может быть в будущем';
+    return ProfileError.birthInFuture;
   }
   return null;
 }
