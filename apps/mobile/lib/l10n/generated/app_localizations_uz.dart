@@ -570,4 +570,22 @@ class AppLocalizationsUz extends AppLocalizations {
   String areaTaskLockedLabel(int number) {
     return '$number-topshiriq, yopiq';
   }
+
+  @override
+  String get gateErase => 'O\'chirish';
+
+  @override
+  String get gateSubmit => 'Javobni tekshirish';
+
+  @override
+  String get linkPrivacy => 'Maxfiylik siyosati';
+
+  @override
+  String get linkTerms => 'Foydalanish shartlari';
+
+  @override
+  String get linkOpenFailed => 'Havolani ochib bo\'lmadi.';
+
+  @override
+  String get subManage => 'Obunani do\'konda boshqarish';
 }

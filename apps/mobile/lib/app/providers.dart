@@ -5,7 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../core/external_links.dart';
 import '../features/age_routes/domain/age_program.dart';
 import '../features/content_library/data/content_repository.dart';
 import '../features/content_library/data/pack_store.dart';
@@ -30,7 +32,7 @@ import '../features/subscription/domain/subscription_store.dart';
 import '../l10n/l10n.dart';
 
 /// Должна совпадать с `version` в pubspec.yaml (проверяется тестом).
-const appVersion = '0.4.0';
+const appVersion = '0.5.0';
 
 /// Текущее время; в тестах подменяется фиксированной датой.
 final clockProvider = Provider<DateTime Function()>((ref) => DateTime.now);
@@ -44,6 +46,17 @@ final gateQuestionProvider = Provider<GateQuestion Function()>((ref) {
 /// Адрес API задаётся при сборке: `--dart-define=LUMI_API_URL=https://...`.
 /// Пусто — приложение работает только на встроенном пакете.
 const apiBaseUrl = String.fromEnvironment('LUMI_API_URL');
+
+final legalLinksProvider = Provider<LegalLinks>(
+  (ref) => LegalLinks.fromEnvironment,
+);
+
+/// Открывает ссылку во внешнем браузере или магазине. Кнопки со ссылками
+/// есть только в кабинете родителя, за родительским барьером.
+final linkOpenerProvider = Provider<Future<bool> Function(Uri)>(
+  (ref) =>
+      (uri) => launchUrl(uri, mode: LaunchMode.externalApplication),
+);
 
 final packStoreProvider = Provider<PackStore>(
   (ref) => FilePackStore(

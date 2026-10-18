@@ -163,5 +163,11 @@
   "subVerifyFailed": "We couldn't confirm the purchase. Try “Restore purchases” later.",
   "lockedTitle": "This activity is locked for now",
   "lockedText": "Ask a grown-up, and you can open it together.",
-  "areaTaskLockedLabel": "Activity {number}, locked"
+  "areaTaskLockedLabel": "Activity {number}, locked",
+  "gateErase": "Delete",
+  "gateSubmit": "Check answer",
+  "linkPrivacy": "Privacy policy",
+  "linkTerms": "Terms of use",
+  "linkOpenFailed": "Couldn't open the link.",
+  "subManage": "Manage subscription in the store"
 }

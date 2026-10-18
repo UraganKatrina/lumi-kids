@@ -163,5 +163,11 @@
   "subVerifyFailed": "Xaridni tasdiqlab bo'lmadi. Keyinroq «Xaridlarni tiklash»ni bosing.",
   "lockedTitle": "Bu topshiriq hozircha yopiq",
   "lockedText": "Kattalardan so'ra, birga ochasizlar.",
-  "areaTaskLockedLabel": "{number}-topshiriq, yopiq"
+  "areaTaskLockedLabel": "{number}-topshiriq, yopiq",
+  "gateErase": "O'chirish",
+  "gateSubmit": "Javobni tekshirish",
+  "linkPrivacy": "Maxfiylik siyosati",
+  "linkTerms": "Foydalanish shartlari",
+  "linkOpenFailed": "Havolani ochib bo'lmadi.",
+  "subManage": "Obunani do'konda boshqarish"
 }

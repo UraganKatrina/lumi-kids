@@ -6,6 +6,7 @@ import '../../../app/providers.dart';
 import '../../../core/design_system/lumi_tokens.dart';
 import '../../../core/widgets/async_view.dart';
 import '../../../core/widgets/confirm_dialog.dart';
+import '../../../core/widgets/external_link_button.dart';
 import '../../content_library/data/pack_updater.dart';
 import '../../content_library/domain/task.dart';
 import '../../subscription/presentation/subscription_screen.dart';
@@ -111,6 +112,7 @@ class _ParentScreenState extends ConsumerState<ParentScreen> {
               Text(l10n.parentData, style: text.headlineMedium),
               const SizedBox(height: LumiSpacing.s),
               Text(l10n.parentPrivacy, style: text.bodyLarge),
+              const LegalLinksView(),
               const SizedBox(height: LumiSpacing.m),
               OutlinedButton.icon(
                 key: const Key('parent.deleteAll'),
