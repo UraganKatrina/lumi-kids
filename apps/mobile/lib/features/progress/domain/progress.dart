@@ -1,6 +1,7 @@
 /// Результат завершённого задания.
 class AttemptRecord {
   const AttemptRecord({
+    required this.childId,
     required this.taskId,
     required this.taskVersion,
     required this.startedAt,
@@ -9,6 +10,7 @@ class AttemptRecord {
     required this.stars,
   });
 
+  final String childId;
   final String taskId;
   final int taskVersion;
   final DateTime startedAt;
@@ -20,6 +22,9 @@ class AttemptRecord {
 abstract interface class ProgressRepository {
   Future<void> saveAttempt(AttemptRecord attempt);
 
-  /// Лучший результат по каждому заданию: id задания → звёзды.
-  Future<Map<String, int>> bestStarsByTask();
+  /// Лучший результат ребёнка по каждому заданию: id задания → звёзды.
+  Future<Map<String, int>> bestStarsByTask(String childId);
+
+  /// Последние попытки ребёнка, новые первыми.
+  Future<List<AttemptRecord>> history(String childId, {int limit = 30});
 }
